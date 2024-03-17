@@ -1,32 +1,9 @@
 import json
-
-import bcrypt
+import os.path
+import warnings
 
 from modals.models import admin_perm, default_perm
-from settings import EnvConfig, fileio
-
-
-def hash_password(password):
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    return hashed_password.decode('utf-8')
-
-
-def validate_password(password, hashed_password):
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
-
-
-def remove_trailing_underscore(dictionary):
-    if isinstance(dictionary, dict):
-        for key in list(dictionary.keys()):
-            if isinstance(dictionary[key], dict):
-                dictionary[key] = remove_trailing_underscore(dictionary[key])
-            if key.endswith('_'):
-                new_key = key.rstrip('_')
-                dictionary[new_key] = dictionary.pop(key)
-    elif isinstance(dictionary, list):
-        for i, item in enumerate(dictionary):
-            dictionary[i] = remove_trailing_underscore(item)
-    return dictionary
+from squire import EnvConfig, hash_password, validate_password, fileio, remove_trailing_underscore
 
 
 class FileBrowser:
@@ -55,15 +32,34 @@ class FileBrowser:
             file.flush()
 
     def create_config(self):
-        if str(self.env.config_settings.settings.branding.files) == ".":
-            self.env.config_settings.settings.branding.files = ""
-        final_settings = remove_trailing_underscore(json.loads(self.env.config_settings.model_dump_json()))
+        config_settings = self.env.config_settings
+        if str(config_settings.settings.branding.files) == ".":
+            config_settings.settings.branding.files = ""
+        config_settings.server.port = str(config_settings.server.port)
+        with warnings.catch_warnings(action="ignore"):
+            final_settings = remove_trailing_underscore(json.loads(config_settings.model_dump_json()))
         with open(fileio.config, 'w') as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
 
+    def import_config(self):
+        self.create_config()
+        assert os.path.isfile(fileio.config), f"{fileio.config!r} doesn't exist"
+        os.system(f"filebrowser config import {fileio.config}")
+
+    def import_users(self):
+        self.create_users()
+        assert os.path.isfile(fileio.users), f"{fileio.users!r} doesn't exist"
+        os.system(f"filebrowser users import {fileio.users}")
+
+    def kickoff(self):
+        if os.path.isfile('filebrowser.db'):
+            os.remove('filebrowser.db')
+        self.import_config()
+        self.import_users()
+        os.system("filebrowser")
+
 
 if __name__ == '__main__':
     file_browser = FileBrowser()
-    file_browser.create_users()
-    file_browser.create_config()
+    file_browser.kickoff()
