@@ -4,3 +4,4 @@ venv
 settings/
 *.db
 temp.py
+__pycache__/
