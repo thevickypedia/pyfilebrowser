@@ -17,7 +17,7 @@ Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.
 **[OR]**
 
 ```python
-from filebrowser import FileBrowser
+from pyfb import FileBrowser
 
 if __name__ == '__main__':
     file_browser = FileBrowser(

@@ -6,7 +6,7 @@ from typing import List, Optional, Union
 from pydantic import DirectoryPath, PositiveInt, BaseModel, FilePath
 from pydantic_settings import BaseSettings
 
-from filebrowser.modals.models import Sorting, Perm, default_perm
+from pyfb.modals.models import Sorting, Perm, default_perm
 
 
 class Defaults(BaseSettings):
