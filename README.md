@@ -1,6 +1,10 @@
 # filebrowser
 Startup settings for `filebrowser` (without Docker)
 
+## Installation
+
+https://filebrowser.org/installation#quick-setup
+
 > :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the `.env` files.
 
@@ -9,10 +13,11 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 #### `.env` files
 
-- `.config.env` - Loads the server's default configuration.
-- `.user*.env` - Loads each user's profile specific configuration.
+- `.config.env` - Loads the server's default configuration. Reference: [config vars][config]
+- `.user*.env` - Loads each user's profile specific configuration. Reference: [user vars][users]
 
-Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.
+Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.<br>
+User profile's permissions are automatically set based on the `admin` flag.
 
 **[OR]**
 
@@ -28,3 +33,8 @@ if __name__ == '__main__':
     )
     file_browser.kickoff()
 ```
+
+> :bulb:&nbsp;&nbsp;Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
+
+[config]: https://filebrowser.org/cli/filebrowser-config-set
+[users]: https://filebrowser.org/cli/filebrowser-users-add
