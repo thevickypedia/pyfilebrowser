@@ -1,3 +1,4 @@
+import logging
 import os
 from typing import List
 
@@ -6,6 +7,25 @@ from pydantic import BaseModel, DirectoryPath, FilePath
 
 from modals.config import ConfigSettings
 from modals.users import UserSettings
+
+
+def default_logger() -> logging.Logger:
+    """Generates a default console logger.
+
+    Returns:
+        logging.Logger:
+        Logger object.
+    """
+    logger = logging.getLogger(__name__)
+    logger.setLevel(level=logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormatter(
+        fmt=logging.Formatter(
+            fmt='%(asctime)s - %(levelname)s - [%(processName)s:%(module)s:%(lineno)d] - %(funcName)s - %(message)s'
+        )
+    )
+    logger.addHandler(hdlr=handler)
+    return logger
 
 
 def hash_password(password):
