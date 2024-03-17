@@ -28,16 +28,19 @@ def default_logger() -> logging.Logger:
     return logger
 
 
-def hash_password(password):
+def hash_password(password: str) -> str:
+    """Returns a salted hash for the given text."""
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     return hashed_password.decode('utf-8')
 
 
-def validate_password(password, hashed_password):
+def validate_password(password: str, hashed_password: str) -> bool:
+    """Validates whether the hashed password matches the text version."""
     return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 
-def remove_trailing_underscore(dictionary):
+def remove_trailing_underscore(dictionary: dict) -> dict:
+    """Iterates through the dictionary and removes any key ending with an '_' underscore."""
     if isinstance(dictionary, dict):
         for key in list(dictionary.keys()):
             if isinstance(dictionary[key], dict):
@@ -58,12 +61,27 @@ class EnvConfig(BaseModel):
 
     """
 
-    user_settings: List[UserSettings] = [UserSettings()]
+    user_profiles: List[UserSettings] = []
     config_settings: ConfigSettings = ConfigSettings()
+
+    @classmethod
+    def load_user_profiles(cls):
+        """Load UserSettings instances from .env files in the current directory."""
+        profiles = []
+        for file in os.listdir(os.getcwd()):
+            if 'user' in file and file.endswith('.env'):
+                profiles.append(UserSettings.from_env_file(file))
+        return profiles
 
 
 class FileIO(BaseModel):
-    base_dir: DirectoryPath = os.path.join('settings')
+    """FileIO object to load the JSON files.
+
+    >>> FileIO
+
+    """
+
+    base_dir: DirectoryPath = os.path.join('../settings')
     config: FilePath = os.path.join(base_dir, 'config.json')
     users: FilePath = os.path.join(base_dir, 'users.json')
 

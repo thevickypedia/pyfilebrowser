@@ -1,10 +1,9 @@
-import os
 from typing import List, Union
 
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
-from modals.models import Perm, Sorting
+from filebrowser.modals.models import Perm, Sorting
 
 
 class Authentication(BaseModel):
@@ -27,9 +26,13 @@ class UserSettings(BaseSettings):
     hideDotfiles: bool = False
     dateFormat: bool = False
 
+    @classmethod
+    def from_env_file(cls, env_file: str):
+        """Create UserSettings instance from environment file."""
+        return cls(_env_file=env_file)
+
     class Config:
         """Environment variables configuration."""
 
         env_prefix = ""
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".user.env"))
         extra = "ignore"
