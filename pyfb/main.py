@@ -5,8 +5,8 @@ import shutil
 import subprocess
 import warnings
 
-from modals.models import admin_perm, default_perm
-from squire import EnvConfig, hash_password, validate_password, fileio, remove_trailing_underscore, default_logger
+from pyfb.modals.models import admin_perm, default_perm
+from pyfb.squire import EnvConfig, hash_password, validate_password, fileio, remove_trailing_underscore, default_logger
 
 DATETIME_PATTERN = re.compile(r'^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ')
 

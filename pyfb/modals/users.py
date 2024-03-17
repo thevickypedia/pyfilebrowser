@@ -3,7 +3,7 @@ from typing import List, Union
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
-from filebrowser.modals.models import Perm, Sorting
+from pyfb.modals.models import Perm, Sorting
 
 
 class Authentication(BaseModel):

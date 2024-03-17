@@ -5,8 +5,8 @@ from typing import List
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
 
-from modals.config import ConfigSettings
-from modals.users import UserSettings
+from pyfb.modals.config import ConfigSettings
+from pyfb.modals.users import UserSettings
 
 
 def default_logger() -> logging.Logger:
