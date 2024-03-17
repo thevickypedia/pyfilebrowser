@@ -81,7 +81,7 @@ class FileIO(BaseModel):
 
     """
 
-    base_dir: DirectoryPath = os.path.join('../settings')
+    base_dir: DirectoryPath = os.path.join(os.getcwd(), 'settings')
     config: FilePath = os.path.join(base_dir, 'config.json')
     users: FilePath = os.path.join(base_dir, 'users.json')
 
