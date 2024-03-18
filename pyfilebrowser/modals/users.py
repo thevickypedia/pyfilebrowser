@@ -7,12 +7,24 @@ from pyfilebrowser.modals.models import Perm, Sorting
 
 
 class Authentication(BaseModel):
+    """Authentication settings for each user profile.
+
+    >>> Perm
+
+    """
+
     username: str
     password: str
     admin: bool = False
 
 
 class UserSettings(BaseSettings):
+    """Profile settings for each user.
+
+    >>> UserSettings
+
+    """
+
     authentication: Authentication = Authentication(username="admin", password="admin", admin=True)
     scope: str = "/"
     locale: str = "en"

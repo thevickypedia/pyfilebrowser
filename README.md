@@ -1,12 +1,5 @@
-# filebrowser
-Startup settings for `filebrowser` (without Docker)
-
-## Installation
-
-https://filebrowser.org/installation#quick-setup
-
-> :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
-Changes should always go through the `.env` files.
+# PyFileBrowser
+Automatic initializer for `filebrowser`
 
 ## Environment Variables
 Env vars can either be loaded from `.env` files or directly passed during object init.
@@ -18,6 +11,9 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.<br>
 User profile's permissions are automatically set based on the `admin` flag.
+
+> :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
+Changes should always go through the `.env` files.
 
 **[OR]**
 
@@ -35,6 +31,20 @@ if __name__ == '__main__':
 ```
 
 > :bulb:&nbsp;&nbsp;Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
+
+## Linting
+`pre-commit` will ensure linting, run pytest, generate runbook & release notes, and validate hyperlinks in ALL
+markdown files (including Wiki pages)
+
+**Requirement**
+```shell
+pip install sphinx==5.1.1 pre-commit recommonmark
+```
+
+**Usage**
+```shell
+pre-commit run --all-files
+```
 
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add
