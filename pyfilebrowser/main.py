@@ -6,8 +6,9 @@ import warnings
 
 from pyfilebrowser.downloader import download_asset, executable
 from pyfilebrowser.modals.models import admin_perm, default_perm
-from pyfilebrowser.squire import EnvConfig, hash_password, validate_password, fileio, remove_trailing_underscore, \
-    default_logger
+from pyfilebrowser.squire import (EnvConfig, default_logger, fileio,
+                                  hash_password, remove_trailing_underscore,
+                                  validate_password)
 
 DATETIME_PATTERN = re.compile(r'^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ')
 

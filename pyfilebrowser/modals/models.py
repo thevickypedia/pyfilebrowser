@@ -4,17 +4,35 @@ from pydantic import BaseModel
 
 
 class SortBy(StrEnum):
+    """Enum for different sort-by options.
+
+    >>> SortBy
+
+    """
+
     name: str = "name"
     size: str = "size"
     modified: str = "modified"
 
 
 class Sorting(BaseModel):
+    """Enum for different sorting options.
+
+    >>> Sorting
+
+    """
+
     by: str = "name"
     asc: bool = False
 
 
 class Perm(BaseModel):
+    """Permission settings for each user profile.
+
+    >>> Perm
+
+    """
+
     admin: bool
     execute: bool
     create: bool
@@ -25,7 +43,13 @@ class Perm(BaseModel):
     download: bool
 
 
-def admin_perm():
+def admin_perm() -> Perm:
+    """Permission settings for the administrator.
+
+    Returns:
+        Perm:
+        Returns the ``Perm`` object for the administrator.
+    """
     return Perm(**{
         "admin": True,
         "execute": True,
@@ -38,7 +62,13 @@ def admin_perm():
     })
 
 
-def default_perm():
+def default_perm() -> Perm:
+    """Permission settings for (non-admin) users.
+
+    Returns:
+        Perm:
+        Returns the ``Perm`` object for the default users.
+    """
     return Perm(**{
         "admin": False,
         "execute": True,

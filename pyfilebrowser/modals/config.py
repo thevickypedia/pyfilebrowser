@@ -3,13 +3,21 @@ import socket as sock
 from enum import StrEnum
 from typing import List, Optional, Union
 
-from pydantic import DirectoryPath, PositiveInt, BaseModel, FilePath
+from pydantic import BaseModel, DirectoryPath, FilePath, HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings
 
-from pyfilebrowser.modals.models import Sorting, Perm, default_perm
+from pyfilebrowser.modals.models import Perm, Sorting, default_perm
 
 
 class Defaults(BaseSettings):
+    """Configuration for all the default settings for the server.
+
+    >>> Defaults
+
+    See Also:
+        Environment variables should be prefixed with ``defaults_``, and present in ``.config.env``
+    """
+
     scope: str = "."
     locale: str = "en"
     viewMode: str = "list"
@@ -24,17 +32,31 @@ class Defaults(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "defaults_"
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class Theme(StrEnum):
+    """Enum for different theme options.
+
+    >>> Theme
+
+    """
+
     light: str = "light"
     dark: str = "dark"
     blank: str = ""
 
 
 class Branding(BaseSettings):
+    """Configuration for the custom branding settings for the server.
+
+    >>> Defaults
+
+    See Also:
+        Environment variables should be prefixed with ``branding_``, and present in ``.config.env``
+    """
+
     name: str = ""
     disableExternal: bool = False
     disableUsedPercentage: bool = False
@@ -46,11 +68,19 @@ class Branding(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "branding_"
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class Tus(BaseSettings):
+    """Configuration for the upload settings in the server.
+
+    >>> Defaults
+
+    See Also:
+        Environment variables should be prefixed with ``tus_``, and present in ``.config.env``
+    """
+
     chunkSize: PositiveInt = 10 * 1024 * 1024  # Defaults to 10 MB
     retryCount: PositiveInt = 5
 
@@ -58,11 +88,19 @@ class Tus(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "tus_"
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class Commands(BaseSettings):
+    """Configuration for list of the commands to be executed before or after a certain event.
+
+    >>> Commands
+
+    See Also:
+        The command runner is a feature that enables you to execute shell commands before or after a certain event.
+    """
+
     after_copy: List[str] = []
     after_delete: List[str] = []
     after_rename: List[str] = []
@@ -78,16 +116,28 @@ class Commands(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "commands_"
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class Log(StrEnum):
+    """Enum for different log options.
+
+    >>> Log
+
+    """
+
     stdout: str = "stdout"
     file: str = "file"
 
 
 class Config(BaseSettings):
+    """Configuration settings [``config`` section] for the server.
+
+    >>> Config
+
+    """
+
     signup: bool = False
     createUserDir: bool = False
     userHomeBasePath: str = os.path.join(os.path.expanduser('~'), 'users')
@@ -103,11 +153,17 @@ class Config(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = ""
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class Server(BaseSettings):
+    """Configuration settings [``server`` section] for the server.
+
+    >>> Server
+
+    """
+
     root: DirectoryPath
     baseURL: str = ""
     socket: str = ""
@@ -131,18 +187,44 @@ class Server(BaseSettings):
         extra = "ignore"
 
 
+class ReCAPTCHA(BaseModel):
+    """Settings for ReCaptcha.
+
+    >>> ReCAPTCHA
+
+    """
+
+    host: HttpUrl
+    key: str
+    secret: str
+
+
 class Auther(BaseSettings):
-    recaptcha: Optional[str] = None
+    """Configuration settings [``server`` section] for the server.
+
+    >>> Server
+
+    See Also:
+        Environment variables should be prefixed with ``auth_``, and present in ``.config.env``
+    """
+
+    recaptcha: Optional[ReCAPTCHA] = None
 
     class Config:
         """Environment variables configuration."""
 
         env_prefix = "auth_"
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
 class ConfigSettings(BaseModel):
+    """Wrapper for all the configuration settings to form a nested JSON object.
+
+    >>> ConfigSettings
+
+    """
+
     settings: Config = Config()
     server: Server = Server()
     auther: Auther = Auther()
