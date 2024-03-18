@@ -1,3 +1,0 @@
-bcrypt
-pydantic
-pydantic-settings

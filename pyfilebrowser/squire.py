@@ -5,8 +5,8 @@ from typing import List
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
 
-from pyfb.modals.config import ConfigSettings
-from pyfb.modals.users import UserSettings
+from pyfilebrowser.modals.config import ConfigSettings
+from pyfilebrowser.modals.users import UserSettings
 
 
 def default_logger() -> logging.Logger:
@@ -81,12 +81,12 @@ class FileIO(BaseModel):
 
     """
 
-    base_dir: DirectoryPath = os.path.join(os.getcwd(), 'settings')
-    config: FilePath = os.path.join(base_dir, 'config.json')
-    users: FilePath = os.path.join(base_dir, 'users.json')
+    settings_dir: DirectoryPath = os.path.join(os.getcwd(), 'settings')
+    config: FilePath = os.path.join(settings_dir, 'config.json')
+    users: FilePath = os.path.join(settings_dir, 'users.json')
 
 
 fileio = FileIO()
 
-if not os.path.isdir(fileio.base_dir):
-    os.mkdir(fileio.base_dir)
+if not os.path.isdir(fileio.settings_dir):
+    os.mkdir(fileio.settings_dir)
