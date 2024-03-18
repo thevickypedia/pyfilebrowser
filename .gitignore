@@ -5,3 +5,4 @@ settings/
 *.db
 temp.py
 __pycache__/
+filebrowser

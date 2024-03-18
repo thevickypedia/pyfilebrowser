@@ -22,7 +22,7 @@ User profile's permissions are automatically set based on the `admin` flag.
 **[OR]**
 
 ```python
-from pyfb import FileBrowser
+from pyfilebrowser import FileBrowser
 
 if __name__ == '__main__':
     file_browser = FileBrowser(
