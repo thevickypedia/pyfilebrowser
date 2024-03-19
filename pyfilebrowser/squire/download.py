@@ -99,8 +99,8 @@ class GitHub(ExtendedBaseSettings):
         https://github.com/pydantic/pydantic/discussions/4319
 
     See Also:
-        | This model is to load GitHub arguments,
-        | in case the filebrowser executable has to be downloaded from alternate sources.
+        - This model is to load GitHub arguments, which is used to download the appropriate asset from source control.
+        - Dot env ``(.env)`` files are not supported. Regular env variables are required.
     """
 
     model_config = ExtendedSettingsConfigDict(
@@ -178,6 +178,7 @@ def asset(logger: logging.Logger) -> None:
         logger: Bring your own logger.
     """
     logger.info(f"Source Repository: 'https://github.com/{github.owner}/{github.repo}'")
+    logger.info(f"Targeted Asset: {executable.filebrowser_file!r}")
     headers = {"Authorization": f"Bearer {github.token}"} if github.token else {}
     # Get the latest release
     response = requests.get(f"https://api.github.com/repos/{github.owner}/{github.repo}/releases/latest",
@@ -219,7 +220,7 @@ def asset(logger: logging.Logger) -> None:
 
     # Extract asset based on the file extension
     if executable.filebrowser_file.endswith(".tar.gz"):
-        tar_file = executable.filebrowser_file.rstrip('.gz')
+        tar_file = executable.filebrowser_file.removesuffix('.gz')
         # Read the gzipped file as bytes, and write as a tar file (.tar.gz -> .tar)
         with gzip.open(executable.filebrowser_file, 'rb') as f_in:
             with open(tar_file, 'wb') as f_out:
@@ -229,7 +230,7 @@ def asset(logger: logging.Logger) -> None:
         os.remove(executable.filebrowser_file)
 
         # Read the tar file and extract it in the current working directory
-        content_dir = tar_file.rstrip('.tar')
+        content_dir = tar_file.removesuffix('.tar')
         with tarfile.open(tar_file, 'r') as tar:
             tar.extractall()
         assert os.path.isdir(content_dir) and os.path.isfile(os.path.join(content_dir, executable.filebrowser_bin)), \
@@ -237,7 +238,7 @@ def asset(logger: logging.Logger) -> None:
         os.remove(tar_file)
     elif executable.filebrowser_file.endswith(".zip"):
         # Read the zip file and extract it in the current working directory
-        content_dir = executable.filebrowser_file.rstrip(".zip")
+        content_dir = executable.filebrowser_file.removesuffix(".zip")
         with zipfile.ZipFile(executable.filebrowser_file, 'r') as zip_ref:
             zip_ref.extractall()
         assert os.path.isdir(content_dir) and os.path.isfile(os.path.join(content_dir, executable.filebrowser_bin)), \

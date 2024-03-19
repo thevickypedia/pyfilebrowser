@@ -1,7 +1,10 @@
 **Deployments**
 
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+
 [![book][gha_pages_badge]][gha_pages]
 [![pypi][gha_pypi_badge]][gha_pypi]
+
 [![none-shall-pass][gha_none_shall_pass_badge]][gha_none_shall_pass]
 [![Delete old workflow runs][gha_cleanup_workflows_badge]][gha_cleanup_workflows]
 
@@ -22,6 +25,22 @@ Additionally, custom repository sources (in releases) can be configured by speci
 > Custom repository feature requires the naming standard to be `${operating system}-{architecture}-filebrowser-{extension}`
 <br>
 > **example:** `darwin-amd64-filebrowser.tar.gz`
+
+## Kick Off
+**Install**
+```shell
+python -m pip install pyfilebrowser
+```
+
+**Initiate**
+```python
+import pyfilebrowser
+
+
+if __name__ == '__main__':
+    browser = pyfilebrowser.FileBrowser()
+    browser.kickoff()
+```
 
 ## Environment Variables
 Env vars can either be loaded from `.env` files or directly passed during object init.
@@ -55,8 +74,7 @@ if __name__ == '__main__':
 > :bulb:&nbsp;&nbsp;Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
 
 ## Linting
-`pre-commit` will ensure linting, run pytest, generate runbook & release notes, and validate hyperlinks in ALL
-markdown files (including Wiki pages)
+`pre-commit` will ensure linting, and generate runbook
 
 **Requirement**
 ```shell
