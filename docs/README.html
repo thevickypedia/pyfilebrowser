@@ -61,10 +61,11 @@ All the required configuration, settings, and user profiles are loaded using <co
 <br>
 Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code></p>
 <blockquote>
-<div><p>Custom repository feature requires the naming standard to be <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code></p>
+<div><p>Custom repository feature allows downloading the asset in latest release automatically.<br>
+<strong>asset naming convention:</strong> <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code><br>
+<strong>example:</strong> <code class="docutils literal notranslate"><span class="pre">darwin-amd64-filebrowser.tar.gz</span></code></p>
 </div></blockquote>
-<br>
-> **example:** `darwin-amd64-filebrowser.tar.gz`<section id="kick-off">
+<section id="kick-off">
 <h2>Kick Off<a class="headerlink" href="#kick-off" title="Permalink to this heading">¶</a></h2>
 <p><strong>Install</strong></p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pyfilebrowser
@@ -91,6 +92,7 @@ Additionally, custom repository sources (in releases) can be configured by speci
 </ul>
 <p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
 User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag.</p>
+<p>Refer <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/tree/main/samples">samples</a> directory for sample <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
 <blockquote>
 <div><p>:warning:  Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
