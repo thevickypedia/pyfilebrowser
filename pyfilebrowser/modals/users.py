@@ -3,13 +3,13 @@ from typing import List, Union
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
-from pyfilebrowser.modals.models import Perm, Sorting
+from pyfilebrowser.modals import models
 
 
 class Authentication(BaseModel):
     """Authentication settings for each user profile.
 
-    >>> Perm
+    >>> models.Perm
 
     """
 
@@ -31,9 +31,9 @@ class UserSettings(BaseSettings):
     lockPassword: bool = False
     viewMode: str = "list"
     singleClick: bool = False
-    perm: Union[Perm, None] = None
+    perm: Union[models.Perm, None] = None
     commands: List[str] = []
-    sorting: Sorting = Sorting()
+    sorting: models.Sorting = models.Sorting()
     rules: List[str] = []
     hideDotfiles: bool = False
     dateFormat: bool = False

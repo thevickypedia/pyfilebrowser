@@ -6,7 +6,7 @@ from typing import List, Optional, Union
 from pydantic import BaseModel, DirectoryPath, FilePath, HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings
 
-from pyfilebrowser.modals.models import Perm, Sorting, default_perm
+from pyfilebrowser.modals import models
 
 
 class Defaults(BaseSettings):
@@ -22,8 +22,8 @@ class Defaults(BaseSettings):
     locale: str = "en"
     viewMode: str = "list"
     singleClick: bool = False
-    sorting: Sorting = Sorting()
-    perm: Perm = default_perm()
+    sorting: models.Sorting = models.Sorting()
+    perm: models.Perm = models.default_perm()
     commands: List = []
     hideDotfiles: bool = False
     dateFormat: bool = False

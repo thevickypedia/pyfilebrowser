@@ -1,8 +1,21 @@
-.idea
-*.env
-venv
-settings/
-*.db
-temp.py
 __pycache__/
+
+# Jetbrains
+.idea
+
+# Python venv
+venv
+
+# .env files
+*.env
+
+# Sphinx docs
+source
+doc_gen/_build
+doc_gen/_static
+
+# Configuration and initator
+temp.py
+settings/
 filebrowser
+filebrowser.db
