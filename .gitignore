@@ -19,3 +19,7 @@ temp.py
 settings/
 filebrowser
 filebrowser.db
+
+# Build
+dist/
+*.egg-info

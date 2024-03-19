@@ -1,5 +1,19 @@
+**Deployments**
+
+[![book][gha_pages_badge]][gha_pages]
+[![pypi][gha_pypi_badge]][gha_pypi]
+[![none-shall-pass][gha_none_shall_pass_badge]][gha_none_shall_pass]
+
+[![PyPI version shields.io](https://img.shields.io/pypi/v/stream-localhost)][pypi]
+[![Pypi-format](https://img.shields.io/pypi/format/stream-localhost)](https://pypi.org/project/stream-localhost/#files)
+[![Pypi-status](https://img.shields.io/pypi/status/stream-localhost)][pypi]
+
 # PyFileBrowser
-Automatic initializer for `filebrowser`
+Automatic initializer for [`filebrowser`][home]
+
+The primary purpose of this repository is to make the installation and configuration of [`filebrowser`][home] painless.
+<br>
+All the required configuration, settings, and user profiles are loaded using `.env` files.
 
 ## Environment Variables
 Env vars can either be loaded from `.env` files or directly passed during object init.
@@ -46,5 +60,33 @@ pip install sphinx==5.1.1 pre-commit recommonmark
 pre-commit run --all-files
 ```
 
+## Pypi Package
+[![pypi-module](https://img.shields.io/badge/Software%20Repository-pypi-1f425f.svg)][pypi-repo]
+
+[https://pypi.org/project/stream-localhost/][pypi]
+
+## Runbook
+[![made-with-sphinx-doc](https://img.shields.io/badge/Code%20Docs-Sphinx-1f425f.svg)][sphinx]
+
+[https://thevickypedia.github.io/pyfilebrowser/][runbook]
+
+## License & copyright
+
+&copy; Vignesh Rao
+
+Licensed under the [MIT License][license]
+
+[license]: https://github.com/thevickypedia/pyfilebrowser/blob/main/LICENSE
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add
+[home]: https://filebrowser.org/
+[pypi]: https://pypi.org/project/stream-localhost
+[pypi-repo]: https://packaging.python.org/tutorials/packaging-projects/
+[sphinx]: https://www.sphinx-doc.org/en/master/man/sphinx-autogen.html
+[runbook]: https://thevickypedia.github.io/pyfilebrowser/
+[gha_pages]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment
+[gha_pages_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment/badge.svg
+[gha_pypi]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml
+[gha_pypi_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg
+[gha_none_shall_pass]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml
+[gha_none_shall_pass_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg

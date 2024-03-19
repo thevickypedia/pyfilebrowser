@@ -1,0 +1,38 @@
+[project]
+name = "pyfilebrowser"
+dynamic = ["version", "dependencies"]
+description = "Python module to, auto initialize and run filebrowser"
+readme = "README.md"
+authors = [{ name = "Vignesh Rao", email = "svignesh1793@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Communications :: File Sharing"
+]
+keywords = ["filebrowser", "pydantic", "python-dotenv"]
+requires-python = ">=3.11"
+
+[tool.setuptools]
+packages = ["pyfilebrowser", "pyfilebrowser.modals", "pyfilebrowser.squire"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pyfilebrowser.version"}
+dependencies = {file = ["pyfilebrowser/requirements.txt"]}
+
+[build-system]
+requires      = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = ["sphinx==5.1.1", "pre-commit", "recommonmark"]
+
+[project.urls]
+Homepage = "https://github.com/thevickypedia/pyfilebrowser"
+Docs = "https://thevickypedia.github.io/pyfilebrowser/"
+Source = "https://github.com/thevickypedia/pyfilebrowser"
+"Bug Tracker" = "https://github.com/thevickypedia/pyfilebrowser/issues"
+#"Release Notes" = "https://github.com/thevickypedia/pyfilebrowser/blob/main/release_notes.rst"
