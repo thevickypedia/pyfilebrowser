@@ -13,18 +13,26 @@
 [![Pypi-status](https://img.shields.io/pypi/status/pyfilebrowser)][pypi]
 
 # PyFileBrowser
-Automatic initializer for [`filebrowser`][home]
+Introducing [`pyfilebrowser`][repo], a Python library designed to streamline interactions with [filebrowser][home]<br>
 
-The primary purpose of this repository is to make the installation and configuration of [`filebrowser`][home] painless.
-<br>
-All the required configuration, settings, and user profiles are loaded using `.env` files.
+This wrapper simplifies integration and automation tasks, enabling seamless interaction with your local file system via
+filebrowser's web interface.
 
-[`pyfilebrowser`][repo] downloads the appropriate executable automatically during startup.
-<br>
-Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`
-> Custom repository feature allows downloading the asset in latest release automatically.<br>
+All the required configuration, settings, and user profiles are loaded using `.env` files. This provides a more centralized
+way of handling the configuration and initialization.
+
+[`pyfilebrowser`][repo] automatically downloads the system specific executable during startup.
+
+<details>
+<summary>Downloading Custom Built Executables</summary>
+
+Additionally, custom GitHub sources can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`,
+provided that the executables are uploaded to releases as assets, and follows the naming convention below.
+
 > **asset naming convention:** `${operating system}-{architecture}-filebrowser-{extension}`<br>
 > **example:** `darwin-amd64-filebrowser.tar.gz`
+
+</details>
 
 ## Kick Off
 **Install**
@@ -47,13 +55,13 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 #### `.env` files
 
-- `.config.env` - Loads the server's default configuration. Reference: [config vars][config]
-- `.user*.env` - Loads each user's profile specific configuration. Reference: [user vars][users]
+- `.config.env` - Loads the server's default configuration. Reference: [config]
+- `.user*.env` - Loads each user's profile specific configuration. Reference: [users]
 
 Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.<br>
 User profile's permissions are automatically set based on the `admin` flag.
 
-Refer [samples] directory for sample `.env` files.
+Refer [samples] directory for sample `.env` files. For nested configuration settings, refer the [runbook]
 
 > :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the `.env` files.
