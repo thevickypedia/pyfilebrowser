@@ -22,8 +22,8 @@ All the required configuration, settings, and user profiles are loaded using `.e
 [`pyfilebrowser`][repo] downloads the appropriate executable automatically during startup.
 <br>
 Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`
-> Custom repository feature requires the naming standard to be `${operating system}-{architecture}-filebrowser-{extension}`
-<br>
+> Custom repository feature allows downloading the asset in latest release automatically.<br>
+> **asset naming convention:** `${operating system}-{architecture}-filebrowser-{extension}`<br>
 > **example:** `darwin-amd64-filebrowser.tar.gz`
 
 ## Kick Off
@@ -52,6 +52,8 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.<br>
 User profile's permissions are automatically set based on the `admin` flag.
+
+Refer [samples] directory for sample `.env` files.
 
 > :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the `.env` files.
@@ -103,6 +105,7 @@ pre-commit run --all-files
 Licensed under the [MIT License][license]
 
 [repo]: https://github.com/thevickypedia/pyfilebrowser
+[samples]: https://github.com/thevickypedia/pyfilebrowser/tree/main/samples
 [license]: https://github.com/thevickypedia/pyfilebrowser/blob/main/LICENSE
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add
