@@ -1,7 +1,7 @@
 import os
 import socket as sock
 from enum import StrEnum
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from pydantic import BaseModel, DirectoryPath, FilePath, HttpUrl, PositiveInt
 from pydantic_settings import BaseSettings
@@ -167,8 +167,8 @@ class Server(BaseSettings):
     root: DirectoryPath
     baseURL: str = ""
     socket: str = ""
-    tlsKey: Union[FilePath, str] = ""
-    tlsCert: Union[FilePath, str] = ""
+    tlsKey: FilePath | str = ""
+    tlsCert: FilePath | str = ""
     port: PositiveInt = 8080
     address: str = sock.gethostbyname('localhost')
     log: Log = Log.stdout

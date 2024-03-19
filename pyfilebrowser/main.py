@@ -4,7 +4,7 @@ import subprocess
 import warnings
 
 from pyfilebrowser.modals import models
-from pyfilebrowser.squire import downloader, steward
+from pyfilebrowser.squire import download, steward
 
 
 class FileBrowser:
@@ -21,14 +21,14 @@ class FileBrowser:
             logger: Bring your own logger.
         """
         self.logger = kwargs.get('logger', steward.default_logger())
-        if not os.path.isfile(downloader.executable.binary):
-            downloader.download_asset(logger=self.logger)
+        if not os.path.isfile(download.executable.filebrowser_bin):
+            download.asset(logger=self.logger)
         self.env = steward.EnvConfig(**kwargs)
 
     def __del__(self):
         """Deletes the database file."""
-        if os.path.isfile(downloader.executable.database):
-            os.remove(downloader.executable.database)
+        if os.path.isfile(download.executable.filebrowser_db):
+            os.remove(download.executable.filebrowser_db)
 
     def run_subprocess(self, command: str, failed_msg: str, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
@@ -95,7 +95,7 @@ class FileBrowser:
         self.logger.info(f"Importing configuration from {steward.fileio.config!r}")
         self.create_config()
         assert os.path.isfile(steward.fileio.config), f"{steward.fileio.config!r} doesn't exist"
-        self.run_subprocess(f"./{downloader.executable.binary} config import {steward.fileio.config}",
+        self.run_subprocess(f"./{download.executable.filebrowser_bin} config import {steward.fileio.config}",
                             "Failed to import configuration")
 
     def import_users(self) -> None:
@@ -103,17 +103,17 @@ class FileBrowser:
         self.logger.info(f"Importing user profiles from {steward.fileio.users!r}")
         self.create_users()
         assert os.path.isfile(steward.fileio.users), f"{steward.fileio.users!r} doesn't exist"
-        self.run_subprocess(f"./{downloader.executable.binary} users import {steward.fileio.users}",
+        self.run_subprocess(f"./{download.executable.filebrowser_bin} users import {steward.fileio.users}",
                             "Failed to import user profiles")
 
     def kickoff(self) -> None:
         """Handler for all the functions above."""
-        if os.path.isfile(downloader.executable.database):
-            os.remove(downloader.executable.database)
+        if os.path.isfile(download.executable.filebrowser_db):
+            os.remove(download.executable.filebrowser_db)
         self.import_config()
         self.import_users()
         # noinspection HttpUrlsUsage
         self.logger.info(f"Initiating filebrowser on "
                          f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}")
-        self.run_subprocess(f"./{downloader.executable.binary}",
+        self.run_subprocess(f"./{download.executable.filebrowser_bin}",
                             "Failed to run the server", True)
