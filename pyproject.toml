@@ -1,7 +1,7 @@
 [project]
 name = "pyfilebrowser"
 dynamic = ["version", "dependencies"]
-description = "Python module to, auto initialize and run filebrowser"
+description = "Python module designed to streamline interactions with filebrowser"
 readme = "README.md"
 authors = [{ name = "Vignesh Rao", email = "svignesh1793@gmail.com" }]
 license = { file = "LICENSE" }
@@ -35,4 +35,3 @@ Homepage = "https://github.com/thevickypedia/pyfilebrowser"
 Docs = "https://thevickypedia.github.io/pyfilebrowser/"
 Source = "https://github.com/thevickypedia/pyfilebrowser"
 "Bug Tracker" = "https://github.com/thevickypedia/pyfilebrowser/issues"
-#"Release Notes" = "https://github.com/thevickypedia/pyfilebrowser/blob/main/release_notes.rst"

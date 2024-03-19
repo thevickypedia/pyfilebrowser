@@ -53,19 +53,20 @@
 <a class="reference external" href="https://pypi.org/project/pyfilebrowser"><img alt="Pypi-status" src="https://img.shields.io/pypi/status/pyfilebrowser" /></a></p>
 <section id="pyfilebrowser">
 <h1>PyFileBrowser<a class="headerlink" href="#pyfilebrowser" title="Permalink to this heading">¶</a></h1>
-<p>Automatic initializer for <a class="reference external" href="https://filebrowser.org/"><code class="docutils literal notranslate"><span class="pre">filebrowser</span></code></a></p>
-<p>The primary purpose of this repository is to make the installation and configuration of <a class="reference external" href="https://filebrowser.org/"><code class="docutils literal notranslate"><span class="pre">filebrowser</span></code></a> painless.
-<br>
-All the required configuration, settings, and user profiles are loaded using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
-<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> downloads the appropriate executable automatically during startup.
-<br>
-Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code></p>
+<p>Introducing <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a>, a Python library designed to streamline interactions with <a class="reference external" href="https://filebrowser.org/">filebrowser</a><br></p>
+<p>This wrapper simplifies integration and automation tasks, enabling seamless interaction with your local file system via
+filebrowser’s web interface.</p>
+<p>All the required configuration, settings, and user profiles are loaded using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files. This provides a more centralized
+way of handling the configuration and initialization.</p>
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> automatically downloads the system specific executable during startup.</p>
+<details>
+<summary>Downloading Custom Built Executables</summary><p>Additionally, custom GitHub sources can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code>,
+provided that the executables are uploaded to releases as assets, and follows the naming convention below.</p>
 <blockquote>
-<div><p>Custom repository feature allows downloading the asset in latest release automatically.<br>
-<strong>asset naming convention:</strong> <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code><br>
+<div><p><strong>asset naming convention:</strong> <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code><br>
 <strong>example:</strong> <code class="docutils literal notranslate"><span class="pre">darwin-amd64-filebrowser.tar.gz</span></code></p>
 </div></blockquote>
-<section id="kick-off">
+</details><section id="kick-off">
 <h2>Kick Off<a class="headerlink" href="#kick-off" title="Permalink to this heading">¶</a></h2>
 <p><strong>Install</strong></p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pyfilebrowser
@@ -87,12 +88,12 @@ Additionally, custom repository sources (in releases) can be configured by speci
 <section id="env-files">
 <h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-config-set">config vars</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-users-add">user vars</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-config-set">config</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-users-add">users</a></p></li>
 </ul>
 <p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
 User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag.</p>
-<p>Refer <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/tree/main/samples">samples</a> directory for sample <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
+<p>Refer <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/tree/main/samples">samples</a> directory for sample <code class="docutils literal notranslate"><span class="pre">.env</span></code> files. For nested configuration settings, refer the <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/">runbook</a></p>
 <blockquote>
 <div><p>:warning:  Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
