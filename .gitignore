@@ -7,7 +7,7 @@ __pycache__/
 venv
 
 # .env files
-*.env
+.*.env
 
 # Sphinx docs
 source
