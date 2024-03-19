@@ -3,6 +3,7 @@
 [![book][gha_pages_badge]][gha_pages]
 [![pypi][gha_pypi_badge]][gha_pypi]
 [![none-shall-pass][gha_none_shall_pass_badge]][gha_none_shall_pass]
+[![Delete old workflow runs][gha_cleanup_workflows_badge]][gha_cleanup_workflows]
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/pyfilebrowser)][pypi]
 [![Pypi-format](https://img.shields.io/pypi/format/pyfilebrowser)](https://pypi.org/project/pyfilebrowser/#files)
@@ -90,3 +91,5 @@ Licensed under the [MIT License][license]
 [gha_pypi_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg
 [gha_none_shall_pass]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml
 [gha_none_shall_pass_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg
+[gha_cleanup_workflows]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml
+[gha_cleanup_workflows_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml/badge.svg
