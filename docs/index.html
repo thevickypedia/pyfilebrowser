@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Welcome to PyFileBrowser’s documentation! &#8212; Python  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PyFileBrowser" href="README.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="PyFileBrowser"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Python  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to PyFileBrowser’s documentation!</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="welcome-to-pyfilebrowser-s-documentation">
+<h1>Welcome to PyFileBrowser’s documentation!<a class="headerlink" href="#welcome-to-pyfilebrowser-s-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Read Me:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">PyFileBrowser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#linting">Linting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-pyfilebrowser.main">
+<span id="main-module"></span><h1>Main Module<a class="headerlink" href="#module-pyfilebrowser.main" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.main.</span></span><span class="sig-name descname"><span class="pre">FileBrowser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object to handle the filebrowser streaming.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FileBrowser</span>
+</pre></div>
+</div>
+<p>Instantiates the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logger</strong> – Bring your own logger.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.run_subprocess">
+<span class="sig-name descname"><span class="pre">run_subprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failed_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.run_subprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code> commands as subprocess.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> – Command to run.</p></li>
+<li><p><strong>failed_msg</strong> – Failure message in case of bad return code.</p></li>
+<li><p><strong>stdout</strong> – Boolean flag to show/hide standard output.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.create_users">
+<span class="sig-name descname"><span class="pre">create_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the JSON file for user profiles.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.create_config">
+<span class="sig-name descname"><span class="pre">create_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the JSON file for configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.import_config">
+<span class="sig-name descname"><span class="pre">import_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports the configuration file into filebrowser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.import_users">
+<span class="sig-name descname"><span class="pre">import_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports the user profiles into filebrowser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.kickoff">
+<span class="sig-name descname"><span class="pre">kickoff</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.kickoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for all the functions above.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="modals">
+<h1>Modals<a class="headerlink" href="#modals" title="Permalink to this heading">¶</a></h1>
+</section>
+<section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Defaults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for all the default settings for the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Defaults</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Environment variables should be prefixed with <code class="docutils literal notranslate"><span class="pre">defaults_</span></code>, and present in <code class="docutils literal notranslate"><span class="pre">.config.env</span></code></p>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.scope">
+<span class="sig-name descname"><span class="pre">scope</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.scope" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.locale">
+<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.locale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.viewMode">
+<span class="sig-name descname"><span class="pre">viewMode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.viewMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.singleClick">
+<span class="sig-name descname"><span class="pre">singleClick</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.singleClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.sorting">
+<span class="sig-name descname"><span class="pre">sorting</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.models.Sorting" title="pyfilebrowser.modals.models.Sorting"><span class="pre">Sorting</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.sorting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.perm">
+<span class="sig-name descname"><span class="pre">perm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm"><span class="pre">Perm</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.perm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.hideDotfiles">
+<span class="sig-name descname"><span class="pre">hideDotfiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.hideDotfiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.dateFormat">
+<span class="sig-name descname"><span class="pre">dateFormat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.dateFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'defaults_'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Branding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Branding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for the custom branding settings for the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Defaults</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Environment variables should be prefixed with <code class="docutils literal notranslate"><span class="pre">branding_</span></code>, and present in <code class="docutils literal notranslate"><span class="pre">.config.env</span></code></p>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.disableExternal">
+<span class="sig-name descname"><span class="pre">disableExternal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.disableExternal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.disableUsedPercentage">
+<span class="sig-name descname"><span class="pre">disableUsedPercentage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.disableUsedPercentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.files">
+<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.theme">
+<span class="sig-name descname"><span class="pre">theme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Theme" title="pyfilebrowser.modals.config.Theme"><span class="pre">Theme</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.theme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.color">
+<span class="sig-name descname"><span class="pre">color</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'branding_'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Branding.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Tus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Tus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for the upload settings in the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Defaults</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Environment variables should be prefixed with <code class="docutils literal notranslate"><span class="pre">tus_</span></code>, and present in <code class="docutils literal notranslate"><span class="pre">.config.env</span></code></p>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.chunkSize">
+<span class="sig-name descname"><span class="pre">chunkSize</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.chunkSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.retryCount">
+<span class="sig-name descname"><span class="pre">retryCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.retryCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'tus_'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Tus.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Commands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for list of the commands to be executed before or after a certain event.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Commands</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The command runner is a feature that enables you to execute shell commands before or after a certain event.</p>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.after_copy">
+<span class="sig-name descname"><span class="pre">after_copy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.after_copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.after_delete">
+<span class="sig-name descname"><span class="pre">after_delete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.after_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.after_rename">
+<span class="sig-name descname"><span class="pre">after_rename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.after_rename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.after_save">
+<span class="sig-name descname"><span class="pre">after_save</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.after_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.after_upload">
+<span class="sig-name descname"><span class="pre">after_upload</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.after_upload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.before_copy">
+<span class="sig-name descname"><span class="pre">before_copy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.before_copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.before_delete">
+<span class="sig-name descname"><span class="pre">before_delete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.before_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.before_rename">
+<span class="sig-name descname"><span class="pre">before_rename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.before_rename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.before_save">
+<span class="sig-name descname"><span class="pre">before_save</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.before_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.before_upload">
+<span class="sig-name descname"><span class="pre">before_upload</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.before_upload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'commands_'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Commands.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">config</span></code> section] for the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Config</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.signup">
+<span class="sig-name descname"><span class="pre">signup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.signup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.createUserDir">
+<span class="sig-name descname"><span class="pre">createUserDir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.createUserDir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.userHomeBasePath">
+<span class="sig-name descname"><span class="pre">userHomeBasePath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.userHomeBasePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.defaults">
+<span class="sig-name descname"><span class="pre">defaults</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Defaults" title="pyfilebrowser.modals.config.Defaults"><span class="pre">Defaults</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.authMethod">
+<span class="sig-name descname"><span class="pre">authMethod</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.authMethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.branding">
+<span class="sig-name descname"><span class="pre">branding</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Branding" title="pyfilebrowser.modals.config.Branding"><span class="pre">Branding</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.branding" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.tus">
+<span class="sig-name descname"><span class="pre">tus</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Tus" title="pyfilebrowser.modals.config.Tus"><span class="pre">Tus</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.tus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Commands" title="pyfilebrowser.modals.config.Commands"><span class="pre">Commands</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.shell_">
+<span class="sig-name descname"><span class="pre">shell_</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.shell_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.rules">
+<span class="sig-name descname"><span class="pre">rules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">server</span></code> section] for the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Server</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.root">
+<span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.baseURL">
+<span class="sig-name descname"><span class="pre">baseURL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.baseURL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.socket">
+<span class="sig-name descname"><span class="pre">socket</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.socket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.tlsKey">
+<span class="sig-name descname"><span class="pre">tlsKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.tlsKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.tlsCert">
+<span class="sig-name descname"><span class="pre">tlsCert</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.tlsCert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.port">
+<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.log">
+<span class="sig-name descname"><span class="pre">log</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Log" title="pyfilebrowser.modals.config.Log"><span class="pre">Log</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.enableThumbnails">
+<span class="sig-name descname"><span class="pre">enableThumbnails</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.enableThumbnails" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.resizePreview">
+<span class="sig-name descname"><span class="pre">resizePreview</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.resizePreview" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.enableExec">
+<span class="sig-name descname"><span class="pre">enableExec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.enableExec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.typeDetectionByHeader">
+<span class="sig-name descname"><span class="pre">typeDetectionByHeader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.typeDetectionByHeader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.authHook">
+<span class="sig-name descname"><span class="pre">authHook</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.authHook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.tokenExpirationTime">
+<span class="sig-name descname"><span class="pre">tokenExpirationTime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.tokenExpirationTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Server.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ReCAPTCHA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">ReCAPTCHA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Settings for ReCaptcha.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ReCAPTCHA</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ReCAPTCHA.host">
+<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Url</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA.host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ReCAPTCHA.key">
+<span class="sig-name descname"><span class="pre">key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ReCAPTCHA.secret">
+<span class="sig-name descname"><span class="pre">secret</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA.secret" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Auther</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Auther" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">server</span></code> section] for the server.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Server</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Environment variables should be prefixed with <code class="docutils literal notranslate"><span class="pre">auth_</span></code>, and present in <code class="docutils literal notranslate"><span class="pre">.config.env</span></code></p>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.recaptcha">
+<span class="sig-name descname"><span class="pre">recaptcha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.config.ReCAPTCHA" title="pyfilebrowser.modals.config.ReCAPTCHA"><span class="pre">ReCAPTCHA</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.recaptcha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auth_'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.config.env'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ConfigSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">ConfigSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.ConfigSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for all the configuration settings to form a nested JSON object.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ConfigSettings</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ConfigSettings.settings">
+<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Config" title="pyfilebrowser.modals.config.Config"><span class="pre">Config</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.ConfigSettings.settings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ConfigSettings.server">
+<span class="sig-name descname"><span class="pre">server</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Server" title="pyfilebrowser.modals.config.Server"><span class="pre">Server</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.ConfigSettings.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.ConfigSettings.auther">
+<span class="sig-name descname"><span class="pre">auther</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.Auther" title="pyfilebrowser.modals.config.Auther"><span class="pre">Auther</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.ConfigSettings.auther" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Theme">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">StrEnum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for different theme options.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Theme</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Theme.light">
+<span class="sig-name descname"><span class="pre">light</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'light'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Theme.light" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Theme.dark">
+<span class="sig-name descname"><span class="pre">dark</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dark'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Theme.dark" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Theme.blank">
+<span class="sig-name descname"><span class="pre">blank</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Theme.blank" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Log">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">StrEnum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for different log options.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Log</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Log.stdout">
+<span class="sig-name descname"><span class="pre">stdout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stdout'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Log.stdout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Log.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file'</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Log.file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.SortBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.models.</span></span><span class="sig-name descname"><span class="pre">SortBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">StrEnum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.models.SortBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for different sort-by options.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">SortBy</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.SortBy.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name'</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.SortBy.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.SortBy.size">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'size'</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.SortBy.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.SortBy.modified">
+<span class="sig-name descname"><span class="pre">modified</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'modified'</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.SortBy.modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Sorting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.models.</span></span><span class="sig-name descname"><span class="pre">Sorting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.models.Sorting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for different sorting options.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Sorting</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Sorting.by">
+<span class="sig-name descname"><span class="pre">by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Sorting.by" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Sorting.asc">
+<span class="sig-name descname"><span class="pre">asc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Sorting.asc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.models.</span></span><span class="sig-name descname"><span class="pre">Perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.models.Perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permission settings for each user profile.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Perm</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.admin">
+<span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.admin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.create">
+<span class="sig-name descname"><span class="pre">create</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.rename">
+<span class="sig-name descname"><span class="pre">rename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.rename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.modify">
+<span class="sig-name descname"><span class="pre">modify</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.modify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.share">
+<span class="sig-name descname"><span class="pre">share</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.share" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.Perm.download">
+<span class="sig-name descname"><span class="pre">download</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.models.Perm.download" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<span class="target" id="module-pyfilebrowser.modals.models"></span><dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.admin_perm">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.models.</span></span><span class="sig-name descname"><span class="pre">admin_perm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm"><span class="pre">Perm</span></a></span></span><a class="headerlink" href="#pyfilebrowser.modals.models.admin_perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permission settings for the administrator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the <code class="docutils literal notranslate"><span class="pre">Perm</span></code> object for the administrator.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm">Perm</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.models.default_perm">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.models.</span></span><span class="sig-name descname"><span class="pre">default_perm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm"><span class="pre">Perm</span></a></span></span><a class="headerlink" href="#pyfilebrowser.modals.models.default_perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permission settings for (non-admin) users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the <code class="docutils literal notranslate"><span class="pre">Perm</span></code> object for the default users.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm">Perm</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="users">
+<h1>Users<a class="headerlink" href="#users" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">Authentication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authentication settings for each user profile.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">models</span><span class="o">.</span><span class="n">Perm</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.admin">
+<span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.admin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">UserSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Profile settings for each user.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UserSettings</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.authentication">
+<span class="sig-name descname"><span class="pre">authentication</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.users.Authentication" title="pyfilebrowser.modals.users.Authentication"><span class="pre">Authentication</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.authentication" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.scope">
+<span class="sig-name descname"><span class="pre">scope</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.scope" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.locale">
+<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.locale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.lockPassword">
+<span class="sig-name descname"><span class="pre">lockPassword</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.lockPassword" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.viewMode">
+<span class="sig-name descname"><span class="pre">viewMode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.viewMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.singleClick">
+<span class="sig-name descname"><span class="pre">singleClick</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.singleClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.perm">
+<span class="sig-name descname"><span class="pre">perm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm"><span class="pre">Perm</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.perm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.commands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.sorting">
+<span class="sig-name descname"><span class="pre">sorting</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.models.Sorting" title="pyfilebrowser.modals.models.Sorting"><span class="pre">Sorting</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.sorting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.rules">
+<span class="sig-name descname"><span class="pre">rules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.hideDotfiles">
+<span class="sig-name descname"><span class="pre">hideDotfiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.hideDotfiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.dateFormat">
+<span class="sig-name descname"><span class="pre">dateFormat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.dateFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.from_env_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_env_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.from_env_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create UserSettings instance from environment file.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="squire">
+<h1>Squire<a class="headerlink" href="#squire" title="Permalink to this heading">¶</a></h1>
+</section>
+<section id="downloader">
+<h1>Downloader<a class="headerlink" href="#downloader" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.downloader.</span></span><span class="sig-name descname"><span class="pre">Executable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executable object to load all the objects to download the executable from releases.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Executable</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.binary">
+<span class="sig-name descname"><span class="pre">binary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.binary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.database">
+<span class="sig-name descname"><span class="pre">database</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.system">
+<span class="sig-name descname"><span class="pre">system</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.system" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.filemanager_os">
+<span class="sig-name descname"><span class="pre">filemanager_os</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.filemanager_os" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.extension">
+<span class="sig-name descname"><span class="pre">extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.Executable.filemanager_file">
+<span class="sig-name descname"><span class="pre">filemanager_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.downloader.Executable.filemanager_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<span class="target" id="module-pyfilebrowser.squire.downloader"></span><dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.downloader.download_asset">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.downloader.</span></span><span class="sig-name descname"><span class="pre">download_asset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.downloader.download_asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads the latest released asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logger</strong> – Bring your own logger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="steward">
+<h1>Steward<a class="headerlink" href="#steward" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">EnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure all env vars and validate using <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> to share across modules.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EnvConfig</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.user_profiles">
+<span class="sig-name descname"><span class="pre">user_profiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.UserSettings" title="pyfilebrowser.modals.users.UserSettings"><span class="pre">UserSettings</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.user_profiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.config_settings">
+<span class="sig-name descname"><span class="pre">config_settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.ConfigSettings" title="pyfilebrowser.modals.config.ConfigSettings"><span class="pre">ConfigSettings</span></a></em><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.config_settings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.load_user_profiles">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_user_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.load_user_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load UserSettings instances from .env files in the current directory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.FileIO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">FileIO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.steward.FileIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>FileIO object to load the JSON files.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FileIO</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.FileIO.settings_dir">
+<span class="sig-name descname"><span class="pre">settings_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.steward.FileIO.settings_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.FileIO.config">
+<span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.steward.FileIO.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.FileIO.users">
+<span class="sig-name descname"><span class="pre">users</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.steward.FileIO.users" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<span class="target" id="module-pyfilebrowser.squire.steward"></span><dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.default_logger">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">default_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.default_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a default console logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Logger object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>logging.Logger</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.hash_password">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">hash_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.hash_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a salted hash for the given text.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.validate_password">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">validate_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashed_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.validate_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates whether the hashed password matches the text version.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.remove_trailing_underscore">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">remove_trailing_underscore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.remove_trailing_underscore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates through the dictionary and removes any key ending with an ‘_’ underscore.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.remove_prefix">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">remove_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.remove_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the message part from the default log output from filebrowser.</p>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Welcome to PyFileBrowser’s documentation!</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
+<li><a class="reference internal" href="#modals">Modals</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#users">Users</a></li>
+<li><a class="reference internal" href="#squire">Squire</a></li>
+<li><a class="reference internal" href="#downloader">Downloader</a></li>
+<li><a class="reference internal" href="#steward">Steward</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="README.html"
+                          title="next chapter">PyFileBrowser</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="PyFileBrowser"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Python  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to PyFileBrowser’s documentation!</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>

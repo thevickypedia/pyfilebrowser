@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>PyFileBrowser &#8212; Python  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to PyFileBrowser’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyFileBrowser’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PyFileBrowser</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pyfilebrowser">
+<h1>PyFileBrowser<a class="headerlink" href="#pyfilebrowser" title="Permalink to this heading">¶</a></h1>
+<p>Automatic initializer for <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code></p>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading">¶</a></h2>
+<p>Env vars can either be loaded from <code class="docutils literal notranslate"><span class="pre">.env</span></code> files or directly passed during object init.</p>
+<section id="env-files">
+<h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-config-set">config vars</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-users-add">user vars</a></p></li>
+</ul>
+<p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
+User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag.</p>
+<blockquote>
+<div><p>:warning:  Any configuration changes made in the UI will be lost, unless backed up manually.<br>
+Changes should always go through the <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
+</div></blockquote>
+<p><strong>[OR]</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyfilebrowser</span> <span class="kn">import</span> <span class="n">FileBrowser</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_browser</span> <span class="o">=</span> <span class="n">FileBrowser</span><span class="p">(</span>
+        <span class="n">user_profiles</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;authentication&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}},</span>
+            <span class="p">{</span><span class="s2">&quot;authentication&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;user123&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;pwd456&quot;</span><span class="p">,</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}}</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">file_browser</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>:bulb:  Object level instantiation might be complex for configuration settings. So it is better to use <code class="docutils literal notranslate"><span class="pre">.env</span></code> files instead.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="linting">
+<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> will ensure linting, run pytest, generate runbook &amp; release notes, and validate hyperlinks in ALL
+markdown files (including Wiki pages)</p>
+<p><strong>Requirement</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">sphinx</span><span class="o">==</span><span class="m">5</span>.1.1<span class="w"> </span>pre-commit<span class="w"> </span>recommonmark
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">PyFileBrowser</a><ul>
+<li><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
+<li><a class="reference internal" href="#env-files"><code class="docutils literal notranslate"><span class="pre">.env</span></code> files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linting">Linting</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Welcome to PyFileBrowser’s documentation!</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyFileBrowser’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PyFileBrowser</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+  </body>
+</html>

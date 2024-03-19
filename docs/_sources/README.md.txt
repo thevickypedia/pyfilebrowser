@@ -1,9 +1,5 @@
 # PyFileBrowser
-Automatic initializer for [`filebrowser`][home]
-
-The primary purpose of this repository is to make the installation and configuration of [`filebrowser`][home] painless.
-<br>
-All the required configuration, settings, and user profiles are loaded using `.env` files.
+Automatic initializer for `filebrowser`
 
 ## Environment Variables
 Env vars can either be loaded from `.env` files or directly passed during object init.
@@ -52,4 +48,3 @@ pre-commit run --all-files
 
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add
-[home]: https://filebrowser.org/
