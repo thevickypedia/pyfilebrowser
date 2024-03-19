@@ -16,6 +16,13 @@ The primary purpose of this repository is to make the installation and configura
 <br>
 All the required configuration, settings, and user profiles are loaded using `.env` files.
 
+[`pyfilebrowser`][repo] downloads the appropriate executable automatically during startup.
+<br>
+Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`
+> Custom repository feature requires the naming standard to be `${operating system}-{architecture}-filebrowser-{extension}`
+<br>
+> **example:** `darwin-amd64-filebrowser.tar.gz`
+
 ## Environment Variables
 Env vars can either be loaded from `.env` files or directly passed during object init.
 
@@ -77,6 +84,7 @@ pre-commit run --all-files
 
 Licensed under the [MIT License][license]
 
+[repo]: https://github.com/thevickypedia/pyfilebrowser
 [license]: https://github.com/thevickypedia/pyfilebrowser/blob/main/LICENSE
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add

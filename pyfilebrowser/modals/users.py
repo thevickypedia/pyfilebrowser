@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
@@ -31,7 +31,7 @@ class UserSettings(BaseSettings):
     lockPassword: bool = False
     viewMode: str = "list"
     singleClick: bool = False
-    perm: Union[models.Perm, None] = None
+    perm: models.Perm | None = None
     commands: List[str] = []
     sorting: models.Sorting = models.Sorting()
     rules: List[str] = []

@@ -56,7 +56,14 @@
 <p>The primary purpose of this repository is to make the installation and configuration of <a class="reference external" href="https://filebrowser.org/"><code class="docutils literal notranslate"><span class="pre">filebrowser</span></code></a> painless.
 <br>
 All the required configuration, settings, and user profiles are loaded using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
-<section id="environment-variables">
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> downloads the appropriate executable automatically during startup.
+<br>
+Additionally, custom repository sources (in releases) can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code></p>
+<blockquote>
+<div><p>Custom repository feature requires the naming standard to be <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code></p>
+</div></blockquote>
+<br>
+> **example:** `darwin-amd64-filebrowser.tar.gz`<section id="environment-variables">
 <h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading">¶</a></h2>
 <p>Env vars can either be loaded from <code class="docutils literal notranslate"><span class="pre">.env</span></code> files or directly passed during object init.</p>
 <section id="env-files">
