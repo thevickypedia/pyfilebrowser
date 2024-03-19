@@ -48,6 +48,7 @@
 <p class="caption" role="heading"><span class="caption-text">Read Me:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">PyFileBrowser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#kick-off">Kick Off</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#environment-variables">Environment Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#pypi-package">Pypi Package</a></li>
@@ -1179,10 +1180,10 @@ validated to form a valid model.</p>
 <p><a class="reference external" href="https://github.com/pydantic/pydantic/discussions/4319">https://github.com/pydantic/pydantic/discussions/4319</a></p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<div class="line-block">
-<div class="line">This model is to load GitHub arguments,</div>
-<div class="line">in case the filebrowser executable has to be downloaded from alternate sources.</div>
-</div>
+<ul class="simple">
+<li><p>This model is to load GitHub arguments, which is used to download the appropriate asset from source control.</p></li>
+<li><p>Dot env <code class="docutils literal notranslate"><span class="pre">(.env)</span></code> files are not supported. Regular env variables are required.</p></li>
+</ul>
 </div>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
