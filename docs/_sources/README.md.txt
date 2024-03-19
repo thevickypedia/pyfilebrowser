@@ -4,9 +4,9 @@
 [![pypi][gha_pypi_badge]][gha_pypi]
 [![none-shall-pass][gha_none_shall_pass_badge]][gha_none_shall_pass]
 
-[![PyPI version shields.io](https://img.shields.io/pypi/v/stream-localhost)][pypi]
-[![Pypi-format](https://img.shields.io/pypi/format/stream-localhost)](https://pypi.org/project/stream-localhost/#files)
-[![Pypi-status](https://img.shields.io/pypi/status/stream-localhost)][pypi]
+[![PyPI version shields.io](https://img.shields.io/pypi/v/pyfilebrowser)][pypi]
+[![Pypi-format](https://img.shields.io/pypi/format/pyfilebrowser)](https://pypi.org/project/pyfilebrowser/#files)
+[![Pypi-status](https://img.shields.io/pypi/status/pyfilebrowser)][pypi]
 
 # PyFileBrowser
 Automatic initializer for [`filebrowser`][home]
@@ -63,7 +63,7 @@ pre-commit run --all-files
 ## Pypi Package
 [![pypi-module](https://img.shields.io/badge/Software%20Repository-pypi-1f425f.svg)][pypi-repo]
 
-[https://pypi.org/project/stream-localhost/][pypi]
+[https://pypi.org/project/pyfilebrowser/][pypi]
 
 ## Runbook
 [![made-with-sphinx-doc](https://img.shields.io/badge/Code%20Docs-Sphinx-1f425f.svg)][sphinx]
@@ -80,7 +80,7 @@ Licensed under the [MIT License][license]
 [config]: https://filebrowser.org/cli/filebrowser-config-set
 [users]: https://filebrowser.org/cli/filebrowser-users-add
 [home]: https://filebrowser.org/
-[pypi]: https://pypi.org/project/stream-localhost
+[pypi]: https://pypi.org/project/pyfilebrowser
 [pypi-repo]: https://packaging.python.org/tutorials/packaging-projects/
 [sphinx]: https://www.sphinx-doc.org/en/master/man/sphinx-autogen.html
 [runbook]: https://thevickypedia.github.io/pyfilebrowser/
