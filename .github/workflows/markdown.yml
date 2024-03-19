@@ -2,7 +2,8 @@ name: none-shall-pass
 
 on:
   workflow_dispatch:
-  push:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   none-shall-pass:
