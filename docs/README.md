@@ -25,9 +25,12 @@ way of handling the configuration and initialization.
 
 <details>
 <summary><strong>Download custom-built executables</strong></summary>
+<br>
 
-Additionally, custom GitHub sources can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`,
-provided that the executables are uploaded to releases as assets, and follows the naming convention below.
+Additionally, custom source _(to download binaries)_ can be configured by specifying the environment variables,
+`GIT_OWNER` and `GIT_REPO`<br>
+For this custom source feature to work, the executable should be uploaded to releases as assets,
+and follow the naming convention below.
 
 > **asset naming convention:** `${operating system}-{architecture}-filebrowser-{extension}`<br>
 > **example:** `darwin-amd64-filebrowser.tar.gz`
@@ -63,8 +66,8 @@ User profile's permissions are automatically set based on the `admin` flag.
 
 Refer [samples] directory for sample `.env` files. For nested configuration settings, refer the [runbook]
 
-> :warning:&nbsp;&nbsp;Any configuration changes made in the UI will be lost, unless backed up manually.<br>
-Changes should always go through the `.env` files.
+> Any configuration changes made in the UI will be lost, unless backed up manually.<br>
+> Changes should always go through the `.env` files.
 
 **[OR]**
 
@@ -81,7 +84,22 @@ if __name__ == '__main__':
     file_browser.start()
 ```
 
-> :bulb:&nbsp;&nbsp;Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
+> Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
+
+## Coding Standards
+Docstring format: [`Google`][google-docs] <br>
+Styling conventions: [`PEP 8`][pep8] and [`isort`][isort]
+
+## [Release Notes][release-notes]
+**Requirement**
+```shell
+pip install gitverse
+```
+
+**Usage**
+```shell
+gitverse-release reverse -f release_notes.rst -t 'Release Notes'
+```
 
 ## Linting
 `pre-commit` will ensure linting, and generate runbook
@@ -130,3 +148,7 @@ Licensed under the [MIT License][license]
 [gha_none_shall_pass_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg
 [gha_cleanup_workflows]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml
 [gha_cleanup_workflows_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml/badge.svg
+[release-notes]: https://github.com/thevickypedia/pyfilebrowser/blob/main/release_notes.rst
+[google-docs]: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
+[pep8]: https://www.python.org/dev/peps/pep-0008/
+[isort]: https://pycqa.github.io/isort/
