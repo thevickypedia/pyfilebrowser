@@ -24,7 +24,7 @@ way of handling the configuration and initialization.
 [`pyfilebrowser`][repo] automatically downloads the system specific executable during startup.
 
 <details>
-<summary>Downloading Custom Built Executables</summary>
+<summary><strong>Download custom-built executables</strong></summary>
 
 Additionally, custom GitHub sources can be configured by specifying the environment variables, `GIT_OWNER` and `GIT_REPO`,
 provided that the executables are uploaded to releases as assets, and follows the naming convention below.
@@ -47,7 +47,7 @@ import pyfilebrowser
 
 if __name__ == '__main__':
     browser = pyfilebrowser.FileBrowser()
-    browser.kickoff()
+    browser.start()
 ```
 
 ## Environment Variables
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             {"authentication": {"username": "user123", "password": "pwd456", "admin": False}}
         ]
     )
-    file_browser.kickoff()
+    file_browser.start()
 ```
 
 > :bulb:&nbsp;&nbsp;Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
@@ -115,8 +115,8 @@ Licensed under the [MIT License][license]
 [repo]: https://github.com/thevickypedia/pyfilebrowser
 [samples]: https://github.com/thevickypedia/pyfilebrowser/tree/main/samples
 [license]: https://github.com/thevickypedia/pyfilebrowser/blob/main/LICENSE
-[config]: https://filebrowser.org/cli/filebrowser-config-set
-[users]: https://filebrowser.org/cli/filebrowser-users-add
+[config]: https://thevickypedia.github.io/pyfilebrowser/#configuration
+[users]: https://thevickypedia.github.io/pyfilebrowser/#users
 [home]: https://filebrowser.org/
 [pypi]: https://pypi.org/project/pyfilebrowser
 [pypi-repo]: https://packaging.python.org/tutorials/packaging-projects/

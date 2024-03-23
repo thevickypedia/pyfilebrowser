@@ -1,6 +1,30 @@
 from enum import StrEnum
+from typing import Optional
 
 from pydantic import BaseModel
+
+
+class Log(StrEnum):
+    """Enum for different log options.
+
+    >>> Log
+
+    """
+
+    stdout: Optional[str] = "stdout"
+    file: Optional[str] = "file"
+
+
+class Theme(StrEnum):
+    """Enum for different theme options.
+
+    >>> Theme
+
+    """
+
+    light: Optional[str] = "light"
+    dark: Optional[str] = "dark"
+    blank: Optional[str] = ""
 
 
 class SortBy(StrEnum):

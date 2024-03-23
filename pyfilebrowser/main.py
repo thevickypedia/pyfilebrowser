@@ -2,6 +2,7 @@ import json
 import os
 import subprocess
 import warnings
+from typing import List
 
 from pyfilebrowser.modals import models
 from pyfilebrowser.squire import download, steward
@@ -20,26 +21,33 @@ class FileBrowser:
         Keyword Args:
             logger: Bring your own logger.
         """
-        self.logger = kwargs.get('logger', steward.default_logger())
+        self.env = steward.EnvConfig(**kwargs)
+        if self.env.config_settings.server.log == models.Log.file:
+            # Reset to stdout, so the log output stream can be controlled with custom logging
+            self.env.config_settings.server.log = models.Log.stdout
+            self.logger = kwargs.get('logger', steward.default_logger(True))
+        else:
+            self.logger = kwargs.get('logger', steward.default_logger(False))
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.asset(logger=self.logger)
-        self.env = steward.EnvConfig(**kwargs)
 
     def __del__(self):
         """Deletes the database file."""
         if os.path.isfile(download.executable.filebrowser_db):
             os.remove(download.executable.filebrowser_db)
 
-    def run_subprocess(self, command: str, failed_msg: str, stdout: bool = False) -> None:
+    def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
 
         Args:
-            command: Command to run.
+            arguments: Arguments to pass to the binary.
             failed_msg: Failure message in case of bad return code.
             stdout: Boolean flag to show/hide standard output.
         """
+        arguments.insert(0, "")
+        command = os.path.join(os.getcwd(), download.executable.filebrowser_bin) + " ".join(arguments)
         process = subprocess.Popen(command, shell=True,
-                                   universal_newlines=True,
+                                   universal_newlines=True, text=True,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         try:
             if stdout:
@@ -50,6 +58,7 @@ class FileBrowser:
                 self.logger.warning(steward.remove_prefix(line))
             assert process.returncode == 0, failed_msg
         except KeyboardInterrupt:
+            self.logger.warning("Interrupted manually")
             if process.poll() is None:
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
@@ -69,10 +78,10 @@ class FileBrowser:
             profile.authentication.password = hashed_password
             model_settings = json.loads(profile.model_dump_json())
             user_settings = {'id': idx + 1}
-            model_settings['authentication'].pop('admin', None)  # remove custom values inserted
-            user_settings.update(model_settings['authentication'])
-            model_settings.pop('authentication', None)  # remove custom values inserted
-            user_settings.update(model_settings)
+            model_settings['authentication'].pop('admin', None)  # remove custom 'admin' model within authentication
+            user_settings.update(model_settings['authentication'])  # insert custom 'authentication' model into new dict
+            model_settings.pop('authentication', None)  # remove custom 'authentication' model from 'model_settings'
+            user_settings.update(model_settings)  # insert cleaned 'model_settings' into new dict 'user_settings'
             final_settings.append(user_settings)
         with open(steward.fileio.users, 'w') as file:
             json.dump(final_settings, file, indent=4)
@@ -95,7 +104,7 @@ class FileBrowser:
         self.logger.info(f"Importing configuration from {steward.fileio.config!r}")
         self.create_config()
         assert os.path.isfile(steward.fileio.config), f"{steward.fileio.config!r} doesn't exist"
-        self.run_subprocess(f"./{download.executable.filebrowser_bin} config import {steward.fileio.config}",
+        self.run_subprocess(["config", "import", steward.fileio.config],
                             "Failed to import configuration")
 
     def import_users(self) -> None:
@@ -103,10 +112,10 @@ class FileBrowser:
         self.logger.info(f"Importing user profiles from {steward.fileio.users!r}")
         self.create_users()
         assert os.path.isfile(steward.fileio.users), f"{steward.fileio.users!r} doesn't exist"
-        self.run_subprocess(f"./{download.executable.filebrowser_bin} users import {steward.fileio.users}",
+        self.run_subprocess(["users", "import", steward.fileio.users],
                             "Failed to import user profiles")
 
-    def kickoff(self) -> None:
+    def start(self) -> None:
         """Handler for all the functions above."""
         if os.path.isfile(download.executable.filebrowser_db):
             os.remove(download.executable.filebrowser_db)
@@ -115,5 +124,4 @@ class FileBrowser:
         # noinspection HttpUrlsUsage
         self.logger.info(f"Initiating filebrowser on "
                          f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}")
-        self.run_subprocess(f"./{download.executable.filebrowser_bin}",
-                            "Failed to run the server", True)
+        self.run_subprocess([], "Failed to run the server", True)

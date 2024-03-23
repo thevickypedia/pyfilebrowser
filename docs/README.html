@@ -60,7 +60,7 @@ filebrowser’s web interface.</p>
 way of handling the configuration and initialization.</p>
 <p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> automatically downloads the system specific executable during startup.</p>
 <details>
-<summary>Downloading Custom Built Executables</summary><p>Additionally, custom GitHub sources can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code>,
+<summary><strong>Download custom-built executables</strong></summary><p>Additionally, custom GitHub sources can be configured by specifying the environment variables, <code class="docutils literal notranslate"><span class="pre">GIT_OWNER</span></code> and <code class="docutils literal notranslate"><span class="pre">GIT_REPO</span></code>,
 provided that the executables are uploaded to releases as assets, and follows the naming convention below.</p>
 <blockquote>
 <div><p><strong>asset naming convention:</strong> <code class="docutils literal notranslate"><span class="pre">${operating</span> <span class="pre">system}-{architecture}-filebrowser-{extension}</span></code><br>
@@ -78,7 +78,7 @@ provided that the executables are uploaded to releases as assets, and follows th
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">browser</span> <span class="o">=</span> <span class="n">pyfilebrowser</span><span class="o">.</span><span class="n">FileBrowser</span><span class="p">()</span>
-    <span class="n">browser</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+    <span class="n">browser</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -88,8 +88,8 @@ provided that the executables are uploaded to releases as assets, and follows th
 <section id="env-files">
 <h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-config-set">config</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://filebrowser.org/cli/filebrowser-users-add">users</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p></li>
 </ul>
 <p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
 User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag.</p>
@@ -108,7 +108,7 @@ Changes should always go through the <code class="docutils literal notranslate">
             <span class="p">{</span><span class="s2">&quot;authentication&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;user123&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;pwd456&quot;</span><span class="p">,</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}}</span>
         <span class="p">]</span>
     <span class="p">)</span>
-    <span class="n">file_browser</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+    <span class="n">file_browser</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
 <blockquote>

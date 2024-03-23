@@ -24,7 +24,7 @@ Modals
 Configuration
 =============
 
-.. autoclass:: pyfilebrowser.modals.config.Defaults(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Server(pydantic_settings.BaseSettings)
    :members:
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
@@ -42,6 +42,12 @@ Configuration
 
 ====
 
+.. autoclass:: pyfilebrowser.modals.config.Defaults(pydantic_settings.BaseSettings)
+   :members:
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
+
+====
+
 .. autoclass:: pyfilebrowser.modals.config.Commands(pydantic_settings.BaseSettings)
    :members:
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
@@ -49,12 +55,6 @@ Configuration
 ====
 
 .. autoclass:: pyfilebrowser.modals.config.Config(pydantic_settings.BaseSettings)
-   :members:
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
-====
-
-.. autoclass:: pyfilebrowser.modals.config.Server(pydantic_settings.BaseSettings)
    :members:
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
@@ -76,20 +76,20 @@ Configuration
    :members:
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
-====
-
-.. autoclass:: pyfilebrowser.modals.config.Theme(StrEnum)
-   :members:
-   :exclude-members:
-
-====
-
-.. autoclass:: pyfilebrowser.modals.config.Log(StrEnum)
-   :members:
-   :exclude-members:
-
 Models
 ======
+
+.. autoclass:: pyfilebrowser.modals.models.Log(StrEnum)
+   :members:
+   :exclude-members:
+
+====
+
+.. autoclass:: pyfilebrowser.modals.models.Theme(StrEnum)
+   :members:
+   :exclude-members:
+
+====
 
 .. autoclass:: pyfilebrowser.modals.models.SortBy(StrEnum)
    :members:
@@ -111,7 +111,7 @@ Models
 
 .. automodule:: pyfilebrowser.modals.models
    :members:
-   :exclude-members: SortBy, Sorting, Perm
+   :exclude-members: Log, Theme, SortBy, Sorting, Perm
 
 Users
 =====
