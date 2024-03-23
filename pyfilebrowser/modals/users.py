@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
@@ -13,9 +13,9 @@ class Authentication(BaseModel):
 
     """
 
-    username: str
-    password: str
-    admin: bool = False
+    username: Optional[str]
+    password: Optional[str]
+    admin: Optional[bool] = False
 
 
 class UserSettings(BaseSettings):
@@ -23,24 +23,34 @@ class UserSettings(BaseSettings):
 
     >>> UserSettings
 
+    See Also:
+        - **perm** - Permissions are set based on the admin flag for each ``Authentication`` model.
     """
 
-    authentication: Authentication = Authentication(username="admin", password="admin", admin=True)
-    scope: str = "/"
-    locale: str = "en"
-    lockPassword: bool = False
-    viewMode: str = "list"
-    singleClick: bool = False
-    perm: models.Perm | None = None
-    commands: List[str] = []
-    sorting: models.Sorting = models.Sorting()
-    rules: List[str] = []
-    hideDotfiles: bool = False
-    dateFormat: bool = False
+    authentication: Optional[Authentication] = Authentication(username="admin", password="admin", admin=True)
+    scope: Optional[str] = "/"
+    locale: Optional[str] = "en"
+    lockPassword: Optional[bool] = False
+    viewMode: Optional[str] = "list"
+    singleClick: Optional[bool] = False
+    perm: Optional[models.Perm | None] = None
+    commands: Optional[List[str]] = []
+    sorting: Optional[models.Sorting] = models.Sorting()
+    rules: Optional[List[str]] = []
+    hideDotfiles: Optional[bool] = False
+    dateFormat: Optional[bool] = False
 
     @classmethod
-    def from_env_file(cls, env_file: str):
-        """Create UserSettings instance from environment file."""
+    def from_env_file(cls, env_file: Optional[str]) -> 'UserSettings':
+        """Create UserSettings instance from environment file.
+
+        Args:
+            env_file: Name of the env file.
+
+        Returns:
+            UserSettings:
+            Loads the ``UserSettings`` model.
+        """
         return cls(_env_file=env_file)
 
     class Config:

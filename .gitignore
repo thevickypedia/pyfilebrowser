@@ -17,6 +17,7 @@ doc_gen/_static
 # Configuration and initator
 temp.py
 settings/
+logs/
 filebrowser
 filebrowser.db
 
