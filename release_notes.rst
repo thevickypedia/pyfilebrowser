@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+v0.0.4 (03/23/2024)
+-------------------
+- Includes support for Windows OS
+- Supports logging to `*.log` files
+
 v0.0.3 (03/19/2024)
 -------------------
 - Update pypi description
