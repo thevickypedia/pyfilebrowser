@@ -185,6 +185,12 @@ Steward
    :members:
    :exclude-members: EnvConfig, FileIO
 
+Subtitles
+=========
+
+.. automodule:: pyfilebrowser.squire.subtitles
+   :members:
+
 Indices and tables
 ==================
 

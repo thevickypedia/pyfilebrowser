@@ -112,9 +112,6 @@ class GitHub(ExtendedBaseSettings):
     token: str | None = None
 
 
-github = GitHub()
-
-
 class Executable(BaseModel):
     """Executable object to load all the objects to download the executable from releases.
 
@@ -171,11 +168,12 @@ class Executable(BaseModel):
 executable = Executable()
 
 
-def asset(logger: logging.Logger) -> None:
-    """Downloads the latest released asset.
+def binary(logger: logging.Logger, github: GitHub) -> None:
+    """Downloads the latest released binary asset.
 
     Args:
         logger: Bring your own logger.
+        github: Custom GitHub source configuration.
     """
     logger.info(f"Source Repository: 'https://github.com/{github.owner}/{github.repo}'")
     logger.info(f"Targeted Asset: {executable.filebrowser_file!r}")
@@ -203,8 +201,7 @@ def asset(logger: logging.Logger) -> None:
         existing = '\n\t'.join(existing)
         raise Exception(
             f"\n\tFailed to get the asset id for {executable.filebrowser_file!r}\n\n"
-            f"\n\n"
-            f"Available asset names:\n\n\t{existing}"
+            f"Available asset names:\n\t{existing}"
         )
 
     # Download the asset

@@ -2,10 +2,11 @@ import json
 import os
 import subprocess
 import warnings
+from threading import Thread
 from typing import List
 
 from pyfilebrowser.modals import models
-from pyfilebrowser.squire import download, steward
+from pyfilebrowser.squire import download, steward, subtitles
 
 
 class FileBrowser:
@@ -28,8 +29,12 @@ class FileBrowser:
             self.logger = kwargs.get('logger', steward.default_logger(True))
         else:
             self.logger = kwargs.get('logger', steward.default_logger(False))
+        Thread(target=subtitles.auto_convert,
+               kwargs=dict(root=self.env.config_settings.server.root,
+                           logger=self.logger)).start()
+        github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
-            download.asset(logger=self.logger)
+            download.binary(logger=self.logger, github=github)
 
     def __del__(self):
         """Deletes the database file."""
