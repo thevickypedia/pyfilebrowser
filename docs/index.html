@@ -77,6 +77,12 @@
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.exit_process">
+<span class="sig-name descname"><span class="pre">exit_process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.exit_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the database file, and all the subtitles that were created by this application.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.run_subprocess">
 <span class="sig-name descname"><span class="pre">run_subprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failed_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.run_subprocess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code> commands as subprocess.</p>
@@ -1431,8 +1437,22 @@ else to the thread.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.subtitles.auto_convert">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">auto_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.auto_convert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get video files or folders that contain video files to be streamed.</p>
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">auto_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">PosixPath</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.auto_convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically convert subtitles’ file format from <cite>.srt</cite> to <cite>.vtt</cite> to support FileBrowser application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> – Root path from where the content is rendered.</p></li>
+<li><p><strong>logger</strong> – Logger object for logging conversion status.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a list of path objects to later remove the files that were created.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[PosixPath]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

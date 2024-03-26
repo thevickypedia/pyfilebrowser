@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+v0.0.7 (03/25/2024)
+-------------------
+- Auto convert subtitles' format from `.srt` to `.vtt`
+- Auto delete subtitles (created during startup) upon exit
+- Avoid auto convert during object init
+
 v0.0.4 (03/23/2024)
 -------------------
 - Includes support for Windows OS

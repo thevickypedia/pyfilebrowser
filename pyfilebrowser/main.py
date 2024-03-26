@@ -2,7 +2,9 @@ import json
 import os
 import subprocess
 import warnings
-from threading import Thread
+from multiprocessing.context import \
+    TimeoutError as ThreadTimeoutError  # noqa: PyProtectedMember
+from multiprocessing.pool import ThreadPool
 from typing import List
 
 from pyfilebrowser.modals import models
@@ -29,17 +31,28 @@ class FileBrowser:
             self.logger = kwargs.get('logger', steward.default_logger(True))
         else:
             self.logger = kwargs.get('logger', steward.default_logger(False))
-        Thread(target=subtitles.auto_convert,
-               kwargs=dict(root=self.env.config_settings.server.root,
-                           logger=self.logger)).start()
         github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
+        self.converted = None
 
-    def __del__(self):
-        """Deletes the database file."""
+    def exit_process(self):
+        """Deletes the database file, and all the subtitles that were created by this application."""
         if os.path.isfile(download.executable.filebrowser_db):
+            self.logger.info(f"Removing database {download.executable.filebrowser_db}")
             os.remove(download.executable.filebrowser_db)
+        if self.converted:
+            try:
+                files_removed = []
+                for file in self.converted.get(timeout=5):
+                    try:
+                        os.remove(file)
+                        files_removed.append(file.name)
+                    except FileNotFoundError:
+                        continue
+                self.logger.info(f"Subtitles removed automatically [{len(files_removed)}]: {', '.join(files_removed)}")
+            except ThreadTimeoutError as error:
+                self.logger.error(error)
 
     def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
@@ -68,6 +81,7 @@ class FileBrowser:
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
                 process.terminate()
+            self.exit_process()
 
     def create_users(self) -> None:
         """Creates the JSON file for user profiles."""
@@ -129,4 +143,7 @@ class FileBrowser:
         # noinspection HttpUrlsUsage
         self.logger.info(f"Initiating filebrowser on "
                          f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}")
+        self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
+                                                             kwds=dict(root=self.env.config_settings.server.root,
+                                                                       logger=self.logger))
         self.run_subprocess([], "Failed to run the server", True)

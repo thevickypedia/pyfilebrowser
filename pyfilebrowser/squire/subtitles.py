@@ -2,6 +2,7 @@ import logging
 import os
 import pathlib
 import threading
+from typing import List
 
 from pydantic import DirectoryPath
 
@@ -32,8 +33,17 @@ class Thread(threading.Thread):
             raise self._exc
 
 
-def auto_convert(root: DirectoryPath, logger: logging.Logger) -> None:
-    """Get video files or folders that contain video files to be streamed."""
+def auto_convert(root: DirectoryPath, logger: logging.Logger) -> List[pathlib.PosixPath]:
+    """Automatically convert subtitles' file format from `.srt` to `.vtt` to support FileBrowser application.
+
+    Args:
+        root: Root path from where the content is rendered.
+        logger: Logger object for logging conversion status.
+
+    Returns:
+        List[PosixPath]:
+        Returns a list of path objects to later remove the files that were created.
+    """
     n_raw = 0
     threads = {}
     for __path, __directory, __file in os.walk(root):
@@ -44,18 +54,21 @@ def auto_convert(root: DirectoryPath, logger: logging.Logger) -> None:
             if file_.startswith('_') or file_.startswith('.'):
                 continue
             file = pathlib.PosixPath(str(os.path.join(__path, file_)))
-            if file.suffix == ".srt":
-                if file.with_suffix(".vtt").exists():
-                    logger.debug(f'Both srt and vtt exists for {file.name}')
-                else:
-                    thread = Thread(target=srt_to_vtt, args=(file, logger,))
-                    thread.start()
-                    threads[file] = thread
+            vtt_file = file.with_suffix(".vtt")
+            # convert to '.vtt' only if such a file doesn't exist already
+            if file.suffix == ".srt" and not vtt_file.exists():
+                thread = Thread(target=srt_to_vtt, args=(file, logger,))
+                thread.start()
+                threads[vtt_file] = thread
+    files_created = []
     for file, thread in threads.items():
         try:
             thread.join()
+            files_created.append(file)
         except Exception as error:
             logger.error(f"{error!r}:\t{file.name}")
+    logger.info(f"Subtitles converted [{len(files_created)}]: {', '.join([f.name for f in files_created])}")
+    return files_created
 
 
 def srt_to_vtt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
@@ -65,7 +78,6 @@ def srt_to_vtt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
         filename: Name of the srt file.
         logger: Logger object to log conversion details.
     """
-    logger.debug(f"Converting srt to vtt - {filename.name}")
     output_file = filename.with_suffix('.vtt')
     with open(filename, 'r', encoding='utf-8') as rf:
         srt_content = rf.read()
@@ -80,7 +92,8 @@ def srt_to_vtt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
         vtt_content += f"{timecode}\n{text}\n\n"
     with open(output_file, 'w', encoding='utf-8') as wf:
         wf.write(vtt_content)
-    logger.info(f"Converted srt to vtt - {filename.name}")
+        wf.flush()
+    assert output_file.exists(), f"Conversion failed for {filename}"
 
 
 def vtt_to_srt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
@@ -90,10 +103,9 @@ def vtt_to_srt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
         filename: Name of the srt file.
         logger: Logger object to log conversion details.
     """
-    logger.debug(f"Converting vtt to srt - {filename.name}")
     output_file = filename.with_suffix('.srt')
-    with open(filename, 'r', encoding='utf-8') as f:
-        vtt_content = f.read()
+    with open(filename, 'r', encoding='utf-8') as rf:
+        vtt_content = rf.read()
     vtt_content = vtt_content.replace('WEBVTT\n\n', '').replace('WEBVTT FILE\n\n', '')
     subtitle_blocks = vtt_content.strip().split('\n\n')
     subtitle_counter = 1
@@ -109,6 +121,7 @@ def vtt_to_srt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
         srt_timecode = line if ' --> ' in line else line.replace('-->', ' --> ')
         srt_content += f"{subtitle_counter}\n{srt_timecode}\n{text}\n\n"
         subtitle_counter += 1
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(srt_content)
-    logger.info(f"Converted vtt to srt - {filename.name}")
+    with open(output_file, 'w', encoding='utf-8') as wf:
+        wf.write(srt_content)
+        wf.flush()
+    assert output_file.exists(), f"Conversion failed for {filename}"
