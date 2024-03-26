@@ -44,13 +44,11 @@ def auto_convert(root: DirectoryPath, logger: logging.Logger) -> List[pathlib.Po
         List[PosixPath]:
         Returns a list of path objects to later remove the files that were created.
     """
-    n_raw = 0
     threads = {}
     for __path, __directory, __file in os.walk(root):
         if __path.endswith('__'):
             continue
         for file_ in __file:
-            n_raw += 1
             if file_.startswith('_') or file_.startswith('.'):
                 continue
             file = pathlib.PosixPath(str(os.path.join(__path, file_)))
