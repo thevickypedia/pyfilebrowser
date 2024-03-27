@@ -104,12 +104,13 @@ class GitHub(ExtendedBaseSettings):
     """
 
     model_config = ExtendedSettingsConfigDict(
-        env_prefixes=["git_", "github_"]
+        env_prefixes=["git_", "github_", "filebrowser_"]
     )
 
     owner: str = "filebrowser"
     repo: str = "filebrowser"
     token: str | None = None
+    version: str = "latest"
 
 
 class Executable(BaseModel):
@@ -178,9 +179,12 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
     logger.info(f"Source Repository: 'https://github.com/{github.owner}/{github.repo}'")
     logger.info(f"Targeted Asset: {executable.filebrowser_file!r}")
     headers = {"Authorization": f"Bearer {github.token}"} if github.token else {}
-    # Get the latest release
-    response = requests.get(f"https://api.github.com/repos/{github.owner}/{github.repo}/releases/latest",
-                            headers=headers)
+    # Get the release from the specified version
+    if github.version == "latest":
+        release_url = f"https://api.github.com/repos/{github.owner}/{github.repo}/releases/{github.version}"
+    else:
+        release_url = f"https://api.github.com/repos/{github.owner}/{github.repo}/releases/tags/{github.version}"
+    response = requests.get(release_url, headers=headers)
     response.raise_for_status()
     release_info = response.json()
 
@@ -226,18 +230,24 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
         assert os.path.isfile(tar_file), f"Failed to gunzip {executable.filebrowser_file}"
         os.remove(executable.filebrowser_file)
 
-        # Read the tar file and extract it in the current working directory
-        content_dir = tar_file.removesuffix('.tar')
+        # Read the tar file and extract its content
         with tarfile.open(tar_file, 'r') as tar:
             tar.extractall()
+        # Catches the use case where binary might be directly archived
+        if os.path.isfile(executable.filebrowser_bin):
+            return
+        content_dir = tar_file.removesuffix('.tar')
         assert os.path.isdir(content_dir) and os.path.isfile(os.path.join(content_dir, executable.filebrowser_bin)), \
             f"Failed to unarchive {tar_file}"
         os.remove(tar_file)
     elif executable.filebrowser_file.endswith(".zip"):
-        # Read the zip file and extract it in the current working directory
-        content_dir = executable.filebrowser_file.removesuffix(".zip")
+        # Read the zip file and extract its content
         with zipfile.ZipFile(executable.filebrowser_file, 'r') as zip_ref:
             zip_ref.extractall()
+        # Catches the use case where binary might be directly zipped
+        if os.path.isfile(executable.filebrowser_bin):
+            return
+        content_dir = executable.filebrowser_file.removesuffix(".zip")
         assert os.path.isdir(content_dir) and os.path.isfile(os.path.join(content_dir, executable.filebrowser_bin)), \
             f"Failed to unzip {executable.filebrowser_file}"
         os.remove(executable.filebrowser_file)
