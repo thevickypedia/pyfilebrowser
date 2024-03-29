@@ -1,14 +1,14 @@
 import json
+import multiprocessing
 import os
 import subprocess
 import warnings
-from multiprocessing.context import \
-    TimeoutError as ThreadTimeoutError  # noqa: PyProtectedMember
 from multiprocessing.pool import ThreadPool
 from typing import List
 
 from pyfilebrowser.modals import models
-from pyfilebrowser.squire import download, steward, subtitles
+from pyfilebrowser.proxy.server import proxy_server
+from pyfilebrowser.squire import download, steward, struct, subtitles
 
 
 class FileBrowser:
@@ -35,11 +35,12 @@ class FileBrowser:
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
         self.converted = None
+        self.proxy_engine: multiprocessing.Process | None = None
 
     def exit_process(self):
         """Deletes the database file, and all the subtitles that were created by this application."""
         if os.path.isfile(download.executable.filebrowser_db):
-            self.logger.info(f"Removing database {download.executable.filebrowser_db}")
+            self.logger.info("Removing database %s", download.executable.filebrowser_db)
             os.remove(download.executable.filebrowser_db)
         if self.converted:
             try:
@@ -50,9 +51,19 @@ class FileBrowser:
                         files_removed.append(file.name)
                     except FileNotFoundError:
                         continue
-                self.logger.info(f"Subtitles removed automatically [{len(files_removed)}]: {', '.join(files_removed)}")
-            except ThreadTimeoutError as error:
+                if files_removed:
+                    self.logger.info("Subtitles removed [%d]: %s", len(files_removed), ', '.join(files_removed))
+            except multiprocessing.context.TimeoutError as error:
                 self.logger.error(error)
+        if self.proxy_engine:
+            self.logger.info("Stopping proxy service")
+            self.proxy_engine.terminate()
+            while True:
+                if self.proxy_engine.is_alive():
+                    self.proxy_engine.kill()
+                else:
+                    break
+            self.proxy_engine.close()
 
     def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
@@ -120,7 +131,7 @@ class FileBrowser:
 
     def import_config(self) -> None:
         """Imports the configuration file into filebrowser."""
-        self.logger.info(f"Importing configuration from {steward.fileio.config!r}")
+        self.logger.info("Importing configuration from %s", steward.fileio.config)
         self.create_config()
         assert os.path.isfile(steward.fileio.config), f"{steward.fileio.config!r} doesn't exist"
         self.run_subprocess(["config", "import", steward.fileio.config],
@@ -128,11 +139,23 @@ class FileBrowser:
 
     def import_users(self) -> None:
         """Imports the user profiles into filebrowser."""
-        self.logger.info(f"Importing user profiles from {steward.fileio.users!r}")
+        self.logger.info("Importing user profiles from %s", steward.fileio.users)
         self.create_users()
         assert os.path.isfile(steward.fileio.users), f"{steward.fileio.users!r} doesn't exist"
         self.run_subprocess(["users", "import", steward.fileio.users],
                             "Failed to import user profiles")
+
+    def background_tasks(self) -> None:
+        """Initiates the proxy engine and subtitles' format conversion as background tasks."""
+        # noinspection HttpUrlsUsage
+        self.proxy_engine = multiprocessing.Process(
+            target=proxy_server, daemon=True,
+            args=(f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
+                  struct.LoggerConfig(self.logger).get()))
+        self.proxy_engine.start()
+        self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
+                                                             kwds=dict(root=self.env.config_settings.server.root,
+                                                                       logger=self.logger))
 
     def start(self) -> None:
         """Handler for all the functions above."""
@@ -140,10 +163,5 @@ class FileBrowser:
             os.remove(download.executable.filebrowser_db)
         self.import_config()
         self.import_users()
-        # noinspection HttpUrlsUsage
-        self.logger.info(f"Initiating filebrowser on "
-                         f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}")
-        self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
-                                                             kwds=dict(root=self.env.config_settings.server.root,
-                                                                       logger=self.logger))
+        self.background_tasks()
         self.run_subprocess([], "Failed to run the server", True)

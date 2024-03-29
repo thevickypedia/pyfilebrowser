@@ -176,8 +176,8 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
         logger: Bring your own logger.
         github: Custom GitHub source configuration.
     """
-    logger.info(f"Source Repository: 'https://github.com/{github.owner}/{github.repo}'")
-    logger.info(f"Targeted Asset: {executable.filebrowser_file!r}")
+    logger.info("Source Repository: 'https://github.com/%s/%s'", github.owner, github.repo)
+    logger.info("Targeted Asset: '%s'", executable.filebrowser_file)
     headers = {"Authorization": f"Bearer {github.token}"} if github.token else {}
     # Get the release from the specified version
     if github.version == "latest":
@@ -188,10 +188,10 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
     response.raise_for_status()
     release_info = response.json()
 
-    # Print the download URL, to download manually
+    # Log the download URL
     filebrowser_url = f"https://github.com/{github.owner}/{github.repo}/releases/download/" \
                       f"{release_info['tag_name']}/{executable.filebrowser_file}"
-    logger.info(f"Download URL: {filebrowser_url}")
+    logger.info("Download URL: %s", filebrowser_url)
 
     # Get asset id
     existing = []
@@ -266,4 +266,4 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
     # basically, chmod +x => -rwxr-xr-x
     os.chmod(executable.filebrowser_bin, stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
 
-    logger.info(f"Asset {executable.filebrowser_bin!r} is ready to be used")
+    logger.info("Asset %s is ready to be used", executable.filebrowser_bin)

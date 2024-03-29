@@ -122,9 +122,154 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.background_tasks">
+<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiates the proxy engine and subtitles’ format conversion as background tasks.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler for all the functions above.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="proxy">
+<h1>Proxy<a class="headerlink" href="#proxy" title="Permalink to this heading">¶</a></h1>
+</section>
+<section id="module-pyfilebrowser.proxy.main">
+<span id="engine"></span><h1>Engine<a class="headerlink" href="#module-pyfilebrowser.proxy.main" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.proxy_engine">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">proxy_engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.proxy_engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy handler function to forward incoming requests to a target URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – The incoming request object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response object with the forwarded content and headers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pyfilebrowser.proxy.server">
+<span id="server"></span><h1>Server<a class="headerlink" href="#module-pyfilebrowser.proxy.server" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">APIServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shared servers state that is available between all protocol instances.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">APIServer</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://github.com/encode/uvicorn/issues/742#issuecomment-674411676">https://github.com/encode/uvicorn/issues/742#issuecomment-674411676</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer.install_signal_handlers">
+<span class="sig-name descname"><span class="pre">install_signal_handlers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides <code class="docutils literal notranslate"><span class="pre">install_signal_handlers</span></code> in <code class="docutils literal notranslate"><span class="pre">uvicorn.Server</span></code> module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer.run_in_parallel">
+<span class="sig-name descname"><span class="pre">run_in_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer.run_in_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiates <code class="docutils literal notranslate"><span class="pre">Server.run</span></code> in a dedicated process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logger</strong> – Server’s original logger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.proxy_server">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">proxy_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.proxy_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the proxy engine in parallel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>server</strong> – Server URL that has to be proxied.</p></li>
+<li><p><strong>log_config</strong> – Server’s logger object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="settings">
+<h1>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.destination">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Server’s destination settings.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">destination</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.destination.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Url</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.destination.url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">EnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure all env vars and validate using <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> to share across modules.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EnvConfig</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.host">
+<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.port">
+<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.workers">
+<span class="sig-name descname"><span class="pre">workers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.error_page">
+<span class="sig-name descname"><span class="pre">error_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.error_page" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment variables configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.proxy.env'</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </dd></dl>
@@ -1229,6 +1374,11 @@ validated to form a valid model.</p>
 <span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.token" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <hr class="docutils" />
@@ -1457,28 +1607,22 @@ else to the thread.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.subtitles.srt_to_vtt">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">srt_to_vtt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PosixPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.srt_to_vtt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">srt_to_vtt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PosixPath</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.srt_to_vtt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a .srt file to .vtt for subtitles to be compatible with video-js.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> – Name of the srt file.</p></li>
-<li><p><strong>logger</strong> – Logger object to log conversion details.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>filename</strong> – Name of the srt file.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.subtitles.vtt_to_srt">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">vtt_to_srt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PosixPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.vtt_to_srt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.subtitles.</span></span><span class="sig-name descname"><span class="pre">vtt_to_srt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PosixPath</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.subtitles.vtt_to_srt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a .vtt file to .srt for subtitles to be compatible with video-js.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> – Name of the srt file.</p></li>
-<li><p><strong>logger</strong> – Logger object to log conversion details.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>filename</strong> – Name of the srt file.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1505,6 +1649,10 @@ else to the thread.</p>
     <ul>
 <li><a class="reference internal" href="#">Welcome to PyFileBrowser’s documentation!</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
+<li><a class="reference internal" href="#proxy">Proxy</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.proxy.main">Engine</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.proxy.server">Server</a></li>
+<li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#modals">Modals</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#models">Models</a></li>

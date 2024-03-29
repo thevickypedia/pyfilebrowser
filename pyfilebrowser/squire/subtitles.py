@@ -20,6 +20,7 @@ class Thread(threading.Thread):
         try:
             super().run()
         except Exception as e:
+            # noinspection PyAttributeOutsideInit
             self._exc = e
 
     def join(self, timeout=None) -> None:
@@ -64,17 +65,17 @@ def auto_convert(root: DirectoryPath, logger: logging.Logger) -> List[pathlib.Po
             thread.join()
             files_created.append(file)
         except Exception as error:
-            logger.error(f"{error!r}:\t{file.name}")
-    logger.info(f"Subtitles converted [{len(files_created)}]: {', '.join([f.name for f in files_created])}")
+            logger.error("'%s':\t%s", error, file.name)
+    if files_created:
+        logger.info("Subtitles converted [%d]: %s", len(files_created), ', '.join([f.name for f in files_created]))
     return files_created
 
 
-def srt_to_vtt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
+def srt_to_vtt(filename: pathlib.PosixPath) -> None:
     """Convert a .srt file to .vtt for subtitles to be compatible with video-js.
 
     Args:
         filename: Name of the srt file.
-        logger: Logger object to log conversion details.
     """
     output_file = filename.with_suffix('.vtt')
     with open(filename, 'r', encoding='utf-8') as rf:
@@ -94,12 +95,11 @@ def srt_to_vtt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
     assert output_file.exists(), f"Conversion failed for {filename}"
 
 
-def vtt_to_srt(filename: pathlib.PosixPath, logger: logging.Logger) -> None:
+def vtt_to_srt(filename: pathlib.PosixPath) -> None:
     """Convert a .vtt file to .srt for subtitles to be compatible with video-js.
 
     Args:
         filename: Name of the srt file.
-        logger: Logger object to log conversion details.
     """
     output_file = filename.with_suffix('.srt')
     with open(filename, 'r', encoding='utf-8') as rf:

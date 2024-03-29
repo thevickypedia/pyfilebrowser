@@ -145,7 +145,7 @@ class Server(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = ""
-        env_file = os.environ.get("env_file", os.environ.get("ENV_FILE", ".config.env"))
+        env_file = ".config.env"
         extra = "ignore"
 
 
