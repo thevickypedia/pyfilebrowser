@@ -1,13 +1,14 @@
 import json
+import logging
 import multiprocessing
 import os
 import subprocess
 import warnings
 from multiprocessing.pool import ThreadPool
-from typing import List
+from typing import Dict, List
 
 from pyfilebrowser.modals import models
-from pyfilebrowser.proxy.server import proxy_server
+from pyfilebrowser.proxy import proxy_server, proxy_settings
 from pyfilebrowser.squire import download, steward, struct, subtitles
 
 
@@ -37,7 +38,7 @@ class FileBrowser:
         self.converted = None
         self.proxy_engine: multiprocessing.Process | None = None
 
-    def exit_process(self):
+    def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
         if os.path.isfile(download.executable.filebrowser_db):
             self.logger.info("Removing database %s", download.executable.filebrowser_db)
@@ -87,22 +88,28 @@ class FileBrowser:
                 self.logger.warning(steward.remove_prefix(line))
             assert process.returncode == 0, failed_msg
         except KeyboardInterrupt:
-            self.logger.warning("Interrupted manually")
             if process.poll() is None:
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
                 process.terminate()
             self.exit_process()
 
-    def create_users(self) -> None:
-        """Creates the JSON file for user profiles."""
+    def create_users(self) -> Dict[str, str]:
+        """Creates the JSON file for user profiles.
+
+        Returns:
+            Dict[str, str]:
+            Authentication map provided as environment variables.
+        """
         final_settings = []
         user_profiles = self.env.user_profiles or self.env.load_user_profiles()
+        auth_map = {}
         for idx, profile in enumerate(user_profiles):
             if profile.authentication.admin:
                 profile.perm = models.admin_perm()
             else:
                 profile.perm = models.default_perm()
+            auth_map[profile.authentication.username] = profile.authentication.password
             hashed_password = steward.hash_password(profile.authentication.password)
             assert steward.validate_password(profile.authentication.password, hashed_password), "Validation failed!"
             profile.authentication.password = hashed_password
@@ -116,52 +123,83 @@ class FileBrowser:
         with open(steward.fileio.users, 'w') as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
+        return auth_map
 
-    def create_config(self) -> None:
-        """Creates the JSON file for configuration."""
-        config_settings = self.env.config_settings
-        if str(config_settings.settings.branding.files) == ".":
-            config_settings.settings.branding.files = ""
-        config_settings.server.port = str(config_settings.server.port)
+    def create_config(self, proxy: bool) -> None:
+        """Creates the JSON file for configuration.
+
+        Args:
+            proxy: Boolean flag to enable proxy.
+        """
+        if proxy:
+            self.env.config_settings.settings.authMethod = "json"
+            self.env.config_settings.settings.authHeader = ""
+        if str(self.env.config_settings.settings.branding.files) == ".":
+            self.env.config_settings.settings.branding.files = ""
+        self.env.config_settings.server.port = str(self.env.config_settings.server.port)
         with warnings.catch_warnings(action="ignore"):
-            final_settings = steward.remove_trailing_underscore(json.loads(config_settings.model_dump_json()))
+            final_settings = steward.remove_trailing_underscore(json.loads(self.env.config_settings.model_dump_json()))
         with open(steward.fileio.config, 'w') as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
 
-    def import_config(self) -> None:
-        """Imports the configuration file into filebrowser."""
+    def import_config(self, proxy: bool) -> None:
+        """Imports the configuration file into filebrowser.
+
+        Args:
+            proxy: Boolean flag to enable proxy.
+        """
         self.logger.info("Importing configuration from %s", steward.fileio.config)
-        self.create_config()
+        self.create_config(proxy)
         assert os.path.isfile(steward.fileio.config), f"{steward.fileio.config!r} doesn't exist"
         self.run_subprocess(["config", "import", steward.fileio.config],
                             "Failed to import configuration")
 
-    def import_users(self) -> None:
-        """Imports the user profiles into filebrowser."""
+    def import_users(self) -> Dict[str, str]:
+        """Imports the user profiles into filebrowser.
+
+        Returns:
+            Dict[str, str]:
+            Authentication map provided as environment variables.
+        """
         self.logger.info("Importing user profiles from %s", steward.fileio.users)
-        self.create_users()
+        auth_map = self.create_users()
         assert os.path.isfile(steward.fileio.users), f"{steward.fileio.users!r} doesn't exist"
         self.run_subprocess(["users", "import", steward.fileio.users],
                             "Failed to import user profiles")
+        return auth_map
 
-    def background_tasks(self) -> None:
-        """Initiates the proxy engine and subtitles' format conversion as background tasks."""
-        # noinspection HttpUrlsUsage
-        self.proxy_engine = multiprocessing.Process(
-            target=proxy_server, daemon=True,
-            args=(f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
-                  struct.LoggerConfig(self.logger).get()))
-        self.proxy_engine.start()
+    def background_tasks(self, auth_map: Dict[str, str], proxy: bool) -> None:
+        """Initiates the proxy engine and subtitles' format conversion as background tasks.
+
+        Args:
+            auth_map: Authentication map provided as environment variables.
+            proxy: Boolean flag to enable proxy.
+        """
+        if proxy:
+            assert proxy_settings.port != int(self.env.config_settings.server.port), \
+                f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
+            log_config = struct.LoggerConfig(self.logger).get()
+            if proxy_settings.debug:
+                log_config = struct.update_log_level(log_config, logging.DEBUG)
+            # noinspection HttpUrlsUsage
+            self.proxy_engine = multiprocessing.Process(
+                target=proxy_server, daemon=True,
+                args=(f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
+                      log_config, auth_map))
+            self.proxy_engine.start()
         self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
                                                              kwds=dict(root=self.env.config_settings.server.root,
                                                                        logger=self.logger))
 
-    def start(self) -> None:
-        """Handler for all the functions above."""
+    def start(self, proxy: bool = False) -> None:
+        """Handler for all the functions above.
+
+        Args:
+            proxy: Boolean flag to enable proxy.
+        """
         if os.path.isfile(download.executable.filebrowser_db):
             os.remove(download.executable.filebrowser_db)
-        self.import_config()
-        self.import_users()
-        self.background_tasks()
+        self.import_config(proxy)
+        self.background_tasks(self.import_users(), proxy)
         self.run_subprocess([], "Failed to run the server", True)

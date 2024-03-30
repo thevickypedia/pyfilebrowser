@@ -177,6 +177,11 @@ Steward
 .. automodule:: pyfilebrowser.squire.steward
    :exclude-members: EnvConfig, FileIO
 
+Struct
+======
+
+.. automodule:: pyfilebrowser.squire.struct
+
 Subtitles
 =========
 

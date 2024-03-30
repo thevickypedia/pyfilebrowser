@@ -1,29 +1,12 @@
 import contextlib
 import logging.config
-from typing import Any
+from typing import Dict
 
 import uvicorn
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 
-
-def update_log_level(data: dict, new_value: Any) -> dict:
-    """Recursively update the value where any key equals "level", for loggers and handlers.
-
-    Parameters:
-        data: The nested dictionary to traverse.
-        new_value: The new value to set where the key equals "level".
-
-    Returns:
-        dict:
-        The updated nested dictionary.
-    """
-    for key, value in data.items():
-        if isinstance(value, dict):
-            data[key] = update_log_level(value, new_value)
-        elif key == "level":
-            data[key] = new_value
-    return data
+from pyfilebrowser.proxy import main, settings
 
 
 class APIServer(uvicorn.Server):
@@ -52,26 +35,24 @@ class APIServer(uvicorn.Server):
         self.run()
 
 
-def proxy_server(server: str, log_config: dict) -> None:
+def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> None:
     """Runs the proxy engine in parallel.
 
     Args:
         server: Server URL that has to be proxied.
         log_config: Server's logger object.
+        auth_map: Server's authorization mapping.
     """
-    from pyfilebrowser.proxy import main
-    if main.env_config.debug:
-        logging.config.dictConfig(update_log_level(log_config, logging.DEBUG))
-    else:
-        logging.config.dictConfig(log_config)
+    logging.config.dictConfig(log_config)
     logger = logging.getLogger('proxy')
 
-    main.destination.url = server
+    settings.destination.url = server
+    settings.destination.auth_config = auth_map
 
     proxy_config = uvicorn.Config(
-        host=main.env_config.host,
-        port=main.env_config.port,
-        workers=main.env_config.workers,
+        host=settings.env_config.host,
+        port=settings.env_config.port,
+        workers=settings.env_config.workers,
         app=FastAPI(
             routes=[
                 APIRoute(path="/{_:path}",
@@ -82,5 +63,5 @@ def proxy_server(server: str, log_config: dict) -> None:
     )
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
-                main.env_config.host, main.env_config.port, proxy_config.workers)
+                settings.env_config.host, settings.env_config.port, proxy_config.workers)
     APIServer(config=proxy_config).run_in_parallel(logger)

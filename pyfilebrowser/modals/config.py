@@ -161,6 +161,7 @@ class Config(BaseSettings):
     userHomeBasePath: Optional[str] = os.path.join(os.path.expanduser('~'), 'users')
     defaults: Optional[Defaults] = Defaults()
     authMethod: Optional[str] = "json"
+    authHeader: Optional[str] = ""
     branding: Optional[Branding] = Branding()
     tus: Optional[Tus] = Tus()
     commands: Optional[Commands] = Commands()

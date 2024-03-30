@@ -15,6 +15,7 @@ class destination(BaseModel):
     """
 
     url: HttpUrl
+    auth_config: dict
 
 
 class EnvConfig(BaseSettings):

@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 class LoggerConfig:
@@ -70,3 +70,22 @@ class LoggerConfig:
             }
         }
         return logging_config
+
+
+def update_log_level(data: dict, new_value: Any) -> dict:
+    """Recursively update the value where any key equals "level", for loggers and handlers.
+
+    Parameters:
+        data: The nested dictionary to traverse.
+        new_value: The new value to set where the key equals "level".
+
+    Returns:
+        dict:
+        The updated nested dictionary.
+    """
+    for key, value in data.items():
+        if isinstance(value, dict):
+            data[key] = update_log_level(value, new_value)
+        elif key == "level":
+            data[key] = new_value
+    return data
