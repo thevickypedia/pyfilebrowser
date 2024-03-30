@@ -161,6 +161,26 @@
 </section>
 <section id="module-pyfilebrowser.proxy.server">
 <span id="server"></span><h1>Server<a class="headerlink" href="#module-pyfilebrowser.proxy.server" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.update_log_level">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">update_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.update_log_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively update the value where any key equals “level”, for loggers and handlers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – The nested dictionary to traverse.</p></li>
+<li><p><strong>new_value</strong> – The new value to set where the key equals “level”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated nested dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">APIServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer" title="Permalink to this definition">¶</a></dt>
@@ -170,12 +190,6 @@
 </div>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://github.com/encode/uvicorn/issues/742#issuecomment-674411676">https://github.com/encode/uvicorn/issues/742#issuecomment-674411676</a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer.install_signal_handlers">
-<span class="sig-name descname"><span class="pre">install_signal_handlers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overrides <code class="docutils literal notranslate"><span class="pre">install_signal_handlers</span></code> in <code class="docutils literal notranslate"><span class="pre">uvicorn.Server</span></code> module.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer.run_in_parallel">
 <span class="sig-name descname"><span class="pre">run_in_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer.run_in_parallel" title="Permalink to this definition">¶</a></dt>
@@ -249,6 +263,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.workers">
 <span class="sig-name descname"><span class="pre">workers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

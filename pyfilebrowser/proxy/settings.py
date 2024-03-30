@@ -27,6 +27,7 @@ class EnvConfig(BaseSettings):
     host: str = socket.gethostbyname('localhost')
     port: int = 8000
     workers: int = 1
+    debug: bool = False
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
     class Config:

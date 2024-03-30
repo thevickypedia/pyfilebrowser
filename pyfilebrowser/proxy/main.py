@@ -21,14 +21,13 @@ async def proxy_engine(request: Request) -> Response:
     logger.debug("%s %s", request.method, request.url.path)
     try:
         async with httpx.AsyncClient() as client:
-            body = await request.body()
             # noinspection PyTypeChecker
             response = await client.request(
                 method=request.method,
                 url=destination.url + request.url.path,
                 headers=dict(request.headers),
                 params=dict(request.query_params),
-                data=body.decode(),
+                data=await request.body(),
             )
             content_type = response.headers.get("content-type", "")
             if "text/html" in content_type:

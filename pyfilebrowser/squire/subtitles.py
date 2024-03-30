@@ -56,7 +56,7 @@ def auto_convert(root: DirectoryPath, logger: logging.Logger) -> List[pathlib.Po
             vtt_file = file.with_suffix(".vtt")
             # convert to '.vtt' only if such a file doesn't exist already
             if file.suffix == ".srt" and not vtt_file.exists():
-                thread = Thread(target=srt_to_vtt, args=(file, logger,))
+                thread = Thread(target=srt_to_vtt, args=(file,))
                 thread.start()
                 threads[vtt_file] = thread
     files_created = []

@@ -1,9 +1,29 @@
 import contextlib
 import logging.config
+from typing import Any
 
 import uvicorn
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
+
+
+def update_log_level(data: dict, new_value: Any) -> dict:
+    """Recursively update the value where any key equals "level", for loggers and handlers.
+
+    Parameters:
+        data: The nested dictionary to traverse.
+        new_value: The new value to set where the key equals "level".
+
+    Returns:
+        dict:
+        The updated nested dictionary.
+    """
+    for key, value in data.items():
+        if isinstance(value, dict):
+            data[key] = update_log_level(value, new_value)
+        elif key == "level":
+            data[key] = new_value
+    return data
 
 
 class APIServer(uvicorn.Server):
@@ -15,10 +35,6 @@ class APIServer(uvicorn.Server):
         https://github.com/encode/uvicorn/issues/742#issuecomment-674411676
     """
 
-    def install_signal_handlers(self) -> None:
-        """Overrides ``install_signal_handlers`` in ``uvicorn.Server`` module."""
-        pass
-
     @contextlib.contextmanager
     def run_in_parallel(self, logger: logging.Logger) -> None:
         """Initiates ``Server.run`` in a dedicated process.
@@ -28,8 +44,10 @@ class APIServer(uvicorn.Server):
         """
         uvicorn_error = logging.getLogger("uvicorn.error")
         uvicorn_error.disabled = True
+        uvicorn_error.propagate = False
         uvicorn_access = logging.getLogger("uvicorn.access")
         uvicorn_access.disabled = True
+        uvicorn_access.propagate = False
         assert logger.name == "proxy"
         self.run()
 
@@ -41,10 +59,13 @@ def proxy_server(server: str, log_config: dict) -> None:
         server: Server URL that has to be proxied.
         log_config: Server's logger object.
     """
-    logging.config.dictConfig(log_config)
+    from pyfilebrowser.proxy import main
+    if main.env_config.debug:
+        logging.config.dictConfig(update_log_level(log_config, logging.DEBUG))
+    else:
+        logging.config.dictConfig(log_config)
     logger = logging.getLogger('proxy')
 
-    from pyfilebrowser.proxy import main
     main.destination.url = server
 
     proxy_config = uvicorn.Config(
@@ -55,7 +76,7 @@ def proxy_server(server: str, log_config: dict) -> None:
             routes=[
                 APIRoute(path="/{_:path}",
                          endpoint=main.proxy_engine,
-                         methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"])
+                         methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
             ]
         ),
     )
