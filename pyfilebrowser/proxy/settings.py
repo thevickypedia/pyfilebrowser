@@ -1,6 +1,7 @@
 import os
 import pathlib
 import socket
+from typing import Dict
 
 from pydantic import BaseModel, FilePath, HttpUrl
 from pydantic_settings import BaseSettings
@@ -15,7 +16,7 @@ class destination(BaseModel):
     """
 
     url: HttpUrl
-    auth_config: dict
+    auth_config: Dict[str, str]
 
 
 class EnvConfig(BaseSettings):

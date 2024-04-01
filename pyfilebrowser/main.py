@@ -3,6 +3,7 @@ import logging
 import multiprocessing
 import os
 import subprocess
+import time
 import warnings
 from multiprocessing.pool import ThreadPool
 from typing import Dict, List
@@ -59,12 +60,19 @@ class FileBrowser:
         if self.proxy_engine:
             self.logger.info("Stopping proxy service")
             self.proxy_engine.terminate()
-            while True:
+            for i in range(5):
                 if self.proxy_engine.is_alive():
                     self.proxy_engine.kill()
                 else:
+                    self.logger.info("Daemon process terminated in %s attempt", steward.ordinal(i))
+                    self.proxy_engine.close()
                     break
-            self.proxy_engine.close()
+                time.sleep(3e-2)  # 0.03s
+            else:
+                warnings.warn(
+                    f"Failed to terminate daemon process PID: [{self.proxy_engine.pid}] within 5 attempts",
+                    RuntimeWarning
+                )
 
     def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
@@ -186,7 +194,8 @@ class FileBrowser:
             self.proxy_engine = multiprocessing.Process(
                 target=proxy_server, daemon=True,
                 args=(f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
-                      log_config, auth_map))
+                      log_config, auth_map)
+            )
             self.proxy_engine.start()
         self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
                                                              kwds=dict(root=self.env.config_settings.server.root,

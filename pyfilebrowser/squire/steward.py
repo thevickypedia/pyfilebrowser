@@ -12,6 +12,24 @@ from pyfilebrowser.modals import config, users
 DATETIME_PATTERN = re.compile(r'^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ')
 
 
+def ordinal(n: int) -> str:
+    """Returns the ordinal representation of a given number.
+
+    Args:
+        n: The number for which the ordinal representation is to be determined.
+
+    Returns:
+        str:
+        The ordinal representation of the input number.
+    """
+    if 10 < n % 100 < 20:
+        suffix = "th"
+    else:
+        suffixes = {1: "st", 2: "nd", 3: "rd"}
+        suffix = suffixes.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
 def default_logger(log_to_file: bool) -> logging.Logger:
     """Generates a default console logger.
 

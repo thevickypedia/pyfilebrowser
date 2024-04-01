@@ -1,17 +1,49 @@
-import base64
 import hashlib
 import json
 import logging
 import secrets
+from collections.abc import Generator
 from typing import Dict
 
 import httpx
 from fastapi import Request, Response
 from fastapi.responses import FileResponse
 
-from pyfilebrowser.proxy.settings import destination, env_config
+from pyfilebrowser.proxy import secure, settings
 
 logger = logging.getLogger('proxy')
+
+
+def extract_credentials(authorization: bytes) -> Generator[str]:
+    r"""Extract the credentials from ``Authorization`` headers and decode it before returning as a list of strings.
+
+    Args:
+        authorization: Authorization header value.
+
+    See Also:
+        - Decodes the base64-encoded value (JavaScript's built-in encoding ``btoa``)
+        - Converts hex encoded value to string
+
+        .. code-block:: javascript
+
+            // Converts a string into a hex
+            async function ConvertStringToHex(str) {
+                let arr = [];
+                for (let i = 0; i < str.length; i++) {
+                    arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+                }
+                return "\\u" + arr.join("\\u");
+            }
+
+    Yields:
+        Generator[str]:
+        Yields parts of the extracted credentials.
+    """
+    # Decode the Base64-encoded ASCII string (JavaScript's built-in encoding btoa)
+    decoded_auth = secure.base64_decode(authorization)
+    # Convert hex to a string
+    for part in decoded_auth.split(','):
+        yield secure.hex_decode(part)
 
 
 def proxy_auth(authorization: bytes | None) -> Dict[str, str] | None:
@@ -20,16 +52,39 @@ def proxy_auth(authorization: bytes | None) -> Dict[str, str] | None:
     Args:
         authorization: Authorization header value.
 
+    See Also:
+        - Creates a hash of the password with cryptographic encryption and compares with the received hash
+
+        .. code-block:: javascript
+
+            // Converts a string into a hash using cryptographic encryption
+            async function CalculateHash(message) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(message);
+                if (crypto.subtle === undefined) {
+                    const wordArray = CryptoJS.lib.WordArray.create(data);
+                    const hash = CryptoJS.SHA512(wordArray);
+                    return hash.toString(CryptoJS.enc.Hex);
+                } else {
+                    const hashBuffer = await crypto.subtle.digest("SHA-512", data);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    return hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
+                }
+            }
+
     Returns:
         Dict[str, str]:
         Returns a dict of username, password and recaptcha value.
     """
     if authorization:
-        b64_decoded = base64.b64decode(authorization).decode("utf-8")
-        username, client_hash, recaptcha = b64_decoded.split(',')
-        password = destination.auth_config.get(username)
-        server_hash = hashlib.sha512(bytes(username + password, "utf-8")).hexdigest()
-        if password and secrets.compare_digest(client_hash, server_hash):
+        try:
+            username, signature, recaptcha = list(extract_credentials(authorization))
+        except ValueError:
+            logger.error("Authentication header is malformed")
+            return
+        password = settings.destination.auth_config.get(username, "")
+        expected_signature = hashlib.sha512(bytes(password, "utf-8")).hexdigest()
+        if password and secrets.compare_digest(expected_signature, signature):
             logger.info("Authentication was successful! Setting auth header to plain text password")
             return dict(username=username, password=password, recaptcha=recaptcha)
 
@@ -48,10 +103,9 @@ async def proxy_engine(proxy_request: Request) -> Response:
     try:
         headers = dict(proxy_request.headers)
         body = await proxy_request.body()
-        if proxy_request.url.path == "/login":
+        if proxy_request.url.path in ("/", "/login"):
             cookie = "set"  # set cookie only for login page
-        if (proxy_request.method == "POST" and
-                proxy_request.url.path == "/api/login" and
+        if (proxy_request.url.path == "/api/login" and
                 (auth_response := proxy_auth(headers.get('authorization')))):
             cookie = "delete"  # delete cookie as soon as login has been successful
             headers['authorization'] = json.dumps(auth_response).encode()
@@ -59,7 +113,7 @@ async def proxy_engine(proxy_request: Request) -> Response:
             # noinspection PyTypeChecker
             server_response = await client.request(
                 method=proxy_request.method,
-                url=destination.url + proxy_request.url.path,
+                url=settings.destination.url + proxy_request.url.path,
                 headers=headers,
                 params=dict(proxy_request.query_params),
                 data=body,
@@ -67,8 +121,6 @@ async def proxy_engine(proxy_request: Request) -> Response:
             content_type = server_response.headers.get("content-type", "")
             if "text/html" in content_type:
                 content = server_response.text
-                # Modify content if necessary (e.g., rewriting links)
-                # content = modify_html_links(content)
             else:
                 content = server_response.content
             server_response.headers.pop("content-encoding", None)
@@ -80,6 +132,4 @@ async def proxy_engine(proxy_request: Request) -> Response:
             return proxy_response
     except httpx.RequestError as exc:
         logger.error(exc)
-        return FileResponse(
-            path=env_config.error_page, headers=None, media_type="text/html"
-        )
+        return FileResponse(path=settings.env_config.error_page, headers=None, media_type="text/html")
