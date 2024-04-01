@@ -39,7 +39,7 @@ def hex_decode(value: Any) -> str:
         return ""
 
 
-def hex_encode(value: str):
+def hex_encode(value: str) -> str:
     """Convert string value to hex."""
     return UNICODE_PREFIX + UNICODE_PREFIX.join(
         binascii.hexlify(data=value.encode(encoding="utf-8"), sep="-")

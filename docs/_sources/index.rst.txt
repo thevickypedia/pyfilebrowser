@@ -24,6 +24,11 @@ Engine
 
 .. automodule:: pyfilebrowser.proxy.main
 
+Secure
+======
+
+.. automodule:: pyfilebrowser.proxy.secure
+
 Server
 ======
 

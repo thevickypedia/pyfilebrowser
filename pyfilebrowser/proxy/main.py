@@ -1,4 +1,3 @@
-import hashlib
 import json
 import logging
 import secrets
@@ -83,7 +82,7 @@ def proxy_auth(authorization: bytes | None) -> Dict[str, str] | None:
             logger.error("Authentication header is malformed")
             return
         password = settings.destination.auth_config.get(username, "")
-        expected_signature = hashlib.sha512(bytes(password, "utf-8")).hexdigest()
+        expected_signature = secure.calculate_hash(password)
         if password and secrets.compare_digest(expected_signature, signature):
             logger.info("Authentication was successful! Setting auth header to plain text password")
             return dict(username=username, password=password, recaptcha=recaptcha)
