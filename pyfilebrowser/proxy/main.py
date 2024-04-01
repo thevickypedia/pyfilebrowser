@@ -34,6 +34,12 @@ def extract_credentials(authorization: bytes) -> Generator[str]:
                 return "\\u" + arr.join("\\u");
             }
 
+            // Expected encryption and encoding for authorization header
+            let hex_user = await ConvertStringToHex(username);
+            let signature = await CalculateHash(password);
+            let hex_recaptcha = await ConvertStringToHex(recaptcha);
+            let authHeader = btoa(hex_user + "," + signature + "," + hex_recaptcha) // eslint-disable-line
+
     Yields:
         Generator[str]:
         Yields parts of the extracted credentials.

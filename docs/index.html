@@ -203,6 +203,12 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;\\u&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\\u&quot;</span><span class="p">);</span>
 <span class="p">}</span>
+
+<span class="c1">// Expected encryption and encoding for authorization header</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">hex_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ConvertStringToHex</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">CalculateHash</span><span class="p">(</span><span class="nx">password</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">hex_recaptcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ConvertStringToHex</span><span class="p">(</span><span class="nx">recaptcha</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">authHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">btoa</span><span class="p">(</span><span class="nx">hex_user</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">hex_recaptcha</span><span class="p">)</span><span class="w"> </span><span class="c1">// eslint-disable-line</span>
 </pre></div>
 </div>
 </div>
