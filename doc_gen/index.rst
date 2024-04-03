@@ -187,11 +187,6 @@ Struct
 
 .. automodule:: pyfilebrowser.squire.struct
 
-Subtitles
-=========
-
-.. automodule:: pyfilebrowser.squire.subtitles
-
 Indices and tables
 ==================
 

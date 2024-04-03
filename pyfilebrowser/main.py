@@ -5,12 +5,11 @@ import os
 import subprocess
 import time
 import warnings
-from multiprocessing.pool import ThreadPool
 from typing import Dict, List
 
 from pyfilebrowser.modals import models
 from pyfilebrowser.proxy import proxy_server, proxy_settings
-from pyfilebrowser.squire import download, steward, struct, subtitles
+from pyfilebrowser.squire import download, steward, struct
 
 
 class FileBrowser:
@@ -36,7 +35,6 @@ class FileBrowser:
         github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
-        self.converted = None
         self.proxy_engine: multiprocessing.Process | None = None
 
     def exit_process(self) -> None:
@@ -44,19 +42,6 @@ class FileBrowser:
         if os.path.isfile(download.executable.filebrowser_db):
             self.logger.info("Removing database %s", download.executable.filebrowser_db)
             os.remove(download.executable.filebrowser_db)
-        if self.converted:
-            try:
-                files_removed = []
-                for file in self.converted.get(timeout=5):
-                    try:
-                        os.remove(file)
-                        files_removed.append(file.name)
-                    except FileNotFoundError:
-                        continue
-                if files_removed:
-                    self.logger.info("Subtitles removed [%d]: %s", len(files_removed), ', '.join(files_removed))
-            except multiprocessing.context.TimeoutError as error:
-                self.logger.error(error)
         if self.proxy_engine:
             self.logger.info("Stopping proxy service")
             self.proxy_engine.terminate()
@@ -197,9 +182,6 @@ class FileBrowser:
                       log_config, auth_map)
             )
             self.proxy_engine.start()
-        self.converted = ThreadPool(processes=1).apply_async(func=subtitles.auto_convert,
-                                                             kwds=dict(root=self.env.config_settings.server.root,
-                                                                       logger=self.logger))
 
     def start(self, proxy: bool = False) -> None:
         """Handler for all the functions above.
