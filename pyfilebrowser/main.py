@@ -26,12 +26,10 @@ class FileBrowser:
             logger: Bring your own logger.
         """
         self.env = steward.EnvConfig(**kwargs)
-        if self.env.config_settings.server.log == models.Log.file:
-            # Reset to stdout, so the log output stream can be controlled with custom logging
-            self.env.config_settings.server.log = models.Log.stdout
-            self.logger = kwargs.get('logger', steward.default_logger(True))
-        else:
-            self.logger = kwargs.get('logger', steward.default_logger(False))
+        # Reset to stdout, so the log output stream can be controlled with custom logging
+        self.env.config_settings.server.log = models.Log.stdout
+        self.logger = kwargs.get('logger',
+                                 steward.default_logger(self.env.config_settings.server.log == models.Log.file))
         github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
@@ -52,7 +50,7 @@ class FileBrowser:
                     self.logger.info("Daemon process terminated in %s attempt", steward.ordinal(i))
                     self.proxy_engine.close()
                     break
-                time.sleep(3e-2)  # 0.03s
+                time.sleep(1e-1)  # 0.1s
             else:
                 warnings.warn(
                     f"Failed to terminate daemon process PID: [{self.proxy_engine.pid}] within 5 attempts",

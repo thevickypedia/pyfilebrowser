@@ -10,7 +10,8 @@ from fastapi.responses import FileResponse
 
 from pyfilebrowser.proxy import secure, settings
 
-logger = logging.getLogger('proxy')
+LOGGER = logging.getLogger('proxy')
+CLIENT = httpx.Client()
 
 
 def extract_credentials(authorization: bytes) -> Generator[str]:
@@ -85,12 +86,12 @@ def proxy_auth(authorization: bytes | None) -> Dict[str, str] | None:
         try:
             username, signature, recaptcha = list(extract_credentials(authorization))
         except ValueError:
-            logger.error("Authentication header is malformed")
+            LOGGER.error("Authentication header is malformed")
             return
         password = settings.destination.auth_config.get(username, "")
         expected_signature = secure.calculate_hash(password)
         if password and secrets.compare_digest(expected_signature, signature):
-            logger.info("Authentication was successful! Setting auth header to plain text password")
+            LOGGER.info("Authentication was successful! Setting auth header to plain text password")
             return dict(username=username, password=password, recaptcha=recaptcha)
 
 
@@ -103,7 +104,7 @@ async def proxy_engine(proxy_request: Request) -> Response:
     Returns:
         Response: The response object with the forwarded content and headers.
     """
-    logger.debug("%s %s", proxy_request.method, proxy_request.url.path)
+    LOGGER.debug("%s %s", proxy_request.method, proxy_request.url.path)
     cookie = ""
     try:
         headers = dict(proxy_request.headers)
@@ -114,27 +115,27 @@ async def proxy_engine(proxy_request: Request) -> Response:
                 (auth_response := proxy_auth(headers.get('authorization')))):
             cookie = "delete"  # delete cookie as soon as login has been successful
             headers['authorization'] = json.dumps(auth_response).encode()
-        async with httpx.AsyncClient() as client:
-            # noinspection PyTypeChecker
-            server_response = await client.request(
-                method=proxy_request.method,
-                url=settings.destination.url + proxy_request.url.path,
-                headers=headers,
-                params=dict(proxy_request.query_params),
-                data=body,
-            )
-            content_type = server_response.headers.get("content-type", "")
-            if "text/html" in content_type:
-                content = server_response.text
-            else:
-                content = server_response.content
-            server_response.headers.pop("content-encoding", None)
-            proxy_response = Response(content, server_response.status_code, server_response.headers, content_type)
-            if cookie == "set":
-                proxy_response.set_cookie(key="pyproxy", value="on")
-            if cookie == "delete":
-                proxy_response.delete_cookie(key="pyproxy")
-            return proxy_response
+        # noinspection PyTypeChecker
+        server_response = CLIENT.request(
+            method=proxy_request.method,
+            url=settings.destination.url + proxy_request.url.path,
+            headers=headers,
+            cookies=proxy_request.cookies,
+            params=dict(proxy_request.query_params),
+            data=body,
+        )
+        content_type = server_response.headers.get("content-type", "")
+        if "text/html" in content_type:
+            content = server_response.text
+        else:
+            content = server_response.content
+        server_response.headers.pop("content-encoding", None)
+        proxy_response = Response(content, server_response.status_code, server_response.headers, content_type)
+        if cookie == "set":
+            proxy_response.set_cookie(key="pyproxy", value="on")
+        if cookie == "delete":
+            proxy_response.delete_cookie(key="pyproxy")
+        return proxy_response
     except httpx.RequestError as exc:
-        logger.error(exc)
+        LOGGER.error(exc)
         return FileResponse(path=settings.env_config.error_page, headers=None, media_type="text/html")
