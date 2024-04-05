@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+v0.0.8 (04/05/2024)
+-------------------
+- Includes a proxy server for enhanced web security using cryptographic encryption
+- Proxy feature adds more visibility in traffic through server
+- Includes a feature to specify custom source versioning
+- Bug fixes for upload issues, multi-layered binary archive
+- Improved logging across the application
+
 v0.0.7 (03/25/2024)
 -------------------
 - Auto convert subtitles' format from `.srt` to `.vtt`
