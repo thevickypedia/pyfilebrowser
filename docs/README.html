@@ -78,9 +78,9 @@ and follow the naming convention below.</p>
 <p><strong>Initiate</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyfilebrowser</span>
 
-
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">browser</span> <span class="o">=</span> <span class="n">pyfilebrowser</span><span class="o">.</span><span class="n">FileBrowser</span><span class="p">()</span>
+    <span class="c1"># browser.proxy = True  # [Optional] Enables proxy server to run in parallel</span>
     <span class="n">browser</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -91,6 +91,7 @@ and follow the naming convention below.</p>
 <section id="env-files">
 <h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.proxy.env</span></code> - Loads the proxy server’s configuration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p></li>
 </ul>

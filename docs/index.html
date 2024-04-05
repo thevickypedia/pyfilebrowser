@@ -73,7 +73,10 @@
 <p>Instantiates the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>logger</strong> – Bring your own logger.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>logger</strong> – Bring your own logger.</p></li>
+<li><p><strong>proxy</strong> – Boolean flag to enable proxy.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -113,24 +116,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.create_config">
-<span class="sig-name descname"><span class="pre">create_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the JSON file for configuration.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>proxy</strong> – Boolean flag to enable proxy.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.import_config">
-<span class="sig-name descname"><span class="pre">import_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_config" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">import_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Imports the configuration file into filebrowser.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>proxy</strong> – Boolean flag to enable proxy.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -149,27 +142,19 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.background_tasks">
-<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiates the proxy engine and subtitles’ format conversion as background tasks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>auth_map</strong> – Authentication map provided as environment variables.</p></li>
-<li><p><strong>proxy</strong> – Boolean flag to enable proxy.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>auth_map</strong> – Authentication map provided as environment variables.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler for all the functions above.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>proxy</strong> – Boolean flag to enable proxy.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
@@ -314,18 +299,18 @@
 <section id="module-pyfilebrowser.proxy.server">
 <span id="server"></span><h1>Server<a class="headerlink" href="#module-pyfilebrowser.proxy.server" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">APIServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shared servers state that is available between all protocol instances.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">APIServer</span>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.ProxyServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">ProxyServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.server.ProxyServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shared ProxyServer state that is available between all protocol instances.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ProxyServer</span>
 </pre></div>
 </div>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://github.com/encode/uvicorn/issues/742#issuecomment-674411676">https://github.com/encode/uvicorn/issues/742#issuecomment-674411676</a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.APIServer.run_in_parallel">
-<span class="sig-name descname"><span class="pre">run_in_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.APIServer.run_in_parallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initiates <code class="docutils literal notranslate"><span class="pre">Server.run</span></code> in a dedicated process.</p>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.ProxyServer.run_in_parallel">
+<span class="sig-name descname"><span class="pre">run_in_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.ProxyServer.run_in_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiates the server in a dedicated process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>logger</strong> – Server’s original logger.</p>

@@ -24,6 +24,7 @@ class FileBrowser:
 
         Keyword Args:
             logger: Bring your own logger.
+            proxy: Boolean flag to enable proxy.
         """
         self.env = steward.EnvConfig(**kwargs)
         # Reset to stdout, so the log output stream can be controlled with custom logging
@@ -34,6 +35,9 @@ class FileBrowser:
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
         self.proxy_engine: multiprocessing.Process | None = None
+        self.proxy = kwargs.get('proxy')
+        assert self.proxy is None or isinstance(self.proxy, bool), \
+            f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
 
     def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
@@ -116,13 +120,9 @@ class FileBrowser:
             file.flush()
         return auth_map
 
-    def create_config(self, proxy: bool) -> None:
-        """Creates the JSON file for configuration.
-
-        Args:
-            proxy: Boolean flag to enable proxy.
-        """
-        if proxy:
+    def create_config(self) -> None:
+        """Creates the JSON file for configuration."""
+        if self.proxy:
             self.env.config_settings.settings.authMethod = "json"
             self.env.config_settings.settings.authHeader = ""
         if str(self.env.config_settings.settings.branding.files) == ".":
@@ -134,14 +134,10 @@ class FileBrowser:
             json.dump(final_settings, file, indent=4)
             file.flush()
 
-    def import_config(self, proxy: bool) -> None:
-        """Imports the configuration file into filebrowser.
-
-        Args:
-            proxy: Boolean flag to enable proxy.
-        """
+    def import_config(self) -> None:
+        """Imports the configuration file into filebrowser."""
         self.logger.info("Importing configuration from %s", steward.fileio.config)
-        self.create_config(proxy)
+        self.create_config()
         assert os.path.isfile(steward.fileio.config), f"{steward.fileio.config!r} doesn't exist"
         self.run_subprocess(["config", "import", steward.fileio.config],
                             "Failed to import configuration")
@@ -160,14 +156,13 @@ class FileBrowser:
                             "Failed to import user profiles")
         return auth_map
 
-    def background_tasks(self, auth_map: Dict[str, str], proxy: bool) -> None:
+    def background_tasks(self, auth_map: Dict[str, str]) -> None:
         """Initiates the proxy engine and subtitles' format conversion as background tasks.
 
         Args:
             auth_map: Authentication map provided as environment variables.
-            proxy: Boolean flag to enable proxy.
         """
-        if proxy:
+        if self.proxy:
             assert proxy_settings.port != int(self.env.config_settings.server.port), \
                 f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
             log_config = struct.LoggerConfig(self.logger).get()
@@ -181,14 +176,10 @@ class FileBrowser:
             )
             self.proxy_engine.start()
 
-    def start(self, proxy: bool = False) -> None:
-        """Handler for all the functions above.
-
-        Args:
-            proxy: Boolean flag to enable proxy.
-        """
+    def start(self) -> None:
+        """Handler for all the functions above."""
         if os.path.isfile(download.executable.filebrowser_db):
             os.remove(download.executable.filebrowser_db)
-        self.import_config(proxy)
-        self.background_tasks(self.import_users(), proxy)
+        self.import_config()
+        self.background_tasks(self.import_users())
         self.run_subprocess([], "Failed to run the server", True)

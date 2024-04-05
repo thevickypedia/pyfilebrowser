@@ -47,9 +47,9 @@ python -m pip install pyfilebrowser
 ```python
 import pyfilebrowser
 
-
 if __name__ == '__main__':
     browser = pyfilebrowser.FileBrowser()
+    # browser.proxy = True  # [Optional] Enables proxy server to run in parallel
     browser.start()
 ```
 
@@ -58,6 +58,7 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 #### `.env` files
 
+- `.proxy.env` - Loads the proxy server's configuration.
 - `.config.env` - Loads the server's default configuration. Reference: [config]
 - `.user*.env` - Loads each user's profile specific configuration. Reference: [users]
 

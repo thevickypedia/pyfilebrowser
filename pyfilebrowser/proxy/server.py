@@ -9,10 +9,10 @@ from fastapi.routing import APIRoute
 from pyfilebrowser.proxy import main, settings
 
 
-class APIServer(uvicorn.Server):
-    """Shared servers state that is available between all protocol instances.
+class ProxyServer(uvicorn.Server):
+    """Shared ProxyServer state that is available between all protocol instances.
 
-    >>> APIServer
+    >>> ProxyServer
 
     References:
         https://github.com/encode/uvicorn/issues/742#issuecomment-674411676
@@ -20,7 +20,7 @@ class APIServer(uvicorn.Server):
 
     @contextlib.contextmanager
     def run_in_parallel(self, logger: logging.Logger) -> None:
-        """Initiates ``Server.run`` in a dedicated process.
+        """Initiates the server in a dedicated process.
 
         Args:
             logger: Server's original logger.
@@ -64,4 +64,4 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
                 settings.env_config.host, settings.env_config.port, proxy_config.workers)
-    APIServer(config=proxy_config).run_in_parallel(logger)
+    ProxyServer(config=proxy_config).run_in_parallel(logger)
