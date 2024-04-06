@@ -58,19 +58,46 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 #### `.env` files
 
-- `.proxy.env` - Loads the proxy server's configuration.
-- `.config.env` - Loads the server's default configuration. Reference: [config]
-- `.user*.env` - Loads each user's profile specific configuration. Reference: [users]
+<details>
+<summary><strong>proxy server</strong></summary>
+
+> `.proxy.env` - Loads the proxy server's configuration.
+
+- `host` - Host machine's local IP address. _Defaults to `socket.gethostbyname('localhost')`_
+- `port` - Port number for the proxy server. _Defaults to `8000`_
+- `workers` - Number of workers used to run the proxy server. _Defaults to `1`_
+- `debug` - Boolean flag to enable debug level logging. _Defaults to `False`_
+- `origins` - Origins to allow connections through proxy server. _Defaults to `host`_ ***
+- `public_ip` - Boolean flag to include public IP address of the host. _Defaults to `False`_
+- `private_ip` - Boolean flag to include private IP address of the host. _Defaults to `False`_
+- `error_page` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
+
+</details>
+
+<details>
+<summary><strong>filebrowser configuration</strong></summary>
+
+> `.config.env` - Loads the server's default configuration. Reference: [config]
+
+</details>
+
+<details>
+<summary><strong>filebrowser user profiles</strong></summary>
+
+>`.user*.env` - Loads each user's profile specific configuration. Reference: [users]
 
 Multiple user profiles can be loaded using `.user1.env`, `.user2.env` and so on.<br>
-User profile's permissions are automatically set based on the `admin` flag.
+User profile's permissions are automatically set based on the `admin` flag set in the env-var `authentication`
+
+</details>
 
 Refer [samples] directory for sample `.env` files. For nested configuration settings, refer the [runbook]
 
 > Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 > Changes should always go through the `.env` files.
 
-**[OR]**
+<details>
+<summary><strong>Object level instantiation is also possible, but not recommended</strong></summary>
 
 ```python
 from pyfilebrowser import FileBrowser
@@ -86,6 +113,23 @@ if __name__ == '__main__':
 ```
 
 > Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
+
+</details>
+
+## Proxy Server
+`pyfilebrowser` allows you to run a proxy server in parallel, which helps the user with much more logging information,
+and secured connections.
+
+The proxy server is pretty restrictive in nature, and doesn't like connections from outside the grid.
+
+While CORS may solve the purpose at the webpage level, `pyfilebrowser`'s inbuilt proxy restricts connections
+from any origin regardless of the tool used to connect (PostMan, curl, wget etc.)
+
+Due to this behavior, please make sure to specify **ALL** the origins that are supposed to be allowed
+(including but not limited to reverse-proxy, CDN, redirect servers etc.)
+
+> Enabling proxy server increases an inconspicuous latency to the connections,
+> but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
 
 ## Coding Standards
 Docstring format: [`Google`][google-docs] <br>
@@ -153,3 +197,4 @@ Licensed under the [MIT License][license]
 [google-docs]: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
 [pep8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://pycqa.github.io/isort/
+[error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html

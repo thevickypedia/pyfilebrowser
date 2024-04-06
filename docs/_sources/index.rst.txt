@@ -34,6 +34,11 @@ Server
 
 .. automodule:: pyfilebrowser.proxy.server
 
+Squire
+======
+
+.. automodule:: pyfilebrowser.proxy.squire
+
 Settings
 ========
 
@@ -43,6 +48,11 @@ Settings
 ====
 
 .. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(pydantic_settings.BaseSettings)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
 Modals

@@ -90,20 +90,37 @@ and follow the naming convention below.</p>
 <p>Env vars can either be loaded from <code class="docutils literal notranslate"><span class="pre">.env</span></code> files or directly passed during object init.</p>
 <section id="env-files">
 <h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
+<details>
+<summary><strong>proxy server</strong></summary><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">.proxy.env</span></code> - Loads the proxy server’s configuration.</p>
+</div></blockquote>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">.proxy.env</span></code> - Loads the proxy server’s configuration.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">host</span></code> - Host machine’s local IP address. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">socket.gethostbyname('localhost')</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code> - Port number for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">8000</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">workers</span></code> - Number of workers used to run the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code> - Boolean flag to enable debug level logging. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origins</span></code> - Origins to allow connections through proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">host</span></code></em> ***</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public_ip</span></code> - Boolean flag to include public IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">private_ip</span></code> - Boolean flag to include private IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_page</span></code> - Error page to serve when filebrowser API is down. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html">error.html</a></p></li>
 </ul>
+</details><details>
+<summary><strong>filebrowser configuration</strong></summary><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p>
+</div></blockquote>
+</details><details>
+<summary><strong>filebrowser user profiles</strong></summary><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p>
+</div></blockquote>
 <p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
-User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag.</p>
-<p>Refer <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/tree/main/samples">samples</a> directory for sample <code class="docutils literal notranslate"><span class="pre">.env</span></code> files. For nested configuration settings, refer the <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/">runbook</a></p>
+User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag set in the env-var <code class="docutils literal notranslate"><span class="pre">authentication</span></code></p>
+</details><p>Refer <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/tree/main/samples">samples</a> directory for sample <code class="docutils literal notranslate"><span class="pre">.env</span></code> files. For nested configuration settings, refer the <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/">runbook</a></p>
 <blockquote>
 <div><p>Any configuration changes made in the UI will be lost, unless backed up manually.<br>
 Changes should always go through the <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
 </div></blockquote>
-<p><strong>[OR]</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyfilebrowser</span> <span class="kn">import</span> <span class="n">FileBrowser</span>
+<details>
+<summary><strong>Object level instantiation is also possible, but not recommended</strong></summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyfilebrowser</span> <span class="kn">import</span> <span class="n">FileBrowser</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">file_browser</span> <span class="o">=</span> <span class="n">FileBrowser</span><span class="p">(</span>
@@ -118,7 +135,21 @@ Changes should always go through the <code class="docutils literal notranslate">
 <blockquote>
 <div><p>Object level instantiation might be complex for configuration settings. So it is better to use <code class="docutils literal notranslate"><span class="pre">.env</span></code> files instead.</p>
 </div></blockquote>
+</details></section>
 </section>
+<section id="proxy-server">
+<h2>Proxy Server<a class="headerlink" href="#proxy-server" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code> allows you to run a proxy server in parallel, which helps the user with much more logging information,
+and secured connections.</p>
+<p>The proxy server is pretty restrictive in nature, and doesn’t like connections from outside the grid.</p>
+<p>While CORS may solve the purpose at the webpage level, <code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code>’s inbuilt proxy restricts connections
+from any origin regardless of the tool used to connect (PostMan, curl, wget etc.)</p>
+<p>Due to this behavior, please make sure to specify <strong>ALL</strong> the origins that are supposed to be allowed
+(including but not limited to reverse-proxy, CDN, redirect servers etc.)</p>
+<blockquote>
+<div><p>Enabling proxy server increases an inconspicuous latency to the connections,
+but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.</p>
+</div></blockquote>
 </section>
 <section id="coding-standards">
 <h2>Coding Standards<a class="headerlink" href="#coding-standards" title="Permalink to this heading">¶</a></h2>
@@ -181,6 +212,7 @@ Styling conventions: <a class="reference external" href="https://www.python.org/
 <li><a class="reference internal" href="#env-files"><code class="docutils literal notranslate"><span class="pre">.env</span></code> files</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#proxy-server">Proxy Server</a></li>
 <li><a class="reference internal" href="#coding-standards">Coding Standards</a></li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a></li>
 <li><a class="reference internal" href="#linting">Linting</a></li>
