@@ -46,10 +46,10 @@ class FileBrowser:
             os.remove(download.executable.filebrowser_db)
         if self.proxy_engine:
             self.logger.info("Stopping proxy service")
-            self.proxy_engine.terminate()
-            for i in range(5):
+            self.proxy_engine.join(timeout=3)  # Gracefully terminate the proxy server
+            for i in range(1, 6):
                 if self.proxy_engine.is_alive():
-                    self.proxy_engine.kill()
+                    self.proxy_engine.terminate()
                 else:
                     self.logger.info("Daemon process terminated in %s attempt", steward.ordinal(i))
                     self.proxy_engine.close()

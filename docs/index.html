@@ -167,6 +167,21 @@
 <section id="module-pyfilebrowser.proxy.main">
 <span id="engine"></span><h1>Engine<a class="headerlink" href="#module-pyfilebrowser.proxy.main" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.rate_limiter">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">rate_limiter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.main.rate_limiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses an asynchronous redis connection to initialize rate limiter.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Initiates the redis connection during API startup.</p></li>
+<li><p>Closes the redis connection during API shutdown.</p></li>
+</ul>
+</div>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://fastapi.tiangolo.com/advanced/events/#lifespan">FastAPI LifeSpan</a></p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.main.proxy_engine">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">proxy_engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxy_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.proxy_engine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Proxy handler function to forward incoming requests to a target URL.</p>
@@ -423,6 +438,21 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.private_ip">
 <span class="sig-name descname"><span class="pre">private_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.private_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.rate_limit">
+<span class="sig-name descname"><span class="pre">rate_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">RateLimit</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RateLimit</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.rate_limit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.redis_host">
+<span class="sig-name descname"><span class="pre">redis_host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.redis_host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.redis_port">
+<span class="sig-name descname"><span class="pre">redis_port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.redis_port" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

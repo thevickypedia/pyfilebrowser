@@ -2,16 +2,23 @@ import os
 import pathlib
 import re
 import socket
-from typing import Dict, List
+from typing import Annotated, Dict, List
 
 import requests
-from pydantic import BaseModel, FilePath, HttpUrl, field_validator
+from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
+                      field_validator)
 from pydantic_settings import BaseSettings
 
 # noinspection LongLine
 IP_REGEX = re.compile(
     r"""^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"""  # noqa: E501
 )
+ALLOWED_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
+ALLOWED_HEADERS = ['content-length', 'dnt', 'cookie', 'authorization', 'accept', 'sec-fetch-user', 'sec-fetch-site',
+                   'connection', 'user-agent', 'origin', 'sec-ch-ua-mobile', 'tus-resumable', 'content-type',
+                   'cache-control', 'sec-ch-ua-platform', 'accept-language', 'sec-fetch-mode', 'referer', 'host',
+                   'upload-offset', 'if-range', 'sec-ch-ua', 'accept-encoding', 'range', 'upgrade-insecure-requests',
+                   'sec-fetch-dest', 'x-auth']
 
 
 def public_ip_address() -> str:
@@ -96,6 +103,20 @@ class Session(BaseModel):
     info: dict = {}
 
 
+class RateLimit(BaseModel):
+    """Object to store the rate limit settings.
+
+    >>> RateLimit
+
+    """
+
+    times: Annotated[int, Field(ge=0)] = 5
+    milliseconds: Annotated[int, Field(ge=-1)] = 0
+    seconds: Annotated[int, Field(ge=-1)] = 1
+    minutes: Annotated[int, Field(ge=-1)] = 0
+    hours: Annotated[int, Field(ge=-1)] = 0
+
+
 class EnvConfig(BaseSettings):
     """Configure all env vars and validate using ``pydantic`` to share across modules.
 
@@ -104,12 +125,15 @@ class EnvConfig(BaseSettings):
     """
 
     host: str = socket.gethostbyname('localhost')
-    port: int = 8000
-    workers: int = 1
+    port: PositiveInt = 8000
+    workers: PositiveInt = 1
     debug: bool = False
     origins: List[HttpUrl] = []
     public_ip: bool = False
     private_ip: bool = False
+    rate_limit: RateLimit | List[RateLimit] | None = None
+    redis_host: str = socket.gethostbyname('localhost')
+    redis_port: PositiveInt = 6379
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
     @field_validator('origins', mode='after', check_fields=True)

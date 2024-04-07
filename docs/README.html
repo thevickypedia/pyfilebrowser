@@ -95,7 +95,7 @@ and follow the naming convention below.</p>
 <div><p><code class="docutils literal notranslate"><span class="pre">.proxy.env</span></code> - Loads the proxy server’s configuration.</p>
 </div></blockquote>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">host</span></code> - Host machine’s local IP address. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">socket.gethostbyname('localhost')</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">host</span></code> - Hostname/IP for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">socket.gethostbyname('localhost')</span></code></em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">port</span></code> - Port number for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">8000</span></code></em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">workers</span></code> - Number of workers used to run the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code></em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code> - Boolean flag to enable debug level logging. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
@@ -103,6 +103,9 @@ and follow the naming convention below.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">public_ip</span></code> - Boolean flag to include public IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">private_ip</span></code> - Boolean flag to include private IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">error_page</span></code> - Error page to serve when filebrowser API is down. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html">error.html</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_host</span></code> - Hostname/IP for the redis server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">socket.gethostbyname('localhost')</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_port</span></code> - Port number for the redis server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">6379</span></code></em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rate_limit</span></code> - <code class="docutils literal notranslate"><span class="pre">Dict/List[Dict]</span></code> with the rate limit for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></em></p></li>
 </ul>
 </details><details>
 <summary><strong>filebrowser configuration</strong></summary><blockquote>
@@ -150,6 +153,14 @@ from any origin regardless of the tool used to connect (PostMan, curl, wget etc.
 <div><p>Enabling proxy server increases an inconspicuous latency to the connections,
 but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.</p>
 </div></blockquote>
+<section id="rate-limiter">
+<h3>Rate Limiter<a class="headerlink" href="#rate-limiter" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code>’s built-in proxy service allows you to implement a rate limiter.<br>
+<a class="reference external" href="https://www.cloudflare.com/learning/bots/what-is-rate-limiting/">Rate limiting</a> allows you to prevent <a class="reference external" href="https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/">DDoS</a> attacks and maintain server stability and performance.</p>
+<blockquote>
+<div><p>This feature requires a <a class="reference external" href="https://redis.io/docs/install/install-redis/">redis</a> server running on the host machine.</p>
+</div></blockquote>
+</section>
 </section>
 <section id="coding-standards">
 <h2>Coding Standards<a class="headerlink" href="#coding-standards" title="Permalink to this heading">¶</a></h2>
@@ -212,7 +223,10 @@ Styling conventions: <a class="reference external" href="https://www.python.org/
 <li><a class="reference internal" href="#env-files"><code class="docutils literal notranslate"><span class="pre">.env</span></code> files</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#proxy-server">Proxy Server</a></li>
+<li><a class="reference internal" href="#proxy-server">Proxy Server</a><ul>
+<li><a class="reference internal" href="#rate-limiter">Rate Limiter</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#coding-standards">Coding Standards</a></li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a></li>
 <li><a class="reference internal" href="#linting">Linting</a></li>

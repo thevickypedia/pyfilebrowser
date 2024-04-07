@@ -4,9 +4,10 @@ import time
 from typing import Dict
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
+from fastapi_limiter.depends import RateLimiter
 
 from pyfilebrowser.proxy import main, settings
 
@@ -34,7 +35,10 @@ class ProxyServer(uvicorn.Server):
         uvicorn_access.disabled = True
         uvicorn_access.propagate = False
         assert logger.name == "proxy"
-        self.run()
+        try:
+            self.run()
+        except KeyboardInterrupt:
+            logger.info("Proxy service terminated")
 
 
 def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> None:
@@ -52,20 +56,43 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
     settings.destination.auth_config = auth_map
     settings.env_config.origins.extend(settings.allowance())
 
+    # noinspection HttpUrlsUsage
+    logger.info("Starting proxy engine on http://%s:%s with %s workers",
+                settings.env_config.host, settings.env_config.port, settings.env_config.workers)
+    time.sleep(0.1)
+    print(f"\n{''.join('*' for _ in range(80))}\n")
+    print("ONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t-",
+          "\n\t- ".join(settings.env_config.origins))
+    print(f"\n{''.join('*' for _ in range(80))}\n")
+    time.sleep(0.1)
+
+    dependencies = []
+    if settings.env_config.rate_limit:
+        if isinstance(settings.env_config.rate_limit, list):
+            for rate_limit in settings.env_config.rate_limit:
+                kwargs = {k: v for k, v in rate_limit.__dict__.items() if v}
+                logger.info("Adding rate limit: %s", kwargs)
+                dependencies.append(Depends(dependency=RateLimiter(**kwargs)))
+        else:
+            kwargs = {k: v for k, v in settings.env_config.rate_limit.__dict__.items() if v}
+            logger.info("Adding rate limit: %s", kwargs)
+            dependencies.append(Depends(dependency=RateLimiter(**kwargs)))
     app = FastAPI(
         routes=[
             APIRoute(path="/{_:path}",
                      endpoint=main.proxy_engine,
-                     methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
-        ]
+                     methods=settings.ALLOWED_METHODS,
+                     dependencies=dependencies)
+        ],
+        lifespan=main.rate_limiter
     )
     # noinspection PyTypeChecker
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.env_config.origins,
         allow_credentials=True,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"],
-        allow_headers=["*"],  # todo: identify headers required by filebrowser and remove the rest
+        allow_methods=settings.ALLOWED_METHODS,
+        allow_headers=settings.ALLOWED_HEADERS,
         max_age=300,  # maximum time in seconds for browsers to cache CORS responses
     )
     proxy_config = uvicorn.Config(
@@ -74,13 +101,4 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
         workers=settings.env_config.workers,
         app=app,
     )
-    # noinspection HttpUrlsUsage
-    logger.info("Starting proxy engine on http://%s:%s with %s workers",
-                settings.env_config.host, settings.env_config.port, proxy_config.workers)
-    time.sleep(0.1)
-    print(f"\n{''.join('*' for _ in range(80))}\n")
-    print("ONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t-",
-          "\n\t- ".join(settings.env_config.origins))
-    print(f"\n{''.join('*' for _ in range(80))}\n")
-    time.sleep(0.1)
     ProxyServer(config=proxy_config).run_in_parallel(logger)
