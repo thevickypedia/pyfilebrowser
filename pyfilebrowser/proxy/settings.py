@@ -5,8 +5,7 @@ import socket
 from typing import Dict, List
 
 import requests
-from pydantic import (BaseModel, FilePath, HttpUrl, PositiveInt,
-                      field_validator)
+from pydantic import BaseModel, FilePath, HttpUrl, PositiveInt, field_validator
 from pydantic_settings import BaseSettings
 
 # noinspection LongLine
