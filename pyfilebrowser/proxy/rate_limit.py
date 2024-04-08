@@ -31,15 +31,22 @@ class RateLimiter:
         self.max_requests = rps.max_requests
         self.seconds = rps.seconds
         self.start_time = time.time()
+        self.exception = HTTPException(
+            status_code=HTTPStatus.TOO_MANY_REQUESTS.value,
+            detail=HTTPStatus.TOO_MANY_REQUESTS.phrase,
+            headers={
+                "Retry-After": str(math.ceil(self.seconds))  # reset headers, which will invalidate auth token
+            }
+        )
 
-    def init(self, request: Request):
+    def init(self, request: Request) -> None:
         """Checks if the number of calls exceeds the rate limit for the given identifier.
 
         Args:
             request: The incoming request object.
 
         Raises:
-            Exception: If the maximum number of requests is exceeded within the time window for the given identifier.
+            429: Too many requests.
         """
         if forwarded := request.headers.get("x-forwarded-for"):
             identifier = forwarded.split(",")[0]
@@ -56,13 +63,7 @@ class RateLimiter:
 
         if settings.session.rps.get(identifier):
             if settings.session.rps[identifier] >= self.max_requests:
-                raise HTTPException(
-                    status_code=HTTPStatus.TOO_MANY_REQUESTS.value,
-                    detail=HTTPStatus.TOO_MANY_REQUESTS.phrase,
-                    headers={
-                        "Retry-After": str(math.ceil(self.seconds))  # reset headers, which will invalidate auth token
-                    }
-                )
+                raise self.exception
             else:
                 settings.session.rps[identifier] += 1
         else:

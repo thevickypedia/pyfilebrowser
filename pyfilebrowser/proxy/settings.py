@@ -2,10 +2,10 @@ import os
 import pathlib
 import re
 import socket
-from typing import Annotated, Dict, List
+from typing import Dict, List
 
 import requests
-from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
+from pydantic import (BaseModel, FilePath, HttpUrl, PositiveInt,
                       field_validator)
 from pydantic_settings import BaseSettings
 
@@ -18,7 +18,7 @@ ALLOWED_HEADERS = ['content-length', 'dnt', 'cookie', 'authorization', 'accept',
                    'connection', 'user-agent', 'origin', 'sec-ch-ua-mobile', 'tus-resumable', 'content-type',
                    'cache-control', 'sec-ch-ua-platform', 'accept-language', 'sec-fetch-mode', 'referer', 'host',
                    'upload-offset', 'if-range', 'sec-ch-ua', 'accept-encoding', 'range', 'upgrade-insecure-requests',
-                   'sec-fetch-dest', 'x-auth']
+                   'sec-fetch-dest', 'x-auth', 'x-forwarded-host']
 
 
 def public_ip_address() -> str:
@@ -111,8 +111,8 @@ class RateLimit(BaseModel):
 
     """
 
-    max_requests: Annotated[int, Field(ge=0)]
-    seconds: Annotated[int, Field(ge=-1)]
+    max_requests: PositiveInt
+    seconds: PositiveInt
 
 
 class EnvConfig(BaseSettings):
@@ -132,8 +132,9 @@ class EnvConfig(BaseSettings):
     rate_limit: RateLimit | List[RateLimit] = []
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
+    # noinspection PyMethodParameters,PyUnusedLocal
     @field_validator('origins', mode='after', check_fields=True)
-    def origins_url_checker(cls, v, values, **kwargs):  # noqa
+    def origins_url_checker(cls, v, values, **kwargs) -> List[str] | List:
         """Validate origins' input as a URL, and convert as string when stored."""
         if v:
             return [str(i) for i in v]
