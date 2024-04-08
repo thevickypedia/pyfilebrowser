@@ -79,7 +79,7 @@ class RateLimit:
             bool:
             Boolean value to indicate the decision.
         """
-        current = int(time.time())
+        current = time.time()
         window_start = current - self.seconds
         pipeline = redis.Redis(connection_pool=self.pool).pipeline()
         with pipeline as pipe:
