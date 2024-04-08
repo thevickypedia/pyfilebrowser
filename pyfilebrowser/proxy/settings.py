@@ -8,6 +8,7 @@ import requests
 from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
                       field_validator)
 from pydantic_settings import BaseSettings
+from redis.connection import ConnectionPool
 
 # noinspection LongLine
 IP_REGEX = re.compile(
@@ -103,6 +104,17 @@ class Session(BaseModel):
     info: dict = {}
 
 
+class RedisCache(BaseModel):
+    """Object to store redis connection pool and pipeline."""
+
+    pool: ConnectionPool
+
+    class Config:
+        """Configuration for the RedisCache object."""
+
+        arbitrary_types_allowed = True
+
+
 class RateLimit(BaseModel):
     """Object to store the rate limit settings.
 
@@ -110,11 +122,8 @@ class RateLimit(BaseModel):
 
     """
 
-    times: Annotated[int, Field(ge=0)] = 5
-    milliseconds: Annotated[int, Field(ge=-1)] = 0
-    seconds: Annotated[int, Field(ge=-1)] = 1
-    minutes: Annotated[int, Field(ge=-1)] = 0
-    hours: Annotated[int, Field(ge=-1)] = 0
+    max_requests: Annotated[int, Field(ge=0)]
+    seconds: Annotated[int, Field(ge=-1)]
 
 
 class EnvConfig(BaseSettings):
@@ -131,16 +140,27 @@ class EnvConfig(BaseSettings):
     origins: List[HttpUrl] = []
     public_ip: bool = False
     private_ip: bool = False
-    rate_limit: RateLimit | List[RateLimit] | None = None
+    rate_limit: RateLimit | List[RateLimit] | None = None  # todo: set this to [] by default, how does None react?
     redis_host: str = socket.gethostbyname('localhost')
     redis_port: PositiveInt = 6379
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
     @field_validator('origins', mode='after', check_fields=True)
-    def convert_to_string(cls, v, values, **kwargs):  # noqa
+    def origins_url_checker(cls, v, values, **kwargs):  # noqa
         """Validate origins' input as a URL, and convert as string when stored."""
         if v:
             return [str(i) for i in v]
+        return []
+
+    # noinspection PyMethodParameters,PyUnusedLocal
+    @field_validator('rate_limit', mode='after', check_fields=True)
+    def rate_limit_checker(cls, v: RateLimit | List[RateLimit], values, **kwargs) -> List[RateLimit] | List:
+        """Validate origins' input as a URL, and convert as string when stored."""
+        if v:  # todo: simplify this
+            if not isinstance(v, list):
+                v = [v]
+            return v
+        return []
 
     class Config:
         """Environment variables configuration."""

@@ -1,46 +1,15 @@
 import json
 import logging
-from contextlib import asynccontextmanager
 from http import HTTPStatus
 
 import httpx
-import redis.asyncio
-from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi import HTTPException, Request, Response
 from fastapi.responses import FileResponse
-from fastapi_limiter import FastAPILimiter
 
 from pyfilebrowser.proxy import settings, squire
 
 LOGGER = logging.getLogger('proxy')
 CLIENT = httpx.Client()
-
-
-@asynccontextmanager
-async def rate_limiter(_: FastAPI):
-    """Uses an asynchronous redis connection to initialize rate limiter.
-
-    See Also:
-        - Initiates the redis connection during API startup.
-        - Closes the redis connection during API shutdown.
-
-    References:
-        `FastAPI LifeSpan <https://fastapi.tiangolo.com/advanced/events/#lifespan>`__
-    """
-    LOGGER.info("Initiating rate-limiter using redis")
-    try:
-        redis_connection = redis.asyncio.from_url(
-            url=f"redis://{settings.env_config.redis_host}:{settings.env_config.redis_port}",
-            encoding="utf8"
-        )
-        await FastAPILimiter.init(redis_connection)
-    except Exception as error:
-        LOGGER.critical(error)
-    yield
-    try:
-        LOGGER.info("Closing redis connection")
-        await FastAPILimiter.close()
-    except Exception as error:
-        LOGGER.critical(error)
 
 
 async def proxy_engine(proxy_request: Request) -> Response:

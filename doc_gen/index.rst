@@ -24,6 +24,11 @@ Engine
 
 .. automodule:: pyfilebrowser.proxy.main
 
+Rate Limit
+==========
+
+.. automodule:: pyfilebrowser.proxy.rate_limit
+
 Secure
 ======
 
@@ -48,6 +53,16 @@ Settings
 ====
 
 .. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(pydantic_settings.BaseSettings)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.RateLimit(pydantic.BaseModel)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.RedisCache(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
 ====

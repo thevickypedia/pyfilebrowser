@@ -7,9 +7,8 @@ import uvicorn
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
-from fastapi_limiter.depends import RateLimiter
 
-from pyfilebrowser.proxy import main, settings
+from pyfilebrowser.proxy import main, rate_limit, settings
 
 
 class ProxyServer(uvicorn.Server):
@@ -66,17 +65,13 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
     print(f"\n{''.join('*' for _ in range(80))}\n")
     time.sleep(0.1)
 
+    # todo: make a connection check to redis server, before adding it as a dependency
     dependencies = []
-    if settings.env_config.rate_limit:
-        if isinstance(settings.env_config.rate_limit, list):
-            for rate_limit in settings.env_config.rate_limit:
-                kwargs = {k: v for k, v in rate_limit.__dict__.items() if v}
-                logger.info("Adding rate limit: %s", kwargs)
-                dependencies.append(Depends(dependency=RateLimiter(**kwargs)))
-        else:
-            kwargs = {k: v for k, v in settings.env_config.rate_limit.__dict__.items() if v}
-            logger.info("Adding rate limit: %s", kwargs)
-            dependencies.append(Depends(dependency=RateLimiter(**kwargs)))
+    for each_rate_limit in settings.env_config.rate_limit:
+        logger.info("Adding rate limit: %s", each_rate_limit)
+        limiter = rate_limit.RateLimit(max_requests=each_rate_limit.max_requests,
+                                       seconds=each_rate_limit.seconds)
+        dependencies.append(Depends(dependency=limiter.rate_limit))
     app = FastAPI(
         routes=[
             APIRoute(path="/{_:path}",
@@ -84,7 +79,7 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
                      methods=settings.ALLOWED_METHODS,
                      dependencies=dependencies)
         ],
-        lifespan=main.rate_limiter
+        lifespan=rate_limit.lifespan
     )
     # noinspection PyTypeChecker
     app.add_middleware(
