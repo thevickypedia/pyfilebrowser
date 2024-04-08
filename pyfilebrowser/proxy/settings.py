@@ -140,7 +140,7 @@ class EnvConfig(BaseSettings):
     origins: List[HttpUrl] = []
     public_ip: bool = False
     private_ip: bool = False
-    rate_limit: RateLimit | List[RateLimit] | None = None  # todo: set this to [] by default, how does None react?
+    rate_limit: RateLimit | List[RateLimit] = []
     redis_host: str = socket.gethostbyname('localhost')
     redis_port: PositiveInt = 6379
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
@@ -156,11 +156,9 @@ class EnvConfig(BaseSettings):
     @field_validator('rate_limit', mode='after', check_fields=True)
     def rate_limit_checker(cls, v: RateLimit | List[RateLimit], values, **kwargs) -> List[RateLimit] | List:
         """Validate origins' input as a URL, and convert as string when stored."""
-        if v:  # todo: simplify this
-            if not isinstance(v, list):
-                v = [v]
-            return v
-        return []
+        if not isinstance(v, list):
+            v = [v]
+        return v
 
     class Config:
         """Environment variables configuration."""

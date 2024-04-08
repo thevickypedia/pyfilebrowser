@@ -4,9 +4,9 @@ from http import HTTPStatus
 
 import httpx
 from fastapi import HTTPException, Request, Response
-from fastapi.responses import FileResponse
+from fastapi.responses import HTMLResponse
 
-from pyfilebrowser.proxy import settings, squire
+from pyfilebrowser.proxy import error, settings, squire
 
 LOGGER = logging.getLogger('proxy')
 CLIENT = httpx.Client()
@@ -23,11 +23,10 @@ async def proxy_engine(proxy_request: Request) -> Response:
     """
     squire.log_connection(proxy_request)
     # todo: make sure base_url is always caught and also verify x-forwarded-host, origin and host headers
-    #   return a FileResponse with Jinja templated error page
     if proxy_request.base_url not in settings.env_config.origins:
         LOGGER.warning("%s is not allowed since it is not set in CORS %s",
                        proxy_request.base_url, settings.env_config.origins)
-        raise HTTPException(status_code=HTTPStatus.FORBIDDEN.real,
+        raise HTTPException(status_code=HTTPStatus.FORBIDDEN.value,
                             detail=f"{proxy_request.base_url!r} is not allowed")
     # following condition prevents long videos from spamming the logs
     if settings.session.info.get(proxy_request.client.host) != proxy_request.url.path:
@@ -66,4 +65,8 @@ async def proxy_engine(proxy_request: Request) -> Response:
         return proxy_response
     except httpx.RequestError as exc:
         LOGGER.error(exc)
-        return FileResponse(path=settings.env_config.error_page, headers=None, media_type="text/html")
+        return HTMLResponse(
+            headers=None,
+            content=error.service_unavailable(),
+            status_code=HTTPStatus.SERVICE_UNAVAILABLE.value
+        )

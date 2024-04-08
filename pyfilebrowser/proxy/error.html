@@ -48,8 +48,8 @@
 <div class="corner">
     <i><span id="span"></span></i>
 </div>
-<h2 style="margin-top:5%">Server Error</h2>
-<h3>Unable to connect to the server ¯\_(ツ)_/¯ </h3>
+<h2 style="margin-top:5%">{{ title }}</h2>
+<h3>{{ summary }}</h3>
 <p>
     <img src="https://thevickypedia.github.io/open-source/images/gif/shattered_fusion.gif"
         onerror="this.src='https://vigneshrao.com/open-source/images/gif/shattered_fusion.gif'"
@@ -57,12 +57,12 @@
 </p>
 <button style="text-align:center" onClick="window.location.reload()">RETRY</button>
 <br>
-<button style="text-align:center" onClick="alert('Nothing to do here!!\n\nSit back and relax while the server is napping.');">HELP
+<button style="text-align:center" onClick="alert('{{ help }}');">HELP
 </button>
 <h4>Click <a href="https://vigneshrao.com/contact">HERE</a> to reach out.</h4>
 <script>
     function displayTimer() {
-        let seconds = 60;
+        let seconds = '{{ refresh_interval }}';
         let display = document.getElementById('span');
         display.innerHTML = "Auto-refresh in: " + seconds + "s";
 
@@ -79,7 +79,7 @@
 
     setInterval(function () {
         window.location.reload();
-    }, 60000);
+    }, '{{ refresh_interval }}' * 1000);
 </script>
 </body>
 </html>

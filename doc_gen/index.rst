@@ -24,6 +24,11 @@ Engine
 
 .. automodule:: pyfilebrowser.proxy.main
 
+Errors
+======
+
+.. automodule:: pyfilebrowser.proxy.error
+
 Rate Limit
 ==========
 

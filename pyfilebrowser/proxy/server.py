@@ -65,21 +65,26 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
     print(f"\n{''.join('*' for _ in range(80))}\n")
     time.sleep(0.1)
 
-    # todo: make a connection check to redis server, before adding it as a dependency
-    dependencies = []
-    for each_rate_limit in settings.env_config.rate_limit:
-        logger.info("Adding rate limit: %s", each_rate_limit)
-        limiter = rate_limit.RateLimit(max_requests=each_rate_limit.max_requests,
-                                       seconds=each_rate_limit.seconds)
-        dependencies.append(Depends(dependency=limiter.rate_limit))
+    dependencies, lifespan = [], None
+    if rate_limit.ping_redis() and settings.env_config.rate_limit:
+        for each_rate_limit in settings.env_config.rate_limit:
+            logger.info("Adding rate limit: %s", each_rate_limit)
+            limiter = rate_limit.RateLimit(max_requests=each_rate_limit.max_requests,
+                                           seconds=each_rate_limit.seconds)
+            dependencies.append(Depends(dependency=limiter.rate_limit))
+        # lifespan = rate_limit.lifespan
+    elif settings.env_config.rate_limit:
+        logger.critical("Redis server is not running, so rate limit cannot be applied")
     app = FastAPI(
         routes=[
-            APIRoute(path="/{_:path}",
-                     endpoint=main.proxy_engine,
-                     methods=settings.ALLOWED_METHODS,
-                     dependencies=dependencies)
+            APIRoute(
+                path="/{_:path}",
+                endpoint=main.proxy_engine,
+                methods=settings.ALLOWED_METHODS,
+                dependencies=dependencies
+            )
         ],
-        lifespan=rate_limit.lifespan
+        lifespan=lifespan
     )
     # noinspection PyTypeChecker
     app.add_middleware(

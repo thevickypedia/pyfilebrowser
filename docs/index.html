@@ -184,6 +184,23 @@
 </dd></dl>
 
 </section>
+<section id="module-pyfilebrowser.proxy.error">
+<span id="errors"></span><h1>Errors<a class="headerlink" href="#module-pyfilebrowser.proxy.error" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.error.service_unavailable">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.error.</span></span><span class="sig-name descname"><span class="pre">service_unavailable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.error.service_unavailable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs an error page using jina template for service unavailable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTML content as string.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-pyfilebrowser.proxy.rate_limit">
 <span id="rate-limit"></span><h1>Rate Limit<a class="headerlink" href="#module-pyfilebrowser.proxy.rate_limit" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
@@ -199,6 +216,20 @@
 </div>
 <p class="rubric">References</p>
 <p><a class="reference external" href="https://fastapi.tiangolo.com/advanced/events/#lifespan">FastAPI LifeSpan</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.rate_limit.ping_redis">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.rate_limit.</span></span><span class="sig-name descname"><span class="pre">ping_redis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.rate_limit.ping_redis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pings the redis server and returns the response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns a boolean value to indicate the availability.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -494,7 +525,7 @@ validated to form a valid model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.rate_limit">
-<span class="sig-name descname"><span class="pre">rate_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.rate_limit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rate_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.rate_limit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1993,6 +2024,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
 <li><a class="reference internal" href="#proxy">Proxy</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.main">Engine</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.proxy.error">Errors</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.rate_limit">Rate Limit</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.secure">Secure</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.server">Server</a></li>
