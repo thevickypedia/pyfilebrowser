@@ -67,11 +67,6 @@ Settings
 
 ====
 
-.. autoclass:: pyfilebrowser.proxy.settings.RedisCache(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
-====
-
 .. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 

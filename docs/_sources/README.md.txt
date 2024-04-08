@@ -71,8 +71,6 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - `public_ip` - Boolean flag to include public IP address of the host. _Defaults to `False`_
 - `private_ip` - Boolean flag to include private IP address of the host. _Defaults to `False`_
 - `error_page` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
-- `redis_host` - Hostname/IP for the redis server. _Defaults to `socket.gethostbyname('localhost')`_
-- `redis_port` - Port number for the redis server. _Defaults to `6379`_
 - `rate_limit` - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
 </details>
@@ -135,10 +133,9 @@ Due to this behavior, please make sure to specify **ALL** the origins that are s
 > but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
 
 ### Rate Limiter
-`pyfilebrowser`'s built-in proxy service allows you to implement a rate limiter.<br>
-[Rate limiting] allows you to prevent [DDoS] attacks and maintain server stability and performance.
+`pyfilebrowser`'s built-in proxy service allows you to implement a rate limiter.
 
-> This feature requires a [redis] server running on the host machine.
+[Rate limiting] allows you to prevent [DDoS] attacks and maintain server stability and performance.
 
 ## Coding Standards
 Docstring format: [`Google`][google-docs] <br>
@@ -207,6 +204,5 @@ Licensed under the [MIT License][license]
 [pep8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://pycqa.github.io/isort/
 [error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html
-[redis]: https://redis.io/docs/install/install-redis/
 [Rate limiting]: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
 [DDoS]: https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/

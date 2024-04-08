@@ -8,7 +8,6 @@ import requests
 from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
                       field_validator)
 from pydantic_settings import BaseSettings
-from redis.connection import ConnectionPool
 
 # noinspection LongLine
 IP_REGEX = re.compile(
@@ -102,17 +101,7 @@ class Session(BaseModel):
     """
 
     info: dict = {}
-
-
-class RedisCache(BaseModel):
-    """Object to store redis connection pool and pipeline."""
-
-    pool: ConnectionPool
-
-    class Config:
-        """Configuration for the RedisCache object."""
-
-        arbitrary_types_allowed = True
+    rps: dict = {}
 
 
 class RateLimit(BaseModel):
@@ -141,8 +130,6 @@ class EnvConfig(BaseSettings):
     public_ip: bool = False
     private_ip: bool = False
     rate_limit: RateLimit | List[RateLimit] = []
-    redis_host: str = socket.gethostbyname('localhost')
-    redis_port: PositiveInt = 6379
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
     @field_validator('origins', mode='after', check_fields=True)
