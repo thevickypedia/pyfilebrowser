@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import datetime, timedelta
 from http import HTTPStatus
 
 import httpx
@@ -65,8 +66,11 @@ async def proxy_engine(proxy_request: Request) -> Response:
         return proxy_response
     except httpx.RequestError as exc:
         LOGGER.error(exc)
+        max_age = timedelta(minutes=5)
+        expiration = datetime.utcnow() + max_age
+        formatted_date = expiration.strftime("%a, %d %b %Y %H:%M:%S GMT")
         return HTMLResponse(
-            headers=None,
+            headers={"Cache-Control": f"max-age={max_age.seconds}", "Expires": formatted_date},
             content=error.service_unavailable(),
             status_code=HTTPStatus.SERVICE_UNAVAILABLE.value
         )

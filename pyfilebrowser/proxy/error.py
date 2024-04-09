@@ -24,7 +24,7 @@ def service_unavailable() -> str:
 
 
 def forbidden(origin: URL) -> str:
-    """Constructs an error page using jina template for service unavailable.
+    """Constructs an error page using jina template for forbidden response.
 
     Args:
         origin: Origin that is forbidden.
@@ -38,6 +38,6 @@ def forbidden(origin: URL) -> str:
     return jinja2.Template(error_template).render(
         title=HTTPStatus.FORBIDDEN.phrase,
         summary=HTTPStatus.FORBIDDEN.description,
-        help=f"Request from {origin!r} is not allowed",
+        help=f"Requests from {origin.hostname!r} is not allowed",
         refresh_interval=86_400
     )

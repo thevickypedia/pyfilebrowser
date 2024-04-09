@@ -19,7 +19,8 @@ def log_connection(request: Request) -> None:
     """
     if request.client.host not in settings.session.info:
         settings.session.info[request.client.host] = None
-        LOGGER.info("Connection received from %s via %s", request.client.host, request.headers.get('host'))
+        LOGGER.info("Connection received from client-host: %s, host-header: %s, x-fwd-host: %s",
+                    request.client.host, request.headers.get('host'), request.headers.get('x-forwarded-host'))
         LOGGER.info("User agent: %s", request.headers.get('user-agent'))
 
 
