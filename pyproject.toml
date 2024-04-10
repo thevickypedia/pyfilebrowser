@@ -17,7 +17,9 @@ keywords = ["filebrowser", "pydantic", "python-dotenv"]
 requires-python = ">=3.11"
 
 [tool.setuptools]
-packages = ["pyfilebrowser", "pyfilebrowser.modals", "pyfilebrowser.squire"]
+packages = ["pyfilebrowser", "pyfilebrowser.modals", "pyfilebrowser.proxy", "pyfilebrowser.squire"]
+[tool.setuptools.package-data]
+"pyfilebrowser.proxy" = ["error.html"]
 
 [tool.setuptools.dynamic]
 version = {attr = "pyfilebrowser.version"}

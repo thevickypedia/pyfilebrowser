@@ -2,4 +2,4 @@
 
 from pyfilebrowser.main import FileBrowser  # noqa: F401
 
-version = "0.0.8"
+version = "0.0.92-a"
