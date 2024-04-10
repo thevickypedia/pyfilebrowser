@@ -23,7 +23,7 @@ async def proxy_engine(proxy_request: Request) -> Response:
         Response: The response object with the forwarded content and headers.
     """
     squire.log_connection(proxy_request)
-    # todo: make sure base_url is always caught and also verify x-forwarded-host, origin and host headers
+    # Since host header can be overridden, always check with base_url
     if proxy_request.base_url not in settings.env_config.origins:
         LOGGER.warning("%s is not allowed since it is not set in CORS %s",
                        proxy_request.base_url, settings.env_config.origins)
@@ -58,7 +58,12 @@ async def proxy_engine(proxy_request: Request) -> Response:
         else:
             content = server_response.content
         server_response.headers.pop("content-encoding", None)
-        proxy_response = Response(content, server_response.status_code, server_response.headers, content_type)
+        proxy_response = Response(
+            content=content,
+            status_code=server_response.status_code,
+            headers=server_response.headers,
+            media_type=content_type
+        )
         if cookie == "set":
             proxy_response.set_cookie(key="pyproxy", value="on")
         if cookie == "delete":

@@ -1,6 +1,5 @@
 import contextlib
 import logging.config
-import time
 from typing import Dict
 
 import uvicorn
@@ -60,13 +59,10 @@ def proxy_server(server: str,
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
                 settings.env_config.host, settings.env_config.port, settings.env_config.workers)
-    time.sleep(0.1)
-    print(f"\n{''.join('*' for _ in range(80))}\n")
-    print("ONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t-",
-          "\n\t- ".join(settings.env_config.origins))
-    print(f"\n{''.join('*' for _ in range(80))}\n")
-    time.sleep(0.1)
-
+    logger.warning(
+        "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t-%s\n\n%s\n",
+        "".join("*" for _ in range(80)), "\n\t- ".join(settings.env_config.origins), "".join("*" for _ in range(80))
+    )
     dependencies = []
     for each_rate_limit in settings.env_config.rate_limit:
         logger.info("Adding rate limit: %s", each_rate_limit)

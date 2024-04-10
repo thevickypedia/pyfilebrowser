@@ -27,10 +27,10 @@ class FileBrowser:
             proxy: Boolean flag to enable proxy.
         """
         self.env = steward.EnvConfig(**kwargs)
-        # Reset to stdout, so the log output stream can be controlled with custom logging
-        self.env.config_settings.server.log = models.Log.stdout
         self.logger = kwargs.get('logger',
                                  steward.default_logger(self.env.config_settings.server.log == models.Log.file))
+        # Reset to stdout, so the log output stream can be controlled with custom logging
+        self.env.config_settings.server.log = models.Log.stdout
         github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
