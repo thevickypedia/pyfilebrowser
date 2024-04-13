@@ -19,7 +19,7 @@ temp.py
 settings/
 logs/
 filebrowser
-filebrowser.db
+*.db
 
 # Build
 dist/

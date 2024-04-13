@@ -1,7 +1,6 @@
 from http import HTTPStatus
 
 import jinja2
-from starlette.datastructures import URL
 
 from pyfilebrowser.proxy import settings
 
@@ -23,7 +22,7 @@ def service_unavailable() -> str:
     )
 
 
-def forbidden(origin: URL) -> str:
+def forbidden(origin: str) -> str:
     """Constructs an error page using jina template for forbidden response.
 
     Args:
@@ -38,6 +37,6 @@ def forbidden(origin: URL) -> str:
     return jinja2.Template(error_template).render(
         title=HTTPStatus.FORBIDDEN.phrase,
         summary=HTTPStatus.FORBIDDEN.description,
-        help=f"Requests from {origin.hostname!r} is not allowed",
+        help=f"Requests from {origin!r} is not allowed",
         refresh_interval=86_400
     )

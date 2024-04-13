@@ -12,13 +12,8 @@ Welcome to PyFileBrowser's documentation!
 
    README
 
-Main Module
-===========
-
-.. automodule:: pyfilebrowser.main
-
-Proxy
-=====
+--------Proxy Server--------
+============================
 Engine
 ======
 
@@ -52,7 +47,7 @@ Squire
 Settings
 ========
 
-.. autoclass:: pyfilebrowser.proxy.settings.destination(pydantic.BaseModel)
+.. autoclass:: pyfilebrowser.proxy.settings.Destination(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
 ====
@@ -69,6 +64,13 @@ Settings
 
 .. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
+
+--------PyFileBrowser API--------
+=================================
+Main Module
+===========
+
+.. automodule:: pyfilebrowser.main
 
 Modals
 ======

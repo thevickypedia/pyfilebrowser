@@ -2,10 +2,11 @@ import os
 import pathlib
 import re
 import socket
-from typing import Dict, List
+from typing import Dict, List, Set
 
 import requests
-from pydantic import BaseModel, FilePath, HttpUrl, PositiveInt, field_validator
+from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
+                      field_validator)
 from pydantic_settings import BaseSettings
 
 # noinspection LongLine
@@ -80,11 +81,10 @@ def allowance() -> List[HttpUrl]:
     return list(set(base_origins))  # If hosted on private ip and private_ip flag is set to true, then there'll be dupes
 
 
-# noinspection PyPep8Naming
-class destination(BaseModel):
+class Destination(BaseModel):
     """Server's destination settings.
 
-    >>> destination
+    >>> Destination
 
     """
 
@@ -99,8 +99,11 @@ class Session(BaseModel):
 
     """
 
-    info: dict = {}
-    rps: dict = {}
+    auth_counter: Dict[str, int] = {}
+    forbid: Set[str] = set()
+
+    info: Dict[str, str] = {}
+    rps: Dict[str, int] = {}
 
 
 class RateLimit(BaseModel):
@@ -126,6 +129,7 @@ class EnvConfig(BaseSettings):
     workers: PositiveInt = 1
     debug: bool = False
     origins: List[HttpUrl] = []
+    database: str = Field("auth.db", pattern=".*.db$")
     public_ip: bool = False
     private_ip: bool = False
     rate_limit: RateLimit | List[RateLimit] = []
@@ -156,3 +160,4 @@ class EnvConfig(BaseSettings):
 
 env_config = EnvConfig()
 session = Session()
+destination = Destination

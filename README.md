@@ -68,8 +68,8 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - `workers` - Number of workers used to run the proxy server. _Defaults to `1`_
 - `debug` - Boolean flag to enable debug level logging. _Defaults to `False`_
 - `origins` - Origins to allow connections through proxy server. _Defaults to `host`_ ***
-- `public_ip` - Boolean flag to include public IP address of the host. _Defaults to `False`_
-- `private_ip` - Boolean flag to include private IP address of the host. _Defaults to `False`_
+- `public_ip` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
+- `private_ip` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
 - `error_page` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
 - `rate_limit` - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
@@ -118,24 +118,33 @@ if __name__ == '__main__':
 </details>
 
 ## Proxy Server
-`pyfilebrowser` allows you to run a proxy server in parallel, which helps the user with much more logging information,
-and secured connections.
+`pyfilebrowser` allows you to run a proxy server in parallel,
+which includes a collection of security features and trace level logging information.
 
-The proxy server is pretty restrictive in nature, and doesn't like connections from outside the grid.
+> The proxy server is pretty restrictive in nature.
 
-While CORS may solve the purpose at the webpage level, `pyfilebrowser`'s inbuilt proxy restricts connections
+### [Firewall]
+
+While CORS may solve the purpose at the webpage level, the built-in proxy's firewall restricts connections
 from any origin regardless of the tool used to connect (PostMan, curl, wget etc.)
 
 Due to this behavior, please make sure to specify **ALL** the origins that are supposed to be allowed
 (including but not limited to reverse-proxy, CDN, redirect servers etc.)
 
-> Enabling proxy server increases an inconspicuous latency to the connections,
-> but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
+### [Brute Force Protection]
 
-### Rate Limiter
-`pyfilebrowser`'s built-in proxy service allows you to implement a rate limiter.
+- The built-in proxy service limits the number of failed login attempts from a host address to **three**.
+- Any more than 3 attempts, will result in the host address being temporarily blocked.
+- For every failed attempt _(after the initial 3)_, the host address will be blocked at an incremental rate.
+- After 10 such attempts, the host address will be permanently _(1 month)_ forbidden.
+
+### [Rate Limiter]
+The built-in proxy service allows you to implement a rate limiter.
 
 [Rate limiting] allows you to prevent [DDoS] attacks and maintain server stability and performance.
+
+> Enabling proxy server increases an inconspicuous latency to the connections,
+> but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
 
 ## Coding Standards
 Docstring format: [`Google`][google-docs] <br>
@@ -206,3 +215,6 @@ Licensed under the [MIT License][license]
 [error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html
 [Rate limiting]: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
 [DDoS]: https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/
+[Rate Limiter]: https://builtin.com/software-engineering-perspectives/rate-limiter
+[Brute Force Protection]: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
+[Firewall]: https://www.zenarmor.com/docs/network-security-tutorials/what-is-proxy-firewall

@@ -60,7 +60,7 @@ def proxy_server(server: str,
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
                 settings.env_config.host, settings.env_config.port, settings.env_config.workers)
     logger.warning(
-        "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t-%s\n\n%s\n",
+        "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t- %s\n\n%s\n",
         "".join("*" for _ in range(80)), "\n\t- ".join(settings.env_config.origins), "".join("*" for _ in range(80))
     )
     dependencies = []

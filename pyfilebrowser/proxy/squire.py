@@ -15,7 +15,7 @@ def log_connection(request: Request) -> None:
 
     See Also:
         - Only logs the first connection from a device.
-        - This avoids multiple logs when same device accesses different paths.
+        - This avoids multiple logs when same device is accessing different paths.
     """
     if request.client.host not in settings.session.info:
         settings.session.info[request.client.host] = None

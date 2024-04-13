@@ -41,9 +41,11 @@ class FileBrowser:
 
     def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
-        if os.path.isfile(download.executable.filebrowser_db):
-            self.logger.info("Removing database %s", download.executable.filebrowser_db)
+        try:
             os.remove(download.executable.filebrowser_db)
+            self.logger.info("Removed config database %s", download.executable.filebrowser_db)
+        except FileNotFoundError as warn:
+            self.logger.warning(warn)
         if self.proxy_engine:
             self.logger.info("Stopping proxy service")
             self.proxy_engine.join(timeout=3)  # Gracefully terminate the proxy server
@@ -51,7 +53,7 @@ class FileBrowser:
                 if self.proxy_engine.is_alive():
                     self.proxy_engine.terminate()
                 else:
-                    self.logger.info("Daemon process terminated in %s attempt", steward.ordinal(i))
+                    self.logger.debug("Daemon process terminated in %s attempt", steward.ordinal(i))
                     self.proxy_engine.close()
                     break
                 time.sleep(1e-1)  # 0.1s
@@ -60,6 +62,11 @@ class FileBrowser:
                     f"Failed to terminate daemon process PID: [{self.proxy_engine.pid}] within 5 attempts",
                     RuntimeWarning
                 )
+            try:
+                os.remove(proxy_settings.database)
+                self.logger.info("Removed proxy database %s", proxy_settings.database)
+            except FileNotFoundError as warn:
+                self.logger.warning(warn)
 
     def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
