@@ -1,9 +1,39 @@
-from typing import List, Optional
+import re
+from typing import Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+
+
+def complexity_checker(password: str) -> None:
+    """Verifies the strength of a secret/password.
+
+    See Also:
+        A password is considered strong if it at least has:
+
+        - 8 characters
+        - 1 digit
+        - 1 symbol
+        - 1 uppercase letter
+        - 1 lowercase letter
+    """
+    # calculates the length
+    assert len(password) >= 8, "Minimum password length is 8"
+
+    # searches for digits
+    assert re.search(r"\d", password), "Password must include an integer"
+
+    # searches for uppercase
+    assert re.search(r"[A-Z]", password), "Password must include at least one uppercase letter"
+
+    # searches for lowercase
+    assert re.search(r"[a-z]", password), "Password must include at least one lowercase letter"
+
+    # searches for symbols
+    assert re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]',
+                     password), "Password must contain at least one special character"
 
 
 class Authentication(BaseModel):
@@ -52,6 +82,30 @@ class UserSettings(BaseSettings):
             Loads the ``UserSettings`` model.
         """
         return cls(_env_file=env_file)
+
+    # noinspection PyMethodParameters
+    @field_validator("authentication", mode="before")
+    def validate_password_complexity(cls, value: Authentication) -> Authentication | Dict:
+        """Field validator for password.
+
+        Args:
+            value: Value as entered by the user.
+
+        Returns:
+            Authentication | Dict:
+            Returns an ``Authentication`` object or a dictionary with the authentication payload.
+        """
+        if isinstance(value, Authentication):
+            passwd = value.password
+        elif isinstance(value, dict):
+            passwd = value.get('password')
+        else:
+            raise ValueError(f"unknown type ({type(value)})")
+        try:
+            complexity_checker(passwd)
+        except AssertionError as error:
+            raise ValueError(error)
+        return value
 
     class Config:
         """Environment variables configuration."""
