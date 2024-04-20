@@ -73,7 +73,7 @@ async def proxy_engine(proxy_request: Request) -> Response:
     """
     squire.log_connection(proxy_request)
     # Since host header can be overridden, always check with base_url
-    if proxy_request.base_url not in settings.env_config.origins:
+    if proxy_request.base_url.hostname not in settings.env_config.origins:
         LOGGER.warning("%s is blocked by firewall, since it is not set in allowed origins %s",
                        proxy_request.base_url, settings.env_config.origins)
         raise HTTPException(status_code=HTTPStatus.FORBIDDEN.value,

@@ -71,13 +71,14 @@ def allowance() -> List[HttpUrl]:
         List[HttpUrl]:
         Returns the list of allowable URLs.
     """
-    base_origins = [f"http://{env_config.host}:{env_config.port}/"]
+    base_origins = [env_config.host]
     if env_config.host == socket.gethostbyname('localhost'):
-        base_origins.append(f"http://localhost:{env_config.port}/")
+        base_origins.append("localhost")
+        base_origins.append("0.0.0.0")
     if env_config.private_ip and (pri_ip_addr := private_ip_address()):
-        base_origins.append(f"http://{pri_ip_addr}:{env_config.port}/")
+        base_origins.append(pri_ip_addr)
     if env_config.public_ip and (pub_ip_addr := public_ip_address()):
-        base_origins.append(f"http://{pub_ip_addr}:{env_config.port}/")
+        base_origins.append(pub_ip_addr)
     return list(set(base_origins))  # If hosted on private ip and private_ip flag is set to true, then there'll be dupes
 
 
@@ -137,10 +138,10 @@ class EnvConfig(BaseSettings):
 
     # noinspection PyMethodParameters,PyUnusedLocal
     @field_validator('origins', mode='after', check_fields=True)
-    def origins_url_checker(cls, v, values, **kwargs) -> List[str] | List:
-        """Validate origins' input as a URL, and convert as string when stored."""
+    def origins_url_checker(cls, v: List[HttpUrl]) -> List[str] | List:
+        """Validate origins' input as a URL, and stores only the host part of the URL."""
         if v:
-            return [str(i) for i in v]
+            return list(set([i.host for i in v]))
         return []
 
     # noinspection PyMethodParameters,PyUnusedLocal
