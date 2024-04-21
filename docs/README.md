@@ -69,10 +69,13 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - **debug** `bool` - Boolean flag to enable debug level logging. _Defaults to `False`_
 - **origins** `List[str]` - Origins to allow connections through proxy server. _Defaults to `host`_
 - **public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
-- **private_ip** `string` - Allow private IP address of the host using `current` or the entire IP range using `range`. _Defaults to `None`_
+- **private_ip** `bool` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
+- **origin_refresh** `int` - Interval in seconds to refresh all the allowed origins. _Defaults to `None`_
 - **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
 - **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
+> `origin_refresh` allows users to set a custom interval to update the public and private IP address of the host,
+based on their DHCP lease renewal.<br>This is specifically useful in cases of long running sessions.
 </details>
 
 <details>

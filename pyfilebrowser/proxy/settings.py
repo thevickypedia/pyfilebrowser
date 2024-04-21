@@ -2,7 +2,6 @@ import os
 import pathlib
 import re
 import socket
-from enum import StrEnum
 from typing import Dict, List, Set
 
 import requests
@@ -77,6 +76,8 @@ def allowance() -> List[HttpUrl]:
     if env_config.host == socket.gethostbyname('localhost'):
         base_origins.add("localhost")
         base_origins.add("0.0.0.0")
+    if env_config.private_ip and (pri_ip_addr := private_ip_address()):
+        base_origins.add(pri_ip_addr)
     if env_config.public_ip and (pub_ip_addr := public_ip_address()):
         base_origins.add(pub_ip_addr)
     return list(base_origins)
@@ -105,6 +106,7 @@ class Session(BaseModel):
 
     info: Dict[str, str] = {}
     rps: Dict[str, int] = {}
+    allowed_origins: Set[str] = set()
 
 
 class RateLimit(BaseModel):
@@ -116,17 +118,6 @@ class RateLimit(BaseModel):
 
     max_requests: PositiveInt
     seconds: PositiveInt
-
-
-class PrivateIP(StrEnum):
-    """String enum for allowed options in ``private_ip`` field.
-
-    >>> PrivateIP
-
-    """
-
-    range: str = 'range'
-    current: str = 'current'
 
 
 class EnvConfig(BaseSettings):
@@ -143,7 +134,8 @@ class EnvConfig(BaseSettings):
     origins: List[HttpUrl] = []
     database: str = Field("auth.db", pattern=".*.db$")
     public_ip: bool = False
-    private_ip: PrivateIP | None = None
+    private_ip: bool = False
+    origin_refresh: PositiveInt | None = None
     rate_limit: RateLimit | List[RateLimit] = []
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 

@@ -43,22 +43,19 @@ class FileBrowser:
         """Removes the config and proxy database."""
         try:
             os.remove(download.executable.filebrowser_db)
-            if log:
-                self.logger.info("Removed config database %s", download.executable.filebrowser_db)
+            self.logger.info("Removed config database %s", download.executable.filebrowser_db)
         except FileNotFoundError as warn:
             self.logger.warning(warn) if log else None
         if self.proxy_engine:
             try:
                 os.remove(proxy_settings.database)
-                if log:
-                    self.logger.info("Removed proxy database %s", proxy_settings.database)
+                self.logger.info("Removed proxy database %s", proxy_settings.database)
             except FileNotFoundError as warn:
                 self.logger.warning(warn) if log else None
 
     def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
         if self.proxy_engine:
-            self.logger.info("Stopping proxy service")
             self.proxy_engine.join(timeout=3)  # Gracefully terminate the proxy server
             for i in range(1, 6):
                 if self.proxy_engine.is_alive():

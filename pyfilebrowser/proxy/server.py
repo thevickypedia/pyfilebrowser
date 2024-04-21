@@ -7,7 +7,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
 
-from pyfilebrowser.proxy import main, rate_limit, settings
+from pyfilebrowser.proxy import main, rate_limit, repeated_timer, settings
 
 
 class ProxyServer(uvicorn.Server):
@@ -25,6 +25,9 @@ class ProxyServer(uvicorn.Server):
 
         Args:
             logger: Server's original logger.
+
+        See Also:
+            - Initiates a background task to refresh the allowed origins at given interval.
         """
         uvicorn_error = logging.getLogger("uvicorn.error")
         uvicorn_error.disabled = True
@@ -33,46 +36,55 @@ class ProxyServer(uvicorn.Server):
         uvicorn_access.disabled = True
         uvicorn_access.propagate = False
         assert logger.name == "proxy"
+        timer = None
+        if settings.env_config.origin_refresh and \
+                (settings.env_config.private_ip or settings.env_config.public_ip):
+            logger.info("Initiating background task to refresh allowed origins every %d seconds",
+                        settings.env_config.origin_refresh)
+            timer = repeated_timer.RepeatedTimer(
+                function=main.refresh_allowed_origins, interval=settings.env_config.origin_refresh
+            )
+            timer.start()
         try:
             self.run()
         except KeyboardInterrupt:
+            if timer:
+                logger.info("Stopping background task to refresh allowed origins")
+                timer.stop()
+        finally:
             logger.info("Proxy service terminated")
 
 
 def proxy_server(server: str,
                  log_config: dict,
                  auth_map: Dict[str, str]) -> None:
-    """Runs the proxy engine in parallel.
+    """Triggers the proxy engine in parallel.
 
     Args:
         server: Server URL that has to be proxied.
         log_config: Server's logger object.
         auth_map: Server's authorization mapping.
+
+    See Also:
+        - Creates a logging configuration similar to the main logger.
+        - Adds the rate limit dependency, per the user's selection.
+        - Adds CORS Middleware settings, and loads the uvicorn config.
     """
     logging.config.dictConfig(log_config)
     logger = logging.getLogger('proxy')
 
     settings.destination.url = server
     settings.destination.auth_config = auth_map
-    settings.env_config.origins.extend(settings.allowance())
+    main.refresh_allowed_origins()
 
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
                 settings.env_config.host, settings.env_config.port, settings.env_config.workers)
-    log_origins = settings.env_config.origins.copy()
-    if settings.env_config.private_ip and (pri_ip_addr := settings.private_ip_address()):
-        if settings.env_config.private_ip == settings.PrivateIP.current:
-            logger.info("Adding current IP address '%s' to allow list", pri_ip_addr)
-            settings.env_config.origins.append(pri_ip_addr)
-        else:
-            ip_notion = '.'.join(pri_ip_addr.split('.')[0:3])
-            logger.info("Adding IP range '%s.1 - 254' to allow list", ip_notion)
-            for ip in range(1, 255):
-                settings.env_config.origins.append(f"{ip_notion}.{ip}")
-            log_origins.append(f"{ip_notion}.1 - 254")
     logger.warning(
         "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t- %s\n\n%s\n",
-        "".join("*" for _ in range(80)), "\n\t- ".join(log_origins), "".join("*" for _ in range(80))
+        "".join("*" for _ in range(80)),
+        "\n\t- ".join(settings.session.allowed_origins),
+        "".join("*" for _ in range(80))
     )
     dependencies = []
     for each_rate_limit in settings.env_config.rate_limit:

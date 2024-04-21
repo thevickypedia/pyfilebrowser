@@ -29,6 +29,11 @@ Rate Limit
 
 .. automodule:: pyfilebrowser.proxy.rate_limit
 
+Repeated Timer
+==============
+
+.. automodule:: pyfilebrowser.proxy.repeated_timer
+
 Secure
 ======
 
@@ -65,8 +70,8 @@ Settings
 .. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
 
---------PyFileBrowser API--------
-=================================
+--------PyFB API Client--------
+===============================
 Main Module
 ===========
 

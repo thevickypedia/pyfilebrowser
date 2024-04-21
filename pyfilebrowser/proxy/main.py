@@ -16,6 +16,23 @@ CLIENT = httpx.Client()
 epoch = lambda: int(time.time())  # noqa: E731
 
 
+def refresh_allowed_origins() -> None:
+    """Refresh all the allowed origins.
+
+    See Also:
+        - Triggered once during the proxy server starts up (by default).
+        - Triggered repeatedly at given intervals as a background task (if ``origin_refresh`` is set).
+        - | The background task runs only when the env vars, ``private_ip`` or ``public_ip`` is set to True,
+          | as they are the only dynamic values.
+    """
+    LOGGER.debug("Refreshing allowed origins")
+    settings.session.allowed_origins.clear()
+    settings.session.allowed_origins.update(settings.env_config.origins)
+    settings.session.allowed_origins.update(settings.allowance())
+    LOGGER.debug("Next refresh - %s",
+                 (datetime.now() + timedelta(seconds=settings.env_config.origin_refresh)).strftime('%c'))
+
+
 async def incrementer(attempt: int) -> int:
     """Increments block time for a host address based on the number of failed attempts.
 
@@ -73,9 +90,9 @@ async def proxy_engine(proxy_request: Request) -> Response:
     """
     squire.log_connection(proxy_request)
     # Since host header can be overridden, always check with base_url
-    if proxy_request.base_url.hostname not in settings.env_config.origins:
+    if proxy_request.base_url.hostname not in settings.session.allowed_origins:
         LOGGER.warning("%s is blocked by firewall, since it is not set in allowed origins %s",
-                       proxy_request.base_url, settings.env_config.origins)
+                       proxy_request.base_url, settings.session.allowed_origins)
         raise HTTPException(status_code=HTTPStatus.FORBIDDEN.value,
                             detail=f"{proxy_request.base_url!r} is not allowed")
     if proxy_request.client.host in settings.session.forbid:  # placeholder list, to avoid DB search for every request
