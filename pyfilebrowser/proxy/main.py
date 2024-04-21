@@ -16,7 +16,7 @@ CLIENT = httpx.Client()
 epoch = lambda: int(time.time())  # noqa: E731
 
 
-def incrementer(attempt: int) -> int:
+async def incrementer(attempt: int) -> int:
     """Increments block time for a host address based on the number of failed attempts.
 
     Args:
@@ -51,7 +51,7 @@ async def handle_auth_error(request: Request) -> None:
             database.put_record(request.client.host, until)
         elif settings.session.auth_counter[request.client.host] > 3:  # Allows up to 3 failed login attempts
             settings.session.forbid.add(request.client.host)
-            minutes = incrementer(settings.session.auth_counter[request.client.host])
+            minutes = await incrementer(settings.session.auth_counter[request.client.host])
             until = epoch() + minutes * 60
             LOGGER.warning("%s is blocked (for %d minutes) until %s",
                            request.client.host, minutes, datetime.fromtimestamp(until).strftime('%c'))

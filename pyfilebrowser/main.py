@@ -39,13 +39,24 @@ class FileBrowser:
         assert self.proxy is None or isinstance(self.proxy, bool), \
             f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
 
-    def exit_process(self) -> None:
-        """Deletes the database file, and all the subtitles that were created by this application."""
+    def cleanup(self, log: bool = True) -> None:
+        """Removes the config and proxy database."""
         try:
             os.remove(download.executable.filebrowser_db)
-            self.logger.info("Removed config database %s", download.executable.filebrowser_db)
+            if log:
+                self.logger.info("Removed config database %s", download.executable.filebrowser_db)
         except FileNotFoundError as warn:
-            self.logger.warning(warn)
+            self.logger.warning(warn) if log else None
+        if self.proxy_engine:
+            try:
+                os.remove(proxy_settings.database)
+                if log:
+                    self.logger.info("Removed proxy database %s", proxy_settings.database)
+            except FileNotFoundError as warn:
+                self.logger.warning(warn) if log else None
+
+    def exit_process(self) -> None:
+        """Deletes the database file, and all the subtitles that were created by this application."""
         if self.proxy_engine:
             self.logger.info("Stopping proxy service")
             self.proxy_engine.join(timeout=3)  # Gracefully terminate the proxy server
@@ -62,11 +73,7 @@ class FileBrowser:
                     f"Failed to terminate daemon process PID: [{self.proxy_engine.pid}] within 5 attempts",
                     RuntimeWarning
                 )
-            try:
-                os.remove(proxy_settings.database)
-                self.logger.info("Removed proxy database %s", proxy_settings.database)
-            except FileNotFoundError as warn:
-                self.logger.warning(warn)
+        self.cleanup()
 
     def run_subprocess(self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False) -> None:
         """Run ``filebrowser`` commands as subprocess.
@@ -185,8 +192,7 @@ class FileBrowser:
 
     def start(self) -> None:
         """Handler for all the functions above."""
-        if os.path.isfile(download.executable.filebrowser_db):
-            os.remove(download.executable.filebrowser_db)
+        self.cleanup(False)
         self.import_config()
         self.background_tasks(self.import_users())
         self.run_subprocess([], "Failed to run the server", True)
