@@ -63,15 +63,15 @@ Env vars can either be loaded from `.env` files or directly passed during object
 
 > `.proxy.env` - Loads the proxy server's configuration.
 
-- `host` - Hostname/IP for the proxy server. _Defaults to `socket.gethostbyname('localhost')`_
-- `port` - Port number for the proxy server. _Defaults to `8000`_
-- `workers` - Number of workers used to run the proxy server. _Defaults to `1`_
-- `debug` - Boolean flag to enable debug level logging. _Defaults to `False`_
-- `origins` - Origins to allow connections through proxy server. _Defaults to `host`_ ***
-- `public_ip` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
-- `private_ip` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
-- `error_page` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
-- `rate_limit` - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
+- **host** `str` - Hostname/IP for the proxy server. _Defaults to `socket.gethostbyname('localhost')`_
+- **port** `int` - Port number for the proxy server. _Defaults to `8000`_
+- **workers** `int` - Number of workers used to run the proxy server. _Defaults to `1`_
+- **debug** `bool` - Boolean flag to enable debug level logging. _Defaults to `False`_
+- **origins** `List[str]` - Origins to allow connections through proxy server. _Defaults to `host`_
+- **public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
+- **private_ip** `string` - Allow private IP address of the host using `current` or the entire IP range using `range`. _Defaults to `None`_
+- **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
+- **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
 </details>
 

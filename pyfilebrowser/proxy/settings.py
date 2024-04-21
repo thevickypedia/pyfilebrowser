@@ -2,6 +2,7 @@ import os
 import pathlib
 import re
 import socket
+from enum import StrEnum
 from typing import Dict, List, Set
 
 import requests
@@ -71,15 +72,14 @@ def allowance() -> List[HttpUrl]:
         List[HttpUrl]:
         Returns the list of allowable URLs.
     """
-    base_origins = [env_config.host]
+    base_origins = set()
+    base_origins.add(env_config.host)
     if env_config.host == socket.gethostbyname('localhost'):
-        base_origins.append("localhost")
-        base_origins.append("0.0.0.0")
-    if env_config.private_ip and (pri_ip_addr := private_ip_address()):
-        base_origins.append(pri_ip_addr)
+        base_origins.add("localhost")
+        base_origins.add("0.0.0.0")
     if env_config.public_ip and (pub_ip_addr := public_ip_address()):
-        base_origins.append(pub_ip_addr)
-    return list(set(base_origins))  # If hosted on private ip and private_ip flag is set to true, then there'll be dupes
+        base_origins.add(pub_ip_addr)
+    return list(base_origins)
 
 
 class Destination(BaseModel):
@@ -118,6 +118,17 @@ class RateLimit(BaseModel):
     seconds: PositiveInt
 
 
+class PrivateIP(StrEnum):
+    """String enum for allowed options in ``private_ip`` field.
+
+    >>> PrivateIP
+
+    """
+
+    range: str = 'range'
+    current: str = 'current'
+
+
 class EnvConfig(BaseSettings):
     """Configure all env vars and validate using ``pydantic`` to share across modules.
 
@@ -132,7 +143,7 @@ class EnvConfig(BaseSettings):
     origins: List[HttpUrl] = []
     database: str = Field("auth.db", pattern=".*.db$")
     public_ip: bool = False
-    private_ip: bool = False
+    private_ip: PrivateIP | None = None
     rate_limit: RateLimit | List[RateLimit] = []
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 

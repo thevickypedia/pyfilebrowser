@@ -59,9 +59,20 @@ def proxy_server(server: str,
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",
                 settings.env_config.host, settings.env_config.port, settings.env_config.workers)
+    log_origins = settings.env_config.origins.copy()
+    if settings.env_config.private_ip and (pri_ip_addr := settings.private_ip_address()):
+        if settings.env_config.private_ip == settings.PrivateIP.current:
+            logger.info("Adding current IP address '%s' to allow list", pri_ip_addr)
+            settings.env_config.origins.append(pri_ip_addr)
+        else:
+            ip_notion = '.'.join(pri_ip_addr.split('.')[0:3])
+            logger.info("Adding IP range '%s.1 - 254' to allow list", ip_notion)
+            for ip in range(1, 255):
+                settings.env_config.origins.append(f"{ip_notion}.{ip}")
+            log_origins.append(f"{ip_notion}.1 - 254")
     logger.warning(
         "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t- %s\n\n%s\n",
-        "".join("*" for _ in range(80)), "\n\t- ".join(settings.env_config.origins), "".join("*" for _ in range(80))
+        "".join("*" for _ in range(80)), "\n\t- ".join(log_origins), "".join("*" for _ in range(80))
     )
     dependencies = []
     for each_rate_limit in settings.env_config.rate_limit:
