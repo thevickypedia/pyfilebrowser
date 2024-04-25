@@ -1,3 +1,4 @@
+import difflib
 import json
 import logging
 import time
@@ -12,6 +13,7 @@ from pyfilebrowser.proxy import database, error, settings, squire
 
 LOGGER = logging.getLogger('proxy')
 CLIENT = httpx.Client()
+DIFFER = difflib.Differ()
 
 epoch = lambda: int(time.time())  # noqa: E731
 
@@ -25,11 +27,19 @@ def refresh_allowed_origins() -> None:
         - | The background task runs only when the env vars, ``private_ip`` or ``public_ip`` is set to True,
           | as they are the only dynamic values.
     """
-    LOGGER.debug("Refreshing allowed origins")
+    allowed_origins = set()
+    allowed_origins.update(settings.env_config.origins)
+    allowed_origins.update(settings.allowance())
+
+    # Extract elements that are only in one of the sets
+    if difference := [item for item in list(DIFFER.compare(sorted(settings.session.allowed_origins),
+                                                           sorted(allowed_origins)))
+                      if item.startswith('- ') or item.startswith('+ ')]:
+        LOGGER.warning("Changes in allowed origins: %s", difference)
+
     settings.session.allowed_origins.clear()
-    settings.session.allowed_origins.update(settings.env_config.origins)
-    settings.session.allowed_origins.update(settings.allowance())
-    LOGGER.debug("Next refresh - %s",
+    settings.session.allowed_origins = allowed_origins
+    LOGGER.debug("Refreshed allowed origins. Next refresh - %s",
                  (datetime.now() + timedelta(seconds=settings.env_config.origin_refresh)).strftime('%c'))
 
 

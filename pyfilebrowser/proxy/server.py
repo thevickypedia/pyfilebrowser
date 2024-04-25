@@ -36,20 +36,21 @@ class ProxyServer(uvicorn.Server):
         uvicorn_access.disabled = True
         uvicorn_access.propagate = False
         assert logger.name == "proxy"
-        timer = None
+        timers = []
         if settings.env_config.origin_refresh and \
                 (settings.env_config.private_ip or settings.env_config.public_ip):
-            logger.info("Initiating background task to refresh allowed origins every %d seconds",
-                        settings.env_config.origin_refresh)
-            timer = repeated_timer.RepeatedTimer(
+            timers.append(repeated_timer.RepeatedTimer(
                 function=main.refresh_allowed_origins, interval=settings.env_config.origin_refresh
-            )
+            ))
+        for timer in timers:
+            logger.info("Initiating the background task '%s' with interval %d seconds",
+                        timer.function.__name__, timer.interval.real)
             timer.start()
         try:
             self.run()
         except KeyboardInterrupt:
-            if timer:
-                logger.info("Stopping background task to refresh allowed origins")
+            for timer in timers:
+                logger.info("Stopping the background task '%s'", timer.function.__name__)
                 timer.stop()
         finally:
             logger.info("Proxy service terminated")
@@ -75,7 +76,8 @@ def proxy_server(server: str,
 
     settings.destination.url = server
     settings.destination.auth_config = auth_map
-    main.refresh_allowed_origins()
+    settings.session.allowed_origins.update(settings.env_config.origins)
+    settings.session.allowed_origins.update(settings.allowance())
 
     # noinspection HttpUrlsUsage
     logger.info("Starting proxy engine on http://%s:%s with %s workers",

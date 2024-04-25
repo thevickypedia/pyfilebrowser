@@ -2,6 +2,7 @@ import json
 import logging
 import multiprocessing
 import os
+import socket
 import subprocess
 import time
 import warnings
@@ -176,6 +177,13 @@ class FileBrowser:
         if self.proxy:
             assert proxy_settings.port != int(self.env.config_settings.server.port), \
                 f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
+            try:
+                with socket.socket() as sock:
+                    sock.bind((proxy_settings.host, proxy_settings.port))
+            except OSError as error:
+                self.logger.error(error)
+                self.logger.critical("Cannot initiate proxy server")
+                raise
             log_config = struct.LoggerConfig(self.logger).get()
             if proxy_settings.debug:
                 log_config = struct.update_log_level(log_config, logging.DEBUG)
