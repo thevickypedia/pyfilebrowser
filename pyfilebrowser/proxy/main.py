@@ -138,7 +138,8 @@ async def proxy_engine(proxy_request: Request) -> Response:
         if proxy_request.url.path == "/api/login":
             if server_response.status_code == 403:
                 await handle_auth_error(proxy_request)
-            else:
+            elif (proxy_request.client in settings.session.forbid or
+                  settings.session.auth_counter.get(proxy_request.client.host)):
                 LOGGER.debug("Removing %s from forbidden list", proxy_request.client.host)
                 settings.session.forbid.discard(proxy_request.client.host)
 
@@ -149,11 +150,14 @@ async def proxy_engine(proxy_request: Request) -> Response:
                 LOGGER.debug("Removing %s from auth DB", proxy_request.client.host)
                 database.remove_record(host=proxy_request.client.host)
         content_type = server_response.headers.get("content-type", "")
-        if "text/html" in content_type:
+        if "text" in content_type:
             content = server_response.text
         else:
             content = server_response.content
         server_response.headers.pop("content-encoding", None)
+        # fixme: there should be a better way to handle this
+        if "javascript" in content_type:  # todo: not sure if this is solely because of VideoJS plugin
+            server_response.headers.pop("content-length", None)
         proxy_response = Response(
             content=content,
             status_code=server_response.status_code,
