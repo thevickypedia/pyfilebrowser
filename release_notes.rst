@@ -1,6 +1,25 @@
 Release Notes
 =============
 
+v0.0.91 (06/05/2024)
+--------------------
+- Includes a bug fix on `content-length` mismatch after VideoJS plugin integration
+- Fixes misinformed logging for forbidden list and auth counter
+
+v0.0.9 (05/21/2024)
+-------------------
+- Includes a variety of security features
+- Includes rate limiting and brute force protection
+- Restricts server access to specified origins
+- Improved response for forbidden requests
+- Includes a password complexity checker
+- Automatically refreshes allowed origins in the background
+- Adds CORS protection for proxy server
+- Moved proxy flag to object instantiation
+- Removes redundant logging for files that are streamed
+- Gracefully shutdown the proxy server
+- Uses Jinja2 templated error messages
+
 v0.0.8 (04/05/2024)
 -------------------
 - Includes a proxy server for enhanced web security using cryptographic encryption
