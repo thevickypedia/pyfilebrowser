@@ -6,111 +6,44 @@ import shutil
 import stat
 import tarfile
 import zipfile
-from typing import Any, List, Tuple, Type
 
 import requests
 from pydantic import BaseModel, FilePath
-from pydantic.fields import FieldInfo
-from pydantic_settings import (BaseSettings, EnvSettingsSource,
-                               PydanticBaseSettingsSource, SettingsConfigDict)
+from pydantic.fields import AliasChoices, Field
+from pydantic_settings import BaseSettings
 
 
-class ExtendedEnvSettingsSource(EnvSettingsSource):
-    """Customized environment settings source that allows specifying multiple prefixes for environmental variables.
+def alias_choices(variable: str) -> AliasChoices:
+    """Custom alias choices for environment variables for GitHub.
 
-    >>> ExtendedEnvSettingsSource
+    Args:
+        variable: Variable name.
 
+    Returns:
+        AliasChoices:
+        Returns the alias choices for the variable.
     """
-
-    def get_field_value(self, field: FieldInfo, field_name: str) -> Tuple[Any, str, bool]:
-        """Retrieves the field value from the environment with support for multiple prefixes.
-
-        Args:
-            field: Information about the field.
-            field_name: Name of the field.
-
-        Returns:
-            Tuple[Any, str, bool]:
-            Retrieved value, field key, and a boolean indicating whether the value is complex.
-        """
-        # noinspection PyTypedDict
-        if prefixes := self.config.get("env_prefixes", []):
-            for prefix in prefixes:
-                self.env_prefix = prefix
-                env_val, field_key, value_is_complex = super().get_field_value(field, field_name)
-                if env_val is not None:
-                    return env_val, field_key, value_is_complex
-
-        return super().get_field_value(field, field_name)
+    return AliasChoices(f"FILEBROWSER_{variable}", f"GIT_{variable}", f"GITHUB_{variable}")
 
 
-class ExtendedSettingsConfigDict(SettingsConfigDict, total=False):
-    """Configuration dictionary extension to support additional settings.
-
-    >>> ExtendedSettingsConfigDict
-
-    Attributes:
-        env_prefixes (List[str] | None): List of environment variable prefixes to consider.
-    """
-
-    env_prefixes: List[str] | None
-
-
-class ExtendedBaseSettings(BaseSettings):
-    """Base settings class extension to customize settings sources.
-
-    >>> ExtendedBaseSettings
-
-    Methods:
-        settings_customise_sources: Customizes settings sources for the extended settings class.
-    """
-
-    @classmethod
-    def settings_customise_sources(
-            cls,
-            settings_cls: Type[BaseSettings],
-            init_settings: PydanticBaseSettingsSource,
-            env_settings: PydanticBaseSettingsSource,
-            dotenv_settings: PydanticBaseSettingsSource,
-            file_secret_settings: PydanticBaseSettingsSource
-    ) -> Tuple[PydanticBaseSettingsSource, ...]:
-        """Customizes the settings sources for the extended settings class.
-
-        Args:
-            settings_cls: The extended settings class.
-            init_settings: Settings source for initialization.
-            env_settings: Settings source for environment variables.
-            dotenv_settings: Settings source for dotenv files.
-            file_secret_settings: Settings source for secret files.
-
-        Returns:
-            Tuple[PydanticBaseSettingsSource, ...]:
-            Tuple of customized settings sources.
-        """
-        return (ExtendedEnvSettingsSource(settings_cls),)
-
-
-class GitHub(ExtendedBaseSettings):
+class GitHub(BaseSettings):
     """Custom GitHub account information loaded using multiple env prefixes.
 
     >>> GitHub
 
-    References:
-        https://github.com/pydantic/pydantic/discussions/4319
-
-    See Also:
-        - This model is to load GitHub arguments, which is used to download the appropriate asset from source control.
-        - Dot env ``(.env)`` files are not supported. Regular env variables are required.
     """
 
-    model_config = ExtendedSettingsConfigDict(
-        env_prefixes=["git_", "github_", "filebrowser_"]
-    )
+    owner: str = Field("filebrowser", validation_alias=alias_choices("OWNER"))
+    repo: str = Field("filebrowser", validation_alias=alias_choices("REPO"))
+    token: str | None = Field(None, validation_alias=alias_choices("TOKEN"))
+    version: str = Field("latest", validation_alias=alias_choices("VERSION"))
 
-    owner: str = "filebrowser"
-    repo: str = "filebrowser"
-    token: str | None = None
-    version: str = "latest"
+    class Config:
+        """Custom configuration for GitHub settings."""
+
+        env_prefix = ""
+        env_file = ".github.env"
+        extra = "ignore"
 
 
 class Executable(BaseModel):
@@ -145,7 +78,7 @@ class Executable(BaseModel):
             f"Aborted, unsupported or unknown OS: {system}"
         )
 
-    if "aarch64" in machine:
+    if "aarch64" in machine or "arm64" in machine:
         filebrowser_arch: str = "arm64"
     elif "64" in machine:
         filebrowser_arch: str = "amd64"

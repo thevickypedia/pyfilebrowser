@@ -38,7 +38,7 @@ class ProxyServer(uvicorn.Server):
         assert logger.name == "proxy"
         timers = []
         if settings.env_config.origin_refresh and \
-                (settings.env_config.private_ip or settings.env_config.public_ip):
+                (settings.env_config.allow_private_ip or settings.env_config.allow_public_ip):
             timers.append(repeated_timer.RepeatedTimer(
                 function=main.refresh_allowed_origins, interval=settings.env_config.origin_refresh
             ))

@@ -176,12 +176,13 @@ class FileBrowser:
         if self.proxy:
             assert proxy_settings.port != int(self.env.config_settings.server.port), \
                 f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
+            # This is to check if the port is available, before starting the proxy server in a dedicated process
             try:
                 with socket.socket() as sock:
                     sock.bind((proxy_settings.host, proxy_settings.port))
             except OSError as error:
                 self.logger.error(error)
-                self.logger.critical("Cannot initiate proxy server")
+                self.logger.critical("Cannot initiate proxy server, retry after sometime or change the port number.")
                 self.cleanup()
                 raise
             log_config = struct.LoggerConfig(self.logger).get()

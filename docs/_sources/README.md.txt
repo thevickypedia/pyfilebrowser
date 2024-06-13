@@ -27,8 +27,15 @@ way of handling the configuration and initialization.
 <summary><strong>Download custom-built executables</strong></summary>
 <br>
 
-Additionally, custom source _(to download binaries)_ can be configured by specifying the environment variables,
-`GIT_OWNER` and `GIT_REPO`<br>
+Additionally, custom source _(to download binaries)_ can be configured by specifying the following environment variables
+
+- **OWNER** - Owner of the GitHub repo.
+- **REPO** - Repository name.
+- **TOKEN** - GitHub repository token.
+- **VERSION** - Version of the release.
+
+> _also supports the dotenv file `.github.env`, and prefixes like `github`, `git` and `filebrowser`_
+
 For this custom source feature to work, the executable should be uploaded to releases as assets,
 and follow the naming convention below.
 
@@ -43,7 +50,7 @@ and follow the naming convention below.
 python -m pip install pyfilebrowser
 ```
 
-**Initiate**
+**Initiate [programmatically]**
 ```python
 import pyfilebrowser
 
@@ -51,6 +58,11 @@ if __name__ == '__main__':
     browser = pyfilebrowser.FileBrowser()
     # browser.proxy = True  # [Optional] Enables proxy server to run in parallel
     browser.start()
+```
+
+**Initiate [CLI]**
+```shell
+pyfilebrowser
 ```
 
 ## Environment Variables
@@ -68,10 +80,11 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - **workers** `int` - Number of workers used to run the proxy server. _Defaults to `1`_
 - **debug** `bool` - Boolean flag to enable debug level logging. _Defaults to `False`_
 - **origins** `List[str]` - Origins to allow connections through proxy server. _Defaults to `host`_
-- **public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
-- **private_ip** `bool` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
+- **allow_public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
+- **allow_private_ip** `bool` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
 - **origin_refresh** `int` - Interval in seconds to refresh all the allowed origins. _Defaults to `None`_
 - **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
+- **warn_page** `FilePath` - Warning page to serve when accessed from Unsupported browsers. _Defaults to_ [warn.html]
 - **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
 > `origin_refresh` allows users to set a custom interval to update the public and private IP address of the host,
@@ -216,6 +229,7 @@ Licensed under the [MIT License][license]
 [pep8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://pycqa.github.io/isort/
 [error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html
+[warn.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/warn.html
 [Rate limiting]: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
 [DDoS]: https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/
 [Rate Limiter]: https://builtin.com/software-engineering-perspectives/rate-limiter

@@ -19,7 +19,7 @@ requires-python = ">=3.11"
 [tool.setuptools]
 packages = ["pyfilebrowser", "pyfilebrowser.modals", "pyfilebrowser.proxy", "pyfilebrowser.squire"]
 [tool.setuptools.package-data]
-"pyfilebrowser.proxy" = ["error.html"]
+"pyfilebrowser.proxy" = ["error.html", "warn.html"]
 
 [tool.setuptools.dynamic]
 version = {attr = "pyfilebrowser.version"}
@@ -31,6 +31,9 @@ build-backend = "setuptools.build_meta"
 
 [project.optional-dependencies]
 dev = ["sphinx==5.1.1", "pre-commit", "recommonmark"]
+
+[project.scripts]
+pyfilebrowser = "pyfilebrowser:_cli"
 
 [project.urls]
 Homepage = "https://github.com/thevickypedia/pyfilebrowser"

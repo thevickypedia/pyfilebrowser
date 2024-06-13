@@ -353,8 +353,8 @@
 <span id="squire"></span><h1>Squire<a class="headerlink" href="#module-pyfilebrowser.proxy.squire" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.squire.log_connection">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.squire.</span></span><span class="sig-name descname"><span class="pre">log_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.squire.log_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs the connection information.</p>
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.squire.</span></span><span class="sig-name descname"><span class="pre">log_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">starlette.responses.HTMLResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.squire.log_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs the connection information and returns an HTML response if the browser is unsupported for video/audio.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <ul class="simple">
@@ -362,6 +362,14 @@
 <li><p>This avoids multiple logs when same device is accessing different paths.</p></li>
 </ul>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns an HTML response if the browser is unsupported for video/audio rendering.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTMLResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -513,13 +521,13 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.public_ip">
-<span class="sig-name descname"><span class="pre">public_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.public_ip" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.allow_public_ip">
+<span class="sig-name descname"><span class="pre">allow_public_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.allow_public_ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.private_ip">
-<span class="sig-name descname"><span class="pre">private_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.private_ip" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.allow_private_ip">
+<span class="sig-name descname"><span class="pre">allow_private_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.allow_private_ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -533,20 +541,36 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.unsupported_browsers">
+<span class="sig-name descname"><span class="pre">unsupported_browsers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.unsupported_browsers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.warn_page">
+<span class="sig-name descname"><span class="pre">warn_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.warn_page" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.error_page">
 <span class="sig-name descname"><span class="pre">error_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.error_page" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.origins_url_checker">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origins_url_checker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.origins_url_checker" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_unsupported_browsers">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_unsupported_browsers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unsupported_browsers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_unsupported_browsers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate unsupported_browsers and convert to list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_origins">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_origins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_origins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate origins’ input as a URL, and stores only the host part of the URL.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.rate_limit_checker">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rate_limit_checker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.rate_limit_checker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate origins’ input as a URL, and convert as string when stored.</p>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_rate_limit">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_rate_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate rate_limit and convert to list.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -1732,114 +1756,11 @@ validated to form a valid model.</p>
 
 <hr class="docutils" />
 <dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.download.ExtendedEnvSettingsSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">ExtendedEnvSettingsSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.EnvSettingsSource</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.download.ExtendedEnvSettingsSource" title="Permalink to this definition">¶</a></dt>
-<dd><p>Customized environment settings source that allows specifying multiple prefixes for environmental variables.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ExtendedEnvSettingsSource</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.download.ExtendedEnvSettingsSource.get_field_value">
-<span class="sig-name descname"><span class="pre">get_field_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FieldInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.download.ExtendedEnvSettingsSource.get_field_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves the field value from the environment with support for multiple prefixes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>field</strong> – Information about the field.</p></li>
-<li><p><strong>field_name</strong> – Name of the field.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Retrieved value, field key, and a boolean indicating whether the value is complex.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[Any, str, bool]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.download.ExtendedSettingsConfigDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">ExtendedSettingsConfigDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.SettingsConfigDict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.download.ExtendedSettingsConfigDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration dictionary extension to support additional settings.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ExtendedSettingsConfigDict</span>
-</pre></div>
-</div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.download.ExtendedSettingsConfigDict.env_prefixes">
-<span class="sig-name descname"><span class="pre">env_prefixes</span></span><a class="headerlink" href="#pyfilebrowser.squire.download.ExtendedSettingsConfigDict.env_prefixes" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of environment variable prefixes to consider.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[str] | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">ExtendedBaseSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Base settings class extension to customize settings sources.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ExtendedBaseSettings</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">settings_customise_sources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>Customizes settings sources for the extended settings class.</p>
-</dd></dl>
-
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">settings_customise_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseSettings</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dotenv_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_secret_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">PydanticBaseSettingsSource</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
-<dd><p>Customizes the settings sources for the extended settings class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>settings_cls</strong> – The extended settings class.</p></li>
-<li><p><strong>init_settings</strong> – Settings source for initialization.</p></li>
-<li><p><strong>env_settings</strong> – Settings source for environment variables.</p></li>
-<li><p><strong>dotenv_settings</strong> – Settings source for dotenv files.</p></li>
-<li><p><strong>file_secret_settings</strong> – Settings source for secret files.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple of customized settings sources.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[PydanticBaseSettingsSource, …]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">GitHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ExtendedBaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">GitHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom GitHub account information loaded using multiple env prefixes.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">GitHub</span>
 </pre></div>
-</div>
-<p class="rubric">References</p>
-<p><a class="reference external" href="https://github.com/pydantic/pydantic/discussions/4319">https://github.com/pydantic/pydantic/discussions/4319</a></p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>This model is to load GitHub arguments, which is used to download the appropriate asset from source control.</p></li>
-<li><p>Dot env <code class="docutils literal notranslate"><span class="pre">(.env)</span></code> files are not supported. Regular env variables are required.</p></li>
-</ul>
 </div>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
@@ -1865,10 +1786,48 @@ validated to form a valid model.</p>
 <span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.version" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom configuration for GitHub settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub.Config.env_prefix">
+<span class="sig-name descname"><span class="pre">env_prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.Config.env_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub.Config.env_file">
+<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.github.env'</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.Config.env_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.GitHub.Config.extra">
+<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.GitHub.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </dd></dl>
 
 <hr class="docutils" />
 <span class="target" id="module-pyfilebrowser.squire.download"></span><dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.alias_choices">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">alias_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AliasChoices</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.download.alias_choices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom alias choices for environment variables for GitHub.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>variable</strong> – Variable name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the alias choices for the variable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>AliasChoices</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.binary">
 <span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyfilebrowser.squire.download.GitHub" title="pyfilebrowser.squire.download.GitHub"><span class="pre">GitHub</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.download.binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads the latest released binary asset.</p>

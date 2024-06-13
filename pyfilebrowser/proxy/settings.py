@@ -2,6 +2,7 @@ import os
 import pathlib
 import re
 import socket
+import string
 from typing import Dict, List, Set
 
 import requests
@@ -76,9 +77,9 @@ def allowance() -> List[HttpUrl]:
     if env_config.host == socket.gethostbyname('localhost'):
         base_origins.add("localhost")
         base_origins.add("0.0.0.0")
-    if env_config.private_ip and (pri_ip_addr := private_ip_address()):
+    if env_config.allow_private_ip and (pri_ip_addr := private_ip_address()):
         base_origins.add(pri_ip_addr)
-    if env_config.public_ip and (pub_ip_addr := public_ip_address()):
+    if env_config.allow_public_ip and (pub_ip_addr := public_ip_address()):
         base_origins.add(pub_ip_addr)
     return list(base_origins)
 
@@ -133,27 +134,43 @@ class EnvConfig(BaseSettings):
     debug: bool = False
     origins: List[HttpUrl] = []
     database: str = Field("auth.db", pattern=".*.db$")
-    public_ip: bool = False
-    private_ip: bool = False
+    allow_public_ip: bool = False
+    allow_private_ip: bool = False
     origin_refresh: PositiveInt | None = None
     rate_limit: RateLimit | List[RateLimit] = []
+    unsupported_browsers: str | List[str] = ["Chrome"]
+    warn_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'warn.html')
     error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
 
     # noinspection PyMethodParameters,PyUnusedLocal
+    @field_validator('unsupported_browsers', mode='after', check_fields=True)
+    def parse_unsupported_browsers(cls, unsupported_browsers: str | List[str]) -> List[str] | List:
+        """Validate unsupported_browsers and convert to list."""
+        if isinstance(unsupported_browsers, str):
+            unsupported_browsers = [unsupported_browsers]
+        if validated := [
+            unsupported_browser.lower().strip() for unsupported_browser in unsupported_browsers
+            if not any(punctuation in unsupported_browser for punctuation in string.punctuation)
+            and ' ' not in unsupported_browser.strip()
+        ]:
+            return validated
+        raise ValueError("Browser names cannot have punctuations or white spaces")
+
+    # noinspection PyMethodParameters,PyUnusedLocal
     @field_validator('origins', mode='after', check_fields=True)
-    def origins_url_checker(cls, v: List[HttpUrl]) -> List[str] | List:
+    def parse_origins(cls, origins: List[HttpUrl]) -> List[str] | List:
         """Validate origins' input as a URL, and stores only the host part of the URL."""
-        if v:
-            return list(set([i.host for i in v]))
+        if origins:
+            return list(set([origin.host for origin in origins]))
         return []
 
     # noinspection PyMethodParameters,PyUnusedLocal
     @field_validator('rate_limit', mode='after', check_fields=True)
-    def rate_limit_checker(cls, v: RateLimit | List[RateLimit], values, **kwargs) -> List[RateLimit] | List:
-        """Validate origins' input as a URL, and convert as string when stored."""
-        if not isinstance(v, list):
-            v = [v]
-        return v
+    def parse_rate_limit(cls, rate_limit: RateLimit | List[RateLimit]) -> List[RateLimit] | List:
+        """Validate rate_limit and convert to list."""
+        if isinstance(rate_limit, list):
+            return rate_limit
+        return [rate_limit]
 
     class Config:
         """Environment variables configuration."""

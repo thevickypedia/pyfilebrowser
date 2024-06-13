@@ -98,7 +98,8 @@ async def proxy_engine(proxy_request: Request) -> Response:
     Returns:
         Response: The response object with the forwarded content and headers.
     """
-    squire.log_connection(proxy_request)
+    if browser_warning := squire.log_connection(proxy_request):
+        return browser_warning
     # Since host header can be overridden, always check with base_url
     if proxy_request.base_url.hostname not in settings.session.allowed_origins:
         LOGGER.warning("%s is blocked by firewall, since it is not set in allowed origins %s",
@@ -150,14 +151,20 @@ async def proxy_engine(proxy_request: Request) -> Response:
                 LOGGER.debug("Removing %s from auth DB", proxy_request.client.host)
                 database.remove_record(host=proxy_request.client.host)
         content_type = server_response.headers.get("content-type", "")
-        if "text" in content_type:
+        # The "text/javascript" MIME type was used by convention until RFC 4329 -https://www.rfc-editor.org/rfc/rfc4329
+        # attempted to replace it with application/javascript, hence this check is necessary.
+        if "text" in content_type or "javascript" in content_type:
+            # Having the "Content-Length" header results in: net::ERR_CONTENT_LENGTH_MISMATCH while streaming videos
+            # There will be a discrepancy between the "Content-Length" header and the actual content being sent.
+            # Since the content is served via VideoJS plugin, the GO API sends a StreamingResponse with chunked encoding
+            # which doesn't rely on the "Content-Length" header, so removing it is more suitable
+            # Reference TransactionID: 06f4d0a3-8a4f-4a3a-bee6-2dd382567532
+            LOGGER.debug("Removed 'content-length' header [%s] for the 'content-type' %s",
+                         server_response.headers.pop("content-length", "N/A"), content_type)
             content = server_response.text
         else:
             content = server_response.content
         server_response.headers.pop("content-encoding", None)
-        # fixme: there should be a better way to handle this
-        if "javascript" in content_type:  # todo: not sure if this is solely because of VideoJS plugin
-            server_response.headers.pop("content-length", None)
         proxy_response = Response(
             content=content,
             status_code=server_response.status_code,
