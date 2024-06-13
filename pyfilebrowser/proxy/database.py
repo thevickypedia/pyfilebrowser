@@ -26,7 +26,9 @@ class Database:
             datastore: Name of the database file.
             timeout: Timeout for the connection to database.
         """
-        self.connection = sqlite3.connect(database=datastore, check_same_thread=False, timeout=timeout)
+        self.connection = sqlite3.connect(
+            database=datastore, check_same_thread=False, timeout=timeout
+        )
 
     def create_table(self, table_name: str, columns: List[str] | Tuple[str]) -> None:
         """Creates the table with the required columns.
@@ -38,7 +40,9 @@ class Database:
         with self.connection:
             cursor = self.connection.cursor()
             # Use f-string or %s as table names cannot be parametrized
-            cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({', '.join(columns)})")
+            cursor.execute(
+                f"CREATE TABLE IF NOT EXISTS {table_name} ({', '.join(columns)})"
+            )
 
 
 database = Database(settings.env_config.database)
@@ -57,7 +61,9 @@ def get_record(host: str) -> int | None:
     """
     with database.connection:
         cursor = database.connection.cursor()
-        state = cursor.execute("SELECT block_until FROM auth_errors WHERE host=(?)", (host,)).fetchone()
+        state = cursor.execute(
+            "SELECT block_until FROM auth_errors WHERE host=(?)", (host,)
+        ).fetchone()
     if state and state[0]:
         return state[0]
 
@@ -71,7 +77,10 @@ def put_record(host: str, block_until: int) -> None:
     """
     with database.connection:
         cursor = database.connection.cursor()
-        cursor.execute("INSERT INTO auth_errors (host, block_until) VALUES (?,?)", (host, block_until))
+        cursor.execute(
+            "INSERT INTO auth_errors (host, block_until) VALUES (?,?)",
+            (host, block_until),
+        )
         database.connection.commit()
 
 

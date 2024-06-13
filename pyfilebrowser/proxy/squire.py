@@ -4,14 +4,13 @@ from collections.abc import Generator
 from http import HTTPStatus
 from typing import Dict
 
-import jinja2
 import user_agents
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 
-from pyfilebrowser.proxy import secure, settings
+from pyfilebrowser.proxy import secure, settings, templates
 
-LOGGER = logging.getLogger('proxy')
+LOGGER = logging.getLogger("proxy")
 
 
 def log_connection(request: Request) -> HTMLResponse | None:
@@ -27,9 +26,13 @@ def log_connection(request: Request) -> HTMLResponse | None:
     """
     if request.client.host not in settings.session.info:
         settings.session.info[request.client.host] = None
-        LOGGER.info("Connection received from client-host: %s, host-header: %s, x-fwd-host: %s",
-                    request.client.host, request.headers.get('host'), request.headers.get('x-forwarded-host'))
-        if user_agent := request.headers.get('user-agent'):
+        LOGGER.info(
+            "Connection received from client-host: %s, host-header: %s, x-fwd-host: %s",
+            request.client.host,
+            request.headers.get("host"),
+            request.headers.get("x-forwarded-host"),
+        )
+        if user_agent := request.headers.get("user-agent"):
             LOGGER.info("User agent: %s", user_agent)
             try:
                 parsed = user_agents.parse(user_agent)
@@ -37,15 +40,9 @@ def log_connection(request: Request) -> HTMLResponse | None:
                 LOGGER.critical("Failed to parse user-agent: %s", error)
                 return
             if parsed.browser.family == "Chrome":
-                with open(settings.env_config.warn_page) as file:
-                    warn_template = file.read()
                 return HTMLResponse(
-                    content=jinja2.Template(warn_template).render(
-                        BROWSER_NAME=parsed.browser.family,
-                        BROWSER_VERSION=parsed.browser.version_string,
-                        RECOMMENDATION="Firefox or Safari"
-                    ),
-                    status_code=HTTPStatus.OK.value
+                    content=templates.unsupported_browser(parsed),
+                    status_code=HTTPStatus.OK.value,
                 )
 
 
@@ -83,7 +80,7 @@ def extract_credentials(authorization: bytes) -> Generator[str]:
     # Decode the Base64-encoded ASCII string (JavaScript's built-in encoding btoa)
     decoded_auth = secure.base64_decode(authorization)
     # Convert hex to a string
-    for part in decoded_auth.split(','):
+    for part in decoded_auth.split(","):
         yield secure.hex_decode(part)
 
 
@@ -126,5 +123,7 @@ def proxy_auth(authorization: bytes | None) -> Dict[str, str] | None:
         password = settings.destination.auth_config.get(username, "")
         expected_signature = secure.calculate_hash(password)
         if password and secrets.compare_digest(expected_signature, signature):
-            LOGGER.info("Authentication was successful! Setting auth header to plain text password")
+            LOGGER.info(
+                "Authentication was successful! Setting auth header to plain text password"
+            )
             return dict(username=username, password=password, recaptcha=recaptcha)

@@ -137,11 +137,11 @@
 </dd></dl>
 
 </section>
-<section id="module-pyfilebrowser.proxy.error">
-<span id="errors"></span><h1>Errors<a class="headerlink" href="#module-pyfilebrowser.proxy.error" title="Permalink to this heading">¶</a></h1>
+<section id="module-pyfilebrowser.proxy.templates.templates">
+<span id="templates"></span><h1>Templates<a class="headerlink" href="#module-pyfilebrowser.proxy.templates.templates" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.error.service_unavailable">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.error.</span></span><span class="sig-name descname"><span class="pre">service_unavailable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.error.service_unavailable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.service_unavailable">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">service_unavailable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.service_unavailable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs an error page using jina template for service unavailable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -154,12 +154,29 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.error.forbidden">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.error.</span></span><span class="sig-name descname"><span class="pre">forbidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.error.forbidden" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.forbidden">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">forbidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.forbidden" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs an error page using jina template for forbidden response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>origin</strong> – Origin that is forbidden.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTML content as string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.unsupported_browser">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">unsupported_browser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserAgent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.unsupported_browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a warning page using jina template for unsupported browsers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_agent</strong> – User agent object.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>HTML content as string.</p>
@@ -2094,7 +2111,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#">Welcome to PyFileBrowser’s documentation!</a></li>
 <li><a class="reference internal" href="#proxy-server">——–Proxy Server——–</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.main">Engine</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.error">Errors</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.proxy.templates.templates">Templates</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.rate_limit">Rate Limit</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.repeated_timer">Repeated Timer</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.secure">Secure</a></li>

@@ -19,10 +19,10 @@ Engine
 
 .. automodule:: pyfilebrowser.proxy.main
 
-Errors
-======
+Templates
+=========
 
-.. automodule:: pyfilebrowser.proxy.error
+.. automodule:: pyfilebrowser.proxy.templates.templates
 
 Rate Limit
 ==========

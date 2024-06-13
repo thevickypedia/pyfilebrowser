@@ -74,16 +74,18 @@ def admin_perm() -> Perm:
         Perm:
         Returns the ``Perm`` object for the administrator.
     """
-    return Perm(**{
-        "admin": True,
-        "execute": True,
-        "create": True,
-        "rename": True,
-        "modify": True,
-        "delete": True,
-        "share": True,
-        "download": True
-    })
+    return Perm(
+        **{
+            "admin": True,
+            "execute": True,
+            "create": True,
+            "rename": True,
+            "modify": True,
+            "delete": True,
+            "share": True,
+            "download": True,
+        }
+    )
 
 
 def default_perm() -> Perm:
@@ -93,13 +95,15 @@ def default_perm() -> Perm:
         Perm:
         Returns the ``Perm`` object for the default users.
     """
-    return Perm(**{
-        "admin": False,
-        "execute": True,
-        "create": True,
-        "rename": False,
-        "modify": False,
-        "delete": False,
-        "share": True,
-        "download": True
-    })
+    return Perm(
+        **{
+            "admin": False,
+            "execute": True,
+            "create": True,
+            "rename": False,
+            "modify": False,
+            "delete": False,
+            "share": True,
+            "download": True,
+        }
+    )

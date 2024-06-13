@@ -7,7 +7,7 @@ from fastapi import HTTPException, Request
 
 from pyfilebrowser.proxy import settings
 
-LOGGER = logging.getLogger('proxy')
+LOGGER = logging.getLogger("proxy")
 
 
 # noinspection PyUnresolvedReferences
@@ -35,8 +35,10 @@ class RateLimiter:
             status_code=HTTPStatus.TOO_MANY_REQUESTS.value,
             detail=HTTPStatus.TOO_MANY_REQUESTS.phrase,
             headers={
-                "Retry-After": str(math.ceil(self.seconds))  # reset headers, which will invalidate auth token
-            }
+                "Retry-After": str(
+                    math.ceil(self.seconds)
+                )  # reset headers, which will invalidate auth token
+            },
         )
 
     def init(self, request: Request) -> None:

@@ -6,8 +6,7 @@ import string
 from typing import Dict, List, Set
 
 import requests
-from pydantic import (BaseModel, Field, FilePath, HttpUrl, PositiveInt,
-                      field_validator)
+from pydantic import BaseModel, Field, FilePath, HttpUrl, PositiveInt, field_validator
 from pydantic_settings import BaseSettings
 
 # noinspection LongLine
@@ -15,11 +14,36 @@ IP_REGEX = re.compile(
     r"""^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"""  # noqa: E501
 )
 ALLOWED_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
-ALLOWED_HEADERS = ['content-length', 'dnt', 'cookie', 'authorization', 'accept', 'sec-fetch-user', 'sec-fetch-site',
-                   'connection', 'user-agent', 'origin', 'sec-ch-ua-mobile', 'tus-resumable', 'content-type',
-                   'cache-control', 'sec-ch-ua-platform', 'accept-language', 'sec-fetch-mode', 'referer', 'host',
-                   'upload-offset', 'if-range', 'sec-ch-ua', 'accept-encoding', 'range', 'upgrade-insecure-requests',
-                   'sec-fetch-dest', 'x-auth', 'x-forwarded-host']
+ALLOWED_HEADERS = [
+    "content-length",
+    "dnt",
+    "cookie",
+    "authorization",
+    "accept",
+    "sec-fetch-user",
+    "sec-fetch-site",
+    "connection",
+    "user-agent",
+    "origin",
+    "sec-ch-ua-mobile",
+    "tus-resumable",
+    "content-type",
+    "cache-control",
+    "sec-ch-ua-platform",
+    "accept-language",
+    "sec-fetch-mode",
+    "referer",
+    "host",
+    "upload-offset",
+    "if-range",
+    "sec-ch-ua",
+    "accept-encoding",
+    "range",
+    "upgrade-insecure-requests",
+    "sec-fetch-dest",
+    "x-auth",
+    "x-forwarded-host",
+]
 
 
 def public_ip_address() -> str:
@@ -32,12 +56,12 @@ def public_ip_address() -> str:
     opt1 = lambda fa: fa.text.strip()  # noqa: E731
     opt2 = lambda fa: fa.json()["origin"].strip()  # noqa: E731
     mapping = {
-        'https://checkip.amazonaws.com/': opt1,
-        'https://api.ipify.org/': opt1,
-        'https://ipinfo.io/ip/': opt1,
-        'https://v4.ident.me/': opt1,
-        'https://httpbin.org/ip': opt2,
-        'https://myip.dnsomatic.com/': opt1
+        "https://checkip.amazonaws.com/": opt1,
+        "https://api.ipify.org/": opt1,
+        "https://ipinfo.io/ip/": opt1,
+        "https://v4.ident.me/": opt1,
+        "https://httpbin.org/ip": opt2,
+        "https://myip.dnsomatic.com/": opt1,
     }
     for url, func in mapping.items():
         try:
@@ -74,7 +98,7 @@ def allowance() -> List[HttpUrl]:
     """
     base_origins = set()
     base_origins.add(env_config.host)
-    if env_config.host == socket.gethostbyname('localhost'):
+    if env_config.host == socket.gethostbyname("localhost"):
         base_origins.add("localhost")
         base_origins.add("0.0.0.0")
     if env_config.allow_private_ip and (pri_ip_addr := private_ip_address()):
@@ -128,7 +152,7 @@ class EnvConfig(BaseSettings):
 
     """
 
-    host: str = socket.gethostbyname('localhost')
+    host: str = socket.gethostbyname("localhost")
     port: PositiveInt = 8000
     workers: PositiveInt = 1
     debug: bool = False
@@ -139,25 +163,34 @@ class EnvConfig(BaseSettings):
     origin_refresh: PositiveInt | None = None
     rate_limit: RateLimit | List[RateLimit] = []
     unsupported_browsers: str | List[str] = ["Chrome"]
-    warn_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'warn.html')
-    error_page: FilePath = os.path.join(pathlib.PosixPath(__file__).parent, 'error.html')
+    warn_page: FilePath = os.path.join(
+        pathlib.PosixPath(__file__).parent, "templates", "warn.html"
+    )
+    error_page: FilePath = os.path.join(
+        pathlib.PosixPath(__file__).parent, "templates", "error.html"
+    )
 
     # noinspection PyMethodParameters,PyUnusedLocal
-    @field_validator('unsupported_browsers', mode='after', check_fields=True)
-    def parse_unsupported_browsers(cls, unsupported_browsers: str | List[str]) -> List[str] | List:
+    @field_validator("unsupported_browsers", mode="after", check_fields=True)
+    def parse_unsupported_browsers(
+        cls, unsupported_browsers: str | List[str]
+    ) -> List[str] | List:
         """Validate unsupported_browsers and convert to list."""
         if isinstance(unsupported_browsers, str):
             unsupported_browsers = [unsupported_browsers]
         if validated := [
-            unsupported_browser.lower().strip() for unsupported_browser in unsupported_browsers
-            if not any(punctuation in unsupported_browser for punctuation in string.punctuation)
-            and ' ' not in unsupported_browser.strip()
+            unsupported_browser.lower().strip()
+            for unsupported_browser in unsupported_browsers
+            if not any(
+                punctuation in unsupported_browser for punctuation in string.punctuation
+            )
+            and " " not in unsupported_browser.strip()
         ]:
             return validated
         raise ValueError("Browser names cannot have punctuations or white spaces")
 
     # noinspection PyMethodParameters,PyUnusedLocal
-    @field_validator('origins', mode='after', check_fields=True)
+    @field_validator("origins", mode="after", check_fields=True)
     def parse_origins(cls, origins: List[HttpUrl]) -> List[str] | List:
         """Validate origins' input as a URL, and stores only the host part of the URL."""
         if origins:
@@ -165,8 +198,10 @@ class EnvConfig(BaseSettings):
         return []
 
     # noinspection PyMethodParameters,PyUnusedLocal
-    @field_validator('rate_limit', mode='after', check_fields=True)
-    def parse_rate_limit(cls, rate_limit: RateLimit | List[RateLimit]) -> List[RateLimit] | List:
+    @field_validator("rate_limit", mode="after", check_fields=True)
+    def parse_rate_limit(
+        cls, rate_limit: RateLimit | List[RateLimit]
+    ) -> List[RateLimit] | List:
         """Validate rate_limit and convert to list."""
         if isinstance(rate_limit, list):
             return rate_limit

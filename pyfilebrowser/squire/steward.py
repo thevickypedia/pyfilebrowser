@@ -9,7 +9,7 @@ from pydantic import BaseModel, DirectoryPath, FilePath
 
 from pyfilebrowser.modals import config, users
 
-DATETIME_PATTERN = re.compile(r'^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ')
+DATETIME_PATTERN = re.compile(r"^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ")
 
 
 def ordinal(n: int) -> str:
@@ -41,9 +41,11 @@ def default_logger(log_to_file: bool) -> logging.Logger:
         Logger object.
     """
     if log_to_file:
-        if not os.path.isdir('logs'):
-            os.mkdir('logs')
-        logfile: str = datetime.now().strftime(os.path.join('logs', 'pyfilebrowser_%d-%m-%Y.log'))
+        if not os.path.isdir("logs"):
+            os.mkdir("logs")
+        logfile: str = datetime.now().strftime(
+            os.path.join("logs", "pyfilebrowser_%d-%m-%Y.log")
+        )
         handler = logging.FileHandler(filename=logfile)
     else:
         handler = logging.StreamHandler()
@@ -51,7 +53,7 @@ def default_logger(log_to_file: bool) -> logging.Logger:
     logger.setLevel(level=logging.INFO)
     handler.setFormatter(
         fmt=logging.Formatter(
-            fmt='%(asctime)s - %(levelname)-8s - [%(funcName)s:%(lineno)d] - %(message)s'
+            fmt="%(asctime)s - %(levelname)-8s - [%(funcName)s:%(lineno)d] - %(message)s"
         )
     )
     logger.addHandler(hdlr=handler)
@@ -68,8 +70,8 @@ def hash_password(password: str) -> str:
         str:
         Decoded hashed password as a string.
     """
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    return hashed_password.decode('utf-8')
+    hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    return hashed_password.decode("utf-8")
 
 
 def validate_password(password: str, hashed_password: str) -> bool:
@@ -83,7 +85,7 @@ def validate_password(password: str, hashed_password: str) -> bool:
         bool:
         Returns a boolean flag to indicate whether the password matches.
     """
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+    return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
 def remove_trailing_underscore(dictionary: dict) -> dict:
@@ -100,8 +102,8 @@ def remove_trailing_underscore(dictionary: dict) -> dict:
         for key in list(dictionary.keys()):
             if isinstance(dictionary[key], dict):
                 dictionary[key] = remove_trailing_underscore(dictionary[key])
-            if key.endswith('_'):
-                new_key = key.rstrip('_')
+            if key.endswith("_"):
+                new_key = key.rstrip("_")
                 dictionary[new_key] = dictionary.pop(key)
     elif isinstance(dictionary, list):
         for i, item in enumerate(dictionary):
@@ -111,7 +113,7 @@ def remove_trailing_underscore(dictionary: dict) -> dict:
 
 def remove_prefix(text: str) -> str:
     """Returns the message part from the default log output from filebrowser."""
-    return DATETIME_PATTERN.sub('', text).strip().capitalize()
+    return DATETIME_PATTERN.sub("", text).strip().capitalize()
 
 
 class EnvConfig(BaseModel):
@@ -134,7 +136,7 @@ class EnvConfig(BaseModel):
         """
         profiles = []
         for file in os.listdir(os.getcwd()):
-            if 'user' in file and file.endswith('.env'):
+            if "user" in file and file.endswith(".env"):
                 profiles.append(users.UserSettings.from_env_file(file))
         return profiles
 
@@ -146,9 +148,9 @@ class FileIO(BaseModel):
 
     """
 
-    settings_dir: DirectoryPath = os.path.join(os.getcwd(), 'settings')
-    config: FilePath = os.path.join(settings_dir, 'config.json')
-    users: FilePath = os.path.join(settings_dir, 'users.json')
+    settings_dir: DirectoryPath = os.path.join(os.getcwd(), "settings")
+    config: FilePath = os.path.join(settings_dir, "config.json")
+    users: FilePath = os.path.join(settings_dir, "users.json")
 
 
 fileio = FileIO()

@@ -132,7 +132,7 @@ class Server(BaseSettings):
     tlsKey: Optional[FilePath | str] = ""
     tlsCert: Optional[FilePath | str] = ""
     port: Optional[PositiveInt] = 8080
-    address: Optional[str] = sock.gethostbyname('localhost')
+    address: Optional[str] = sock.gethostbyname("localhost")
     log: Optional[models.Log] = models.Log.stdout
     enableThumbnails: Optional[bool] = False
     resizePreview: Optional[bool] = False
@@ -158,7 +158,7 @@ class Config(BaseSettings):
 
     signup: Optional[bool] = False
     createUserDir: Optional[bool] = False
-    userHomeBasePath: Optional[str] = os.path.join(os.path.expanduser('~'), 'users')
+    userHomeBasePath: Optional[str] = os.path.join(os.path.expanduser("~"), "users")
     defaults: Optional[Defaults] = Defaults()
     authMethod: Optional[str] = "json"
     authHeader: Optional[str] = ""

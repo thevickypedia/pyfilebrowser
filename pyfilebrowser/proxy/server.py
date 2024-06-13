@@ -37,28 +37,35 @@ class ProxyServer(uvicorn.Server):
         uvicorn_access.propagate = False
         assert logger.name == "proxy"
         timers = []
-        if settings.env_config.origin_refresh and \
-                (settings.env_config.allow_private_ip or settings.env_config.allow_public_ip):
-            timers.append(repeated_timer.RepeatedTimer(
-                function=main.refresh_allowed_origins, interval=settings.env_config.origin_refresh
-            ))
+        if settings.env_config.origin_refresh and (
+            settings.env_config.allow_private_ip or settings.env_config.allow_public_ip
+        ):
+            timers.append(
+                repeated_timer.RepeatedTimer(
+                    function=main.refresh_allowed_origins,
+                    interval=settings.env_config.origin_refresh,
+                )
+            )
         for timer in timers:
-            logger.info("Initiating the background task '%s' with interval %d seconds",
-                        timer.function.__name__, timer.interval.real)
+            logger.info(
+                "Initiating the background task '%s' with interval %d seconds",
+                timer.function.__name__,
+                timer.interval.real,
+            )
             timer.start()
         try:
             self.run()
         except KeyboardInterrupt:
             for timer in timers:
-                logger.info("Stopping the background task '%s'", timer.function.__name__)
+                logger.info(
+                    "Stopping the background task '%s'", timer.function.__name__
+                )
                 timer.stop()
         finally:
             logger.info("Proxy service terminated")
 
 
-def proxy_server(server: str,
-                 log_config: dict,
-                 auth_map: Dict[str, str]) -> None:
+def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> None:
     """Triggers the proxy engine in parallel.
 
     Args:
@@ -72,7 +79,7 @@ def proxy_server(server: str,
         - Adds CORS Middleware settings, and loads the uvicorn config.
     """
     logging.config.dictConfig(log_config)
-    logger = logging.getLogger('proxy')
+    logger = logging.getLogger("proxy")
 
     settings.destination.url = server
     settings.destination.auth_config = auth_map
@@ -80,25 +87,31 @@ def proxy_server(server: str,
     settings.session.allowed_origins.update(settings.allowance())
 
     # noinspection HttpUrlsUsage
-    logger.info("Starting proxy engine on http://%s:%s with %s workers",
-                settings.env_config.host, settings.env_config.port, settings.env_config.workers)
+    logger.info(
+        "Starting proxy engine on http://%s:%s with %s workers",
+        settings.env_config.host,
+        settings.env_config.port,
+        settings.env_config.workers,
+    )
     logger.warning(
         "\n\n%s\n\nONLY CONNECTIONS FROM THE FOLLOWING ORIGINS WILL BE ALLOWED\n\t- %s\n\n%s\n",
         "".join("*" for _ in range(80)),
         "\n\t- ".join(settings.session.allowed_origins),
-        "".join("*" for _ in range(80))
+        "".join("*" for _ in range(80)),
     )
     dependencies = []
     for each_rate_limit in settings.env_config.rate_limit:
         logger.info("Adding rate limit: %s", each_rate_limit)
-        dependencies.append(Depends(dependency=rate_limit.RateLimiter(each_rate_limit).init))
+        dependencies.append(
+            Depends(dependency=rate_limit.RateLimiter(each_rate_limit).init)
+        )
     app = FastAPI(
         routes=[
             APIRoute(
                 path="/{_:path}",
                 endpoint=main.proxy_engine,
                 methods=settings.ALLOWED_METHODS,
-                dependencies=dependencies
+                dependencies=dependencies,
             )
         ],
     )

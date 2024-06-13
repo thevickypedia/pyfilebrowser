@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +49,8 @@
     <i><span id="span"></span></i>
 </div>
 <h2 style="margin-top:5%">Browser Warning!!</h2>
-<h3>You are currently using {{ BROWSER_NAME }} - {{ BROWSER_VERSION }}, which MAY NOT support video/audio rendering</h3>
-<h3>Please switch to {{ RECOMMENDATION }} if you intend to render video/audio content</h3>
+<h3>You are currently using {{ browser_name }} - {{ browser_version }}, which MAY NOT support video/audio rendering</h3>
+<h3>Please switch to {{ recommendation }} if you intend to render video/audio content</h3>
 <p>
     <img src="https://thevickypedia.github.io/open-source/images/gif/duet_circle.gif"
         onerror="this.src='https://vigneshrao.com/open-source/images/gif/duet_circle.gif'"
@@ -63,7 +62,7 @@
 <h4>Click <a href="https://vigneshrao.com/contact">HERE</a> to reach out.</h4>
 <script>
     function displayTimer() {
-        let seconds = '30';
+        let seconds = '{{ refresh_interval }}';
         let display = document.getElementById('span');
         display.innerHTML = "Auto-refresh in: " + seconds + "s";
 
@@ -80,7 +79,7 @@
 
     setInterval(function () {
         window.location.reload();
-    }, '30' * 1000);
+    }, '{{ refresh_interval }}' * 1000);
 </script>
 </body>
 </html>

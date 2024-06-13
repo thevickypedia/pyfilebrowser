@@ -1,4 +1,5 @@
 """Module for packaging."""
+
 import sys
 
 from pyfilebrowser.main import FileBrowser  # noqa: F401
@@ -33,18 +34,28 @@ def _cli() -> None:
     try:
         assert len(args) in (1, 2)
     except (IndexError, AttributeError, AssertionError):
-        print(f"Cannot proceed without a valid arbitrary command. Please choose from {choices}")
+        print(
+            f"Cannot proceed without a valid arbitrary command. Please choose from {choices}"
+        )
         exit(1)
+    # Set the proxy flag to False by default
+    proxy_flag = False
     if any(arg in args for arg in ["version", "--version", "-v"]):
         print(f"PyFileBrowser: {version}")
         exit(0)
     elif any(arg in args for arg in ["proxy", "--proxy", "-p"]):
         proxy_flag = True
     elif any(arg in args for arg in ["help", "--help", "-h"]):
-        print(f"Usage: pyfilebrowser [arbitrary-command]\nOptions (and corresponding behavior):{choices}")
+        print(
+            f"Usage: pyfilebrowser [arbitrary-command]\nOptions (and corresponding behavior):{choices}"
+        )
         exit(0)
+    elif any(arg in args for arg in ["start", "run"]):
+        pass
     else:
-        print(f"Unknown Option: {sys.argv[1]}\nArbitrary commands must be one of {choices}")
+        print(
+            f"Unknown Option: {sys.argv[1]}\nArbitrary commands must be one of {choices}"
+        )
         exit(1)
     if any(arg in args for arg in ["start", "run"]):
         FileBrowser(proxy=proxy_flag).start()

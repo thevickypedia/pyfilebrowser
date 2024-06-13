@@ -5,12 +5,12 @@ import logging
 import string
 from typing import Any
 
-logger = logging.getLogger('proxy')
+logger = logging.getLogger("proxy")
 
 UNICODE_PREFIX = (
-        base64.b64decode(b"XA==").decode(encoding="ascii")
-        + string.ascii_letters[20]
-        + string.digits[:1] * 2
+    base64.b64decode(b"XA==").decode(encoding="ascii")
+    + string.ascii_letters[20]
+    + string.digits[:1] * 2
 )
 
 
@@ -35,7 +35,9 @@ def hex_decode(value: Any) -> str:
     try:
         return bytes(value, "utf-8").decode(encoding="unicode_escape")
     except UnicodeDecodeError as warn:
-        logger.debug(warn)  # Usually happens when re-captcha is null, since unicode will be empty
+        logger.debug(
+            warn
+        )  # Usually happens when re-captcha is null, since unicode will be empty
         return ""
 
 

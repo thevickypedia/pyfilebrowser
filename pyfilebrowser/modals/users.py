@@ -26,14 +26,19 @@ def complexity_checker(password: str) -> None:
     assert re.search(r"\d", password), "Password must include an integer"
 
     # searches for uppercase
-    assert re.search(r"[A-Z]", password), "Password must include at least one uppercase letter"
+    assert re.search(
+        r"[A-Z]", password
+    ), "Password must include at least one uppercase letter"
 
     # searches for lowercase
-    assert re.search(r"[a-z]", password), "Password must include at least one lowercase letter"
+    assert re.search(
+        r"[a-z]", password
+    ), "Password must include at least one lowercase letter"
 
     # searches for symbols
-    assert re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]',
-                     password), "Password must contain at least one special character"
+    assert re.search(
+        r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]', password
+    ), "Password must contain at least one special character"
 
 
 class Authentication(BaseModel):
@@ -57,7 +62,9 @@ class UserSettings(BaseSettings):
         - **perm** - Permissions are set based on the admin flag for each ``Authentication`` model.
     """
 
-    authentication: Optional[Authentication] = Authentication(username="admin", password="admin", admin=True)
+    authentication: Optional[Authentication] = Authentication(
+        username="admin", password="admin", admin=True
+    )
     scope: Optional[str] = "/"
     locale: Optional[str] = "en"
     lockPassword: Optional[bool] = False
@@ -71,7 +78,7 @@ class UserSettings(BaseSettings):
     dateFormat: Optional[bool] = False
 
     @classmethod
-    def from_env_file(cls, env_file: Optional[str]) -> 'UserSettings':
+    def from_env_file(cls, env_file: Optional[str]) -> "UserSettings":
         """Create UserSettings instance from environment file.
 
         Args:
@@ -85,7 +92,9 @@ class UserSettings(BaseSettings):
 
     # noinspection PyMethodParameters
     @field_validator("authentication", mode="before")
-    def validate_password_complexity(cls, value: Authentication) -> Authentication | Dict:
+    def validate_password_complexity(
+        cls, value: Authentication
+    ) -> Authentication | Dict:
         """Field validator for password.
 
         Args:
@@ -98,7 +107,7 @@ class UserSettings(BaseSettings):
         if isinstance(value, Authentication):
             passwd = value.password
         elif isinstance(value, dict):
-            passwd = value.get('password')
+            passwd = value.get("password")
         else:
             raise ValueError(f"unknown type ({type(value)})")
         try:

@@ -2,7 +2,7 @@ fail_fast: true
 exclude: ^docs
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -27,8 +27,14 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+        - id: black
+          exclude: docs_gen/
+
   - repo: https://github.com/PyCQA/flake8
-    rev: '6.1.0'
+    rev: 7.0.0
     hooks:
       - id: flake8
         additional_dependencies:
@@ -40,9 +46,10 @@ repos:
         args: [--max-line-length=120, --extend-ignore=SFS3 D107 D100 D104 D401 D412 SFS101 SFS201]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
+        args: [ --profile, black ]
 
   - repo: local
     hooks:

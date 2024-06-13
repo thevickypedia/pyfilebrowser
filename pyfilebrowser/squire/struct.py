@@ -26,30 +26,32 @@ class LoggerConfig:
             Returns a tuple of handlers and formatters, each as dictionary representation.
         """
         handlers = {}
-        formatters = {'standard': {}}
+        formatters = {"standard": {}}
         for handler in self.logger.handlers:
             formatter = handler.formatter
-            formatters['standard']['format'] = formatter.__dict__.get(
-                '_fmt', '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            formatters["standard"]["format"] = formatter.__dict__.get(
+                "_fmt", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
             if formatter.datefmt:
-                formatters['standard']['datefmt'] = formatter.datefmt
+                formatters["standard"]["datefmt"] = formatter.datefmt
             if formatter.converter:
-                formatters['standard']['converter'] = formatter.converter
+                formatters["standard"]["converter"] = formatter.converter
             handler_format = {
-                'class': f"logging.{handler.__class__.__name__}",
-                'formatter': 'standard',
-                'level': self.base_level,
+                "class": f"logging.{handler.__class__.__name__}",
+                "formatter": "standard",
+                "level": self.base_level,
             }
             if hasattr(handler, "baseFilename"):
-                handler_format['filename'] = handler.baseFilename
+                handler_format["filename"] = handler.baseFilename
                 name = "file"
             else:
                 name = "console"
             handlers[name] = handler_format
         return handlers, formatters
 
-    def get(self) -> Dict[str, dict | int | Dict[str, Dict[str, str | int | bool | List[str]]]]:
+    def get(
+        self,
+    ) -> Dict[str, dict | int | Dict[str, Dict[str, str | int | bool | List[str]]]]:
         """Returns logger's full configuration which can be re-used to create new logger objects with the same config.
 
         Returns:
@@ -58,16 +60,16 @@ class LoggerConfig:
         """
         handlers, formatters = self.extract()
         logging_config = {
-            'version': 1,
-            'formatters': formatters,
-            'handlers': handlers,
-            'loggers': {
-                'proxy': {
-                    'handlers': list(handlers.keys()),
-                    'level': self.base_level,
-                    'propagate': True
+            "version": 1,
+            "formatters": formatters,
+            "handlers": handlers,
+            "loggers": {
+                "proxy": {
+                    "handlers": list(handlers.keys()),
+                    "level": self.base_level,
+                    "propagate": True,
                 }
-            }
+            },
         }
         return logging_config
 
