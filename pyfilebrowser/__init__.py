@@ -4,7 +4,7 @@ import sys
 
 from pyfilebrowser.main import FileBrowser  # noqa: F401
 
-version = "0.0.91"
+version = "0.1.0"
 
 
 def _cli() -> None:

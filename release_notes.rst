@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+v0.1.0 (06/17/2024)
+-------------------
+- Includes a new feature `extra_env` to load additional configuration settings
+- Includes CLI compatibility
+- Proxy displays a warning page for unsupported browsers
+- Add support for `.env` files to load GitHub env vars and replace `env_prefix` with `AliasChoices`
+
 v0.0.91 (06/05/2024)
 --------------------
 - Includes a bug fix on `content-length` mismatch after VideoJS plugin integration
