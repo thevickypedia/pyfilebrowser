@@ -2,11 +2,11 @@
 
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
 
-[![book][gha_pages_badge]][gha_pages]
 [![pypi][gha_pypi_badge]][gha_pypi]
 
 [![none-shall-pass][gha_none_shall_pass_badge]][gha_none_shall_pass]
-[![Delete old workflow runs][gha_cleanup_workflows_badge]][gha_cleanup_workflows]
+
+[![book][gha_pages_badge]][gha_pages]
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/pyfilebrowser)][pypi]
 [![Pypi-format](https://img.shields.io/pypi/format/pyfilebrowser)](https://pypi.org/project/pyfilebrowser/#files)
@@ -95,6 +95,10 @@ based on their DHCP lease renewal.<br>This is specifically useful in cases of lo
 <summary><strong>filebrowser configuration</strong></summary>
 
 > `.config.env` - Loads the server's default configuration. Reference: [config]
+
+Extra configuration settings can be loaded using a `JSON`/`YAML` file.
+These settings will be merged with the default configuration settings.
+The filename should be passed as `extra_env` during object instantiation.
 
 </details>
 
@@ -222,8 +226,6 @@ Licensed under the [MIT License][license]
 [gha_pypi_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg
 [gha_none_shall_pass]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml
 [gha_none_shall_pass_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg
-[gha_cleanup_workflows]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml
-[gha_cleanup_workflows_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml/badge.svg
 [release-notes]: https://github.com/thevickypedia/pyfilebrowser/blob/main/release_notes.rst
 [google-docs]: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
 [pep8]: https://www.python.org/dev/peps/pep-0008/

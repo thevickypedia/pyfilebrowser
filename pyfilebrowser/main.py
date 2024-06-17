@@ -189,12 +189,15 @@ class FileBrowser:
                 with open(self.extra_env) as file:
                     extra_settings = json.load(file)
             elif self.extra_env.endswith(".yaml") or self.extra_env.endswith(".yml"):
-                extra_settings = yaml.load(self.extra_env, Loader=yaml.FullLoader)
+                with open(self.extra_env) as file:
+                    extra_settings = yaml.load(file, Loader=yaml.FullLoader)
             else:
                 raise ValueError("Extra settings should be either a JSON or YAML file.")
             for key, value in extra_settings.items():
                 if final_settings.get(key):
-                    self.logger.info("Loading extra settings for %s", key)
+                    self.logger.info(
+                        "Loading extra settings for '%s' from '%s'", key, self.extra_env
+                    )
                     self.logger.debug("Extra settings - %s: %s", key, value)
                     final_settings[key].update(value)
         with open(steward.fileio.config, "w") as file:

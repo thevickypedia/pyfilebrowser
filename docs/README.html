@@ -45,10 +45,9 @@
             
   <p><strong>Deployments</strong></p>
 <p><img alt="Python" src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue" /></p>
-<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment"><img alt="book" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment/badge.svg" /></a>
-<a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml"><img alt="pypi" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg" /></a></p>
-<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml"><img alt="none-shall-pass" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg" /></a>
-<a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml"><img alt="Delete old workflow runs" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/cleanup.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml"><img alt="pypi" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml"><img alt="none-shall-pass" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml/badge.svg" /></a></p>
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment"><img alt="book" src="https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment/badge.svg" /></a></p>
 <p><a class="reference external" href="https://pypi.org/project/pyfilebrowser"><img alt="PyPI version shields.io" src="https://img.shields.io/pypi/v/pyfilebrowser" /></a>
 <a class="reference external" href="https://pypi.org/project/pyfilebrowser/#files"><img alt="Pypi-format" src="https://img.shields.io/pypi/format/pyfilebrowser" /></a>
 <a class="reference external" href="https://pypi.org/project/pyfilebrowser"><img alt="Pypi-status" src="https://img.shields.io/pypi/status/pyfilebrowser" /></a></p>
@@ -128,6 +127,9 @@ based on their DHCP lease renewal.<br>This is specifically useful in cases of lo
 <summary><strong>filebrowser configuration</strong></summary><blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p>
 </div></blockquote>
+<p>Extra configuration settings can be loaded using a <code class="docutils literal notranslate"><span class="pre">JSON</span></code>/<code class="docutils literal notranslate"><span class="pre">YAML</span></code> file.
+These settings will be merged with the default configuration settings.
+The filename should be passed as <code class="docutils literal notranslate"><span class="pre">extra_env</span></code> during object instantiation.</p>
 </details><details>
 <summary><strong>filebrowser user profiles</strong></summary><blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p>
