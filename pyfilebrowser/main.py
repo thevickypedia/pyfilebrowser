@@ -8,6 +8,8 @@ import time
 import warnings
 from typing import Dict, List
 
+import yaml
+
 from pyfilebrowser.modals import models
 from pyfilebrowser.proxy import proxy_server, proxy_settings
 from pyfilebrowser.squire import download, steward, struct
@@ -26,6 +28,16 @@ class FileBrowser:
         Keyword Args:
             logger: Bring your own logger.
             proxy: Boolean flag to enable proxy.
+            extra_env: JSON or YAML filename to load extra settings.
+
+        See Also:
+            - ``extra_env`` is a feature to load additional configuration settings to the filebrowser server.
+            - This is useful when you want to load custom settings that are not available in the default configuration.
+            - The file should be a JSON or YAML file with the following structure:
+                - The key should be the same as the configuration setting in the filebrowser. Example: ``server``
+                - The value should also be a dictionary, with the custom setting.
+                - The file should be placed in the same directory as the script that invokes the filebrowser.
+                - The filename should be passed as a keyword argument to the ``FileBrowser`` object.
         """
         self.env = steward.EnvConfig(**kwargs)
         self.logger = kwargs.get(
@@ -41,6 +53,7 @@ class FileBrowser:
             download.binary(logger=self.logger, github=github)
         self.proxy_engine: multiprocessing.Process | None = None
         self.proxy = kwargs.get("proxy")
+        self.extra_env = kwargs.get("extra_env", "extra.json")
         assert self.proxy is None or isinstance(
             self.proxy, bool
         ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
@@ -171,6 +184,19 @@ class FileBrowser:
             final_settings = steward.remove_trailing_underscore(
                 json.loads(self.env.config_settings.model_dump_json())
             )
+        if os.path.isfile(self.extra_env):
+            if self.extra_env.endswith(".json"):
+                with open(self.extra_env) as file:
+                    extra_settings = json.load(file)
+            elif self.extra_env.endswith(".yaml") or self.extra_env.endswith(".yml"):
+                extra_settings = yaml.load(self.extra_env, Loader=yaml.FullLoader)
+            else:
+                raise ValueError("Extra settings should be either a JSON or YAML file.")
+            for key, value in extra_settings.items():
+                if final_settings.get(key):
+                    self.logger.info("Loading extra settings for %s", key)
+                    self.logger.debug("Extra settings - %s: %s", key, value)
+                    final_settings[key].update(value)
         with open(steward.fileio.config, "w") as file:
             json.dump(final_settings, file, indent=4)
             file.flush()

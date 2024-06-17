@@ -690,9 +690,27 @@ validated to form a valid model.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>logger</strong> – Bring your own logger.</p></li>
 <li><p><strong>proxy</strong> – Boolean flag to enable proxy.</p></li>
+<li><p><strong>extra_env</strong> – JSON or YAML filename to load extra settings.</p></li>
 </ul>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">extra_env</span></code> is a feature to load additional configuration settings to the filebrowser server.</p></li>
+<li><p>This is useful when you want to load custom settings that are not available in the default configuration.</p></li>
+<li><dl class="simple">
+<dt>The file should be a JSON or YAML file with the following structure:</dt><dd><ul>
+<li><p>The key should be the same as the configuration setting in the filebrowser. Example: <code class="docutils literal notranslate"><span class="pre">server</span></code></p></li>
+<li><p>The value should also be a dictionary, with the custom setting.</p></li>
+<li><p>The file should be placed in the same directory as the script that invokes the filebrowser.</p></li>
+<li><p>The filename should be passed as a keyword argument to the <code class="docutils literal notranslate"><span class="pre">FileBrowser</span></code> object.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.cleanup">
 <span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.cleanup" title="Permalink to this definition">¶</a></dt>
