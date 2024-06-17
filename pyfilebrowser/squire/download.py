@@ -97,6 +97,7 @@ class Executable(BaseModel):
         f"{filebrowser_os}-{filebrowser_arch}-filebrowser{filebrowser_dl_ext}"
     )
     filebrowser_db: FilePath = f"{filebrowser_bin}.db"
+    auth_db: FilePath = "auth.db"
 
 
 executable = Executable()

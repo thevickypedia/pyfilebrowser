@@ -56,7 +56,6 @@ import pyfilebrowser
 
 if __name__ == '__main__':
     browser = pyfilebrowser.FileBrowser()
-    # browser.proxy = True  # [Optional] Enables proxy server to run in parallel
     browser.start()
 ```
 
@@ -69,27 +68,6 @@ pyfilebrowser
 Env vars can either be loaded from `.env` files or directly passed during object init.
 
 #### `.env` files
-
-<details>
-<summary><strong>proxy server</strong></summary>
-
-> `.proxy.env` - Loads the proxy server's configuration.
-
-- **host** `str` - Hostname/IP for the proxy server. _Defaults to `socket.gethostbyname('localhost')`_
-- **port** `int` - Port number for the proxy server. _Defaults to `8000`_
-- **workers** `int` - Number of workers used to run the proxy server. _Defaults to `1`_
-- **debug** `bool` - Boolean flag to enable debug level logging. _Defaults to `False`_
-- **origins** `List[str]` - Origins to allow connections through proxy server. _Defaults to `host`_
-- **allow_public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
-- **allow_private_ip** `bool` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
-- **origin_refresh** `int` - Interval in seconds to refresh all the allowed origins. _Defaults to `None`_
-- **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
-- **warn_page** `FilePath` - Warning page to serve when accessed from Unsupported browsers. _Defaults to_ [warn.html]
-- **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
-
-> `origin_refresh` allows users to set a custom interval to update the public and private IP address of the host,
-based on their DHCP lease renewal.<br>This is specifically useful in cases of long running sessions.
-</details>
 
 <details>
 <summary><strong>filebrowser configuration</strong></summary>
@@ -132,35 +110,6 @@ if __name__ == '__main__':
 > Object level instantiation might be complex for configuration settings. So it is better to use `.env` files instead.
 
 </details>
-
-## Proxy Server
-`pyfilebrowser` allows you to run a proxy server in parallel,
-which includes a collection of security features and trace level logging information.
-
-> The proxy server is pretty restrictive in nature.
-
-### [Firewall]
-
-While CORS may solve the purpose at the webpage level, the built-in proxy's firewall restricts connections
-from any origin regardless of the tool used to connect (PostMan, curl, wget etc.)
-
-Due to this behavior, please make sure to specify **ALL** the origins that are supposed to be allowed
-(including but not limited to reverse-proxy, CDN, redirect servers etc.)
-
-### [Brute Force Protection]
-
-- The built-in proxy service limits the number of failed login attempts from a host address to **three**.
-- Any more than 3 attempts, will result in the host address being temporarily blocked.
-- For every failed attempt _(after the initial 3)_, the host address will be blocked at an incremental rate.
-- After 10 such attempts, the host address will be permanently _(1 month)_ forbidden.
-
-### [Rate Limiter]
-The built-in proxy service allows you to implement a rate limiter.
-
-[Rate limiting] allows you to prevent [DDoS] attacks and maintain server stability and performance.
-
-> Enabling proxy server increases an inconspicuous latency to the connections,
-> but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
 
 ## Coding Standards
 Docstring format: [`Google`][google-docs] <br>
@@ -228,10 +177,3 @@ Licensed under the [MIT License][license]
 [google-docs]: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
 [pep8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://pycqa.github.io/isort/
-[error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html
-[warn.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/warn.html
-[Rate limiting]: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
-[DDoS]: https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/
-[Rate Limiter]: https://builtin.com/software-engineering-perspectives/rate-limiter
-[Brute Force Protection]: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
-[Firewall]: https://www.zenarmor.com/docs/network-security-tutorials/what-is-proxy-firewall

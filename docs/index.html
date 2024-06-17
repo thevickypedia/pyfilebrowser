@@ -51,7 +51,6 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">PyFileBrowser</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#kick-off">Kick Off</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#environment-variables">Environment Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#proxy-server">Proxy Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#coding-standards">Coding Standards</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#release-notes">Release Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#linting">Linting</a></li>
@@ -62,615 +61,6 @@
 </li>
 </ul>
 </div>
-</section>
-<section id="proxy-server">
-<h1>——–Proxy Server——–<a class="headerlink" href="#proxy-server" title="Permalink to this heading">¶</a></h1>
-</section>
-<section id="module-pyfilebrowser.proxy.main">
-<span id="engine"></span><h1>Engine<a class="headerlink" href="#module-pyfilebrowser.proxy.main" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.epoch">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">epoch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.main.epoch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.refresh_allowed_origins">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">refresh_allowed_origins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.refresh_allowed_origins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refresh all the allowed origins.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul>
-<li><p>Triggered once during the proxy server starts up (by default).</p></li>
-<li><p>Triggered repeatedly at given intervals as a background task (if <code class="docutils literal notranslate"><span class="pre">origin_refresh</span></code> is set).</p></li>
-<li><div class="line-block">
-<div class="line">The background task runs only when the env vars, <code class="docutils literal notranslate"><span class="pre">private_ip</span></code> or <code class="docutils literal notranslate"><span class="pre">public_ip</span></code> is set to True,</div>
-<div class="line">as they are the only dynamic values.</div>
-</div>
-</li>
-</ul>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.incrementer">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">incrementer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attempt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.incrementer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increments block time for a host address based on the number of failed attempts.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attempt</strong> – Number of failed attempts.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns the appropriate block time in minutes.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.handle_auth_error">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">handle_auth_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.handle_auth_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handle authentication errors from the filebrowser API.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> – The incoming request object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.main.proxy_engine">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.main.</span></span><span class="sig-name descname"><span class="pre">proxy_engine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxy_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.main.proxy_engine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Proxy handler function to forward incoming requests to a target URL.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>proxy_request</strong> – The incoming request object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The response object with the forwarded content and headers.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Response</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.templates.templates">
-<span id="templates"></span><h1>Templates<a class="headerlink" href="#module-pyfilebrowser.proxy.templates.templates" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.service_unavailable">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">service_unavailable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.service_unavailable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs an error page using jina template for service unavailable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>HTML content as string.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.forbidden">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">forbidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.forbidden" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs an error page using jina template for forbidden response.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>origin</strong> – Origin that is forbidden.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML content as string.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.templates.templates.unsupported_browser">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.templates.templates.</span></span><span class="sig-name descname"><span class="pre">unsupported_browser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserAgent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.templates.templates.unsupported_browser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a warning page using jina template for unsupported browsers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>user_agent</strong> – User agent object.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML content as string.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.rate_limit">
-<span id="rate-limit"></span><h1>Rate Limit<a class="headerlink" href="#module-pyfilebrowser.proxy.rate_limit" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.rate_limit.RateLimiter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.rate_limit.</span></span><span class="sig-name descname"><span class="pre">RateLimiter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.rate_limit.RateLimiter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Object that implements the <code class="docutils literal notranslate"><span class="pre">RateLimiter</span></code> functionality.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RateLimiter</span>
-</pre></div>
-</div>
-<p>Instantiates the object with the necessary args.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rps</strong> – RateLimit object with <code class="docutils literal notranslate"><span class="pre">max_requests</span></code> and <code class="docutils literal notranslate"><span class="pre">seconds</span></code>.</p>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.rate_limit.RateLimiter.max_requests">
-<span class="sig-name descname"><span class="pre">max_requests</span></span><a class="headerlink" href="#pyfilebrowser.proxy.rate_limit.RateLimiter.max_requests" title="Permalink to this definition">¶</a></dt>
-<dd><p>Maximum requests to allow in a given time frame.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.rate_limit.RateLimiter.seconds">
-<span class="sig-name descname"><span class="pre">seconds</span></span><a class="headerlink" href="#pyfilebrowser.proxy.rate_limit.RateLimiter.seconds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of seconds after which the cache is set to expire.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.rate_limit.RateLimiter.init">
-<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.rate_limit.RateLimiter.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the number of calls exceeds the rate limit for the given identifier.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> – The incoming request object.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>429</strong> – Too many requests.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.repeated_timer">
-<span id="repeated-timer"></span><h1>Repeated Timer<a class="headerlink" href="#module-pyfilebrowser.proxy.repeated_timer" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.repeated_timer.RepeatedTimer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.repeated_timer.</span></span><span class="sig-name descname"><span class="pre">RepeatedTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.repeated_timer.RepeatedTimer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instantiates RepeatedTimer object to kick off the threading.Timer object with custom intervals.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RepeatedTimer</span>
-</pre></div>
-</div>
-<p>Repeats the <code class="docutils literal notranslate"><span class="pre">Timer</span></code> object from threading.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>interval</strong> – Interval in seconds.</p></li>
-<li><p><strong>function</strong> – Function to trigger with intervals.</p></li>
-<li><p><strong>args</strong> – Arguments for the function.</p></li>
-<li><p><strong>kwargs</strong> – Keyword arguments for the function.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.repeated_timer.RepeatedTimer._run">
-<span class="sig-name descname"><span class="pre">_run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.repeated_timer.RepeatedTimer._run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers the target function.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.repeated_timer.RepeatedTimer.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.repeated_timer.RepeatedTimer.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trigger target function if timer isn’t running already.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.repeated_timer.RepeatedTimer.stop">
-<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.repeated_timer.RepeatedTimer.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop the timer and cancel all futures.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.repeated_timer.RepeatedTimer.cancel">
-<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.repeated_timer.RepeatedTimer.cancel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initiate cancellation.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.secure">
-<span id="secure"></span><h1>Secure<a class="headerlink" href="#module-pyfilebrowser.proxy.secure" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.secure.calculate_hash">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.secure.</span></span><span class="sig-name descname"><span class="pre">calculate_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.secure.calculate_hash" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate hash value for the given payload.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.secure.base64_encode">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.secure.</span></span><span class="sig-name descname"><span class="pre">base64_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.secure.base64_encode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base64 encode the given payload.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.secure.base64_decode">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.secure.</span></span><span class="sig-name descname"><span class="pre">base64_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.secure.base64_decode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base64 decode the given payload.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.secure.hex_decode">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.secure.</span></span><span class="sig-name descname"><span class="pre">hex_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.secure.hex_decode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert hex value to a string.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.secure.hex_encode">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.secure.</span></span><span class="sig-name descname"><span class="pre">hex_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.secure.hex_encode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert string value to hex.</p>
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.server">
-<span id="server"></span><h1>Server<a class="headerlink" href="#module-pyfilebrowser.proxy.server" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.ProxyServer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">ProxyServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.server.ProxyServer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shared ProxyServer state that is available between all protocol instances.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ProxyServer</span>
-</pre></div>
-</div>
-<p class="rubric">References</p>
-<p><a class="reference external" href="https://github.com/encode/uvicorn/issues/742#issuecomment-674411676">https://github.com/encode/uvicorn/issues/742#issuecomment-674411676</a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.ProxyServer.run_in_parallel">
-<span class="sig-name descname"><span class="pre">run_in_parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.ProxyServer.run_in_parallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initiates the server in a dedicated process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>logger</strong> – Server’s original logger.</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>Initiates a background task to refresh the allowed origins at given interval.</p></li>
-</ul>
-</div>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.server.proxy_server">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">proxy_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.proxy_server" title="Permalink to this definition">¶</a></dt>
-<dd><p>Triggers the proxy engine in parallel.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>server</strong> – Server URL that has to be proxied.</p></li>
-<li><p><strong>log_config</strong> – Server’s logger object.</p></li>
-<li><p><strong>auth_map</strong> – Server’s authorization mapping.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>Creates a logging configuration similar to the main logger.</p></li>
-<li><p>Adds the rate limit dependency, per the user’s selection.</p></li>
-<li><p>Adds CORS Middleware settings, and loads the uvicorn config.</p></li>
-</ul>
-</div>
-</dd></dl>
-
-</section>
-<section id="module-pyfilebrowser.proxy.squire">
-<span id="squire"></span><h1>Squire<a class="headerlink" href="#module-pyfilebrowser.proxy.squire" title="Permalink to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.squire.log_connection">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.squire.</span></span><span class="sig-name descname"><span class="pre">log_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">starlette.responses.HTMLResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.squire.log_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs the connection information and returns an HTML response if the browser is unsupported for video/audio.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>Only logs the first connection from a device.</p></li>
-<li><p>This avoids multiple logs when same device is accessing different paths.</p></li>
-</ul>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns an HTML response if the browser is unsupported for video/audio rendering.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTMLResponse</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.squire.extract_credentials">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.squire.</span></span><span class="sig-name descname"><span class="pre">extract_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authorization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.squire.extract_credentials" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the credentials from <code class="docutils literal notranslate"><span class="pre">Authorization</span></code> headers and decode it before returning as a list of strings.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>authorization</strong> – Authorization header value.</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>Decodes the base64-encoded value (JavaScript’s built-in encoding <code class="docutils literal notranslate"><span class="pre">btoa</span></code>)</p></li>
-<li><p>Converts hex encoded value to string</p></li>
-</ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Converts a string into a hex</span>
-<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">ConvertStringToHex</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;00&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">16</span><span class="p">)).</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">4</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;\\u&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\\u&quot;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Expected encryption and encoding for authorization header</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">hex_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ConvertStringToHex</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">CalculateHash</span><span class="p">(</span><span class="nx">password</span><span class="p">);</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">hex_recaptcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ConvertStringToHex</span><span class="p">(</span><span class="nx">recaptcha</span><span class="p">);</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">authHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">btoa</span><span class="p">(</span><span class="nx">hex_user</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">hex_recaptcha</span><span class="p">)</span><span class="w"> </span><span class="c1">// eslint-disable-line</span>
-</pre></div>
-</div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Yields<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>Generator[str]</em> – Yields parts of the extracted credentials.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.squire.proxy_auth">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.squire.</span></span><span class="sig-name descname"><span class="pre">proxy_auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authorization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.squire.proxy_auth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Authenticate proxy request.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>authorization</strong> – Authorization header value.</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<ul class="simple">
-<li><p>Creates a hash of the password with cryptographic encryption and compares with the received hash</p></li>
-</ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Converts a string into a hash using cryptographic encryption</span>
-<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">CalculateHash</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">encoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TextEncoder</span><span class="p">();</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">encoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">wordArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">lib</span><span class="p">.</span><span class="nx">WordArray</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">SHA512</span><span class="p">(</span><span class="nx">wordArray</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">hash</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Hex</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">hashBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">digest</span><span class="p">(</span><span class="s2">&quot;SHA-512&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">);</span>
-<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">hashArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Uint8Array</span><span class="p">(</span><span class="nx">hashBuffer</span><span class="p">));</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">hashArray</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="kr">byte</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kr">byte</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mf">16</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns a dict of username, password and recaptcha value.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[str, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="settings">
-<h1>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">Destination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination" title="Permalink to this definition">¶</a></dt>
-<dd><p>Server’s destination settings.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Destination</span>
-</pre></div>
-</div>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Url</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination.auth_config">
-<span class="sig-name descname"><span class="pre">auth_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.auth_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">EnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure all env vars and validate using <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> to share across modules.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EnvConfig</span>
-</pre></div>
-</div>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.host">
-<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.host" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.port">
-<span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.port" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.workers">
-<span class="sig-name descname"><span class="pre">workers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.workers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.debug">
-<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.debug" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.origins">
-<span class="sig-name descname"><span class="pre">origins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.origins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.database">
-<span class="sig-name descname"><span class="pre">database</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.allow_public_ip">
-<span class="sig-name descname"><span class="pre">allow_public_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.allow_public_ip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.allow_private_ip">
-<span class="sig-name descname"><span class="pre">allow_private_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.allow_private_ip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.origin_refresh">
-<span class="sig-name descname"><span class="pre">origin_refresh</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.origin_refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.rate_limit">
-<span class="sig-name descname"><span class="pre">rate_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.rate_limit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.unsupported_browsers">
-<span class="sig-name descname"><span class="pre">unsupported_browsers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.unsupported_browsers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.warn_page">
-<span class="sig-name descname"><span class="pre">warn_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.warn_page" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.error_page">
-<span class="sig-name descname"><span class="pre">error_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.error_page" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_unsupported_browsers">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_unsupported_browsers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unsupported_browsers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_unsupported_browsers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate unsupported_browsers and convert to list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_origins">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_origins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_origins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate origins’ input as a URL, and stores only the host part of the URL.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_rate_limit">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.proxy.settings.RateLimit" title="pyfilebrowser.proxy.settings.RateLimit"><span class="pre">RateLimit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_rate_limit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate rate_limit and convert to list.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Environment variables configuration.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config.env_file">
-<span class="sig-name descname"><span class="pre">env_file</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.proxy.env'</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config.env_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.Config.extra">
-<span class="sig-name descname"><span class="pre">extra</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ignore'</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.Config.extra" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.RateLimit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">RateLimit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.RateLimit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Object to store the rate limit settings.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RateLimit</span>
-</pre></div>
-</div>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.RateLimit.max_requests">
-<span class="sig-name descname"><span class="pre">max_requests</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.RateLimit.max_requests" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.RateLimit.seconds">
-<span class="sig-name descname"><span class="pre">seconds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.RateLimit.seconds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session" title="Permalink to this definition">¶</a></dt>
-<dd><p>Object to store session information.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Session</span>
-</pre></div>
-</div>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session.auth_counter">
-<span class="sig-name descname"><span class="pre">auth_counter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session.auth_counter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session.forbid">
-<span class="sig-name descname"><span class="pre">forbid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session.forbid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session.info">
-<span class="sig-name descname"><span class="pre">info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session.info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session.rps">
-<span class="sig-name descname"><span class="pre">rps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session.rps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Session.allowed_origins">
-<span class="sig-name descname"><span class="pre">allowed_origins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Session.allowed_origins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="pyfb-api-client">
 <h1>——–PyFB API Client——–<a class="headerlink" href="#pyfb-api-client" title="Permalink to this heading">¶</a></h1>
@@ -687,22 +77,13 @@ validated to form a valid model.</p>
 <p>Instantiates the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>logger</strong> – Bring your own logger.</p></li>
-<li><p><strong>proxy</strong> – Boolean flag to enable proxy.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>logger</strong> – Bring your own logger.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.cleanup">
 <span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.cleanup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the config and proxy database.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.exit_process">
-<span class="sig-name descname"><span class="pre">exit_process</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.exit_process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the database file, and all the subtitles that were created by this application.</p>
+<dd><p>Removes the config and auth databases.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -756,17 +137,6 @@ validated to form a valid model.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dict[str, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.background_tasks">
-<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initiates the proxy engine and subtitles’ format conversion as background tasks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>auth_map</strong> – Authentication map provided as environment variables.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1713,8 +1083,8 @@ validated to form a valid model.</p>
 </dd></dl>
 
 </section>
-<section id="id1">
-<h1>Squire<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<section id="squire">
+<h1>Squire<a class="headerlink" href="#squire" title="Permalink to this heading">¶</a></h1>
 </section>
 <section id="download">
 <h1>Download<a class="headerlink" href="#download" title="Permalink to this heading">¶</a></h1>
@@ -1767,6 +1137,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.Executable.filebrowser_db">
 <span class="sig-name descname"><span class="pre">filebrowser_db</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.filebrowser_db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.download.Executable.auth_db">
+<span class="sig-name descname"><span class="pre">auth_db</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.auth_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2023,72 +1398,6 @@ validated to form a valid model.</p>
 </dd></dl>
 
 </section>
-<section id="module-pyfilebrowser.squire.struct">
-<span id="struct"></span><h1>Struct<a class="headerlink" href="#module-pyfilebrowser.squire.struct" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.struct.LoggerConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.struct.</span></span><span class="sig-name descname"><span class="pre">LoggerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.squire.struct.LoggerConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a dictionary of the given logger’s configuration.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LoggerConfig</span>
-</pre></div>
-</div>
-<p>Instantiates the object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>logger</strong> – Custom logger.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.struct.LoggerConfig.extract">
-<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.struct.LoggerConfig.extract" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts the handlers and formatters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns a tuple of handlers and formatters, each as dictionary representation.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple[dict, dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.struct.LoggerConfig.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.struct.LoggerConfig.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns logger’s full configuration which can be re-used to create new logger objects with the same config.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Returns the log configration.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[str, dict | int | Dict[str, Dict[str, str | int | bool | List[str]]]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.struct.update_log_level">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.struct.</span></span><span class="sig-name descname"><span class="pre">update_log_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.struct.update_log_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recursively update the value where any key equals “level”, for loggers and handlers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> – The nested dictionary to traverse.</p></li>
-<li><p><strong>new_value</strong> – The new value to set where the key equals “level”.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The updated nested dictionary.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
@@ -2109,25 +1418,15 @@ validated to form a valid model.</p>
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Welcome to PyFileBrowser’s documentation!</a></li>
-<li><a class="reference internal" href="#proxy-server">——–Proxy Server——–</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.main">Engine</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.templates.templates">Templates</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.rate_limit">Rate Limit</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.repeated_timer">Repeated Timer</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.secure">Secure</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.server">Server</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.proxy.squire">Squire</a></li>
-<li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#pyfb-api-client">——–PyFB API Client——–</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
 <li><a class="reference internal" href="#modals">Modals</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#models">Models</a></li>
 <li><a class="reference internal" href="#users">Users</a></li>
-<li><a class="reference internal" href="#id1">Squire</a></li>
+<li><a class="reference internal" href="#squire">Squire</a></li>
 <li><a class="reference internal" href="#download">Download</a></li>
 <li><a class="reference internal" href="#steward">Steward</a></li>
-<li><a class="reference internal" href="#module-pyfilebrowser.squire.struct">Struct</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 

@@ -12,64 +12,6 @@ Welcome to PyFileBrowser's documentation!
 
    README
 
---------Proxy Server--------
-============================
-Engine
-======
-
-.. automodule:: pyfilebrowser.proxy.main
-
-Templates
-=========
-
-.. automodule:: pyfilebrowser.proxy.templates.templates
-
-Rate Limit
-==========
-
-.. automodule:: pyfilebrowser.proxy.rate_limit
-
-Repeated Timer
-==============
-
-.. automodule:: pyfilebrowser.proxy.repeated_timer
-
-Secure
-======
-
-.. automodule:: pyfilebrowser.proxy.secure
-
-Server
-======
-
-.. automodule:: pyfilebrowser.proxy.server
-
-Squire
-======
-
-.. automodule:: pyfilebrowser.proxy.squire
-
-Settings
-========
-
-.. autoclass:: pyfilebrowser.proxy.settings.Destination(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(pydantic_settings.BaseSettings)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.RateLimit(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields
-
 --------PyFB API Client--------
 ===============================
 Main Module
@@ -197,11 +139,6 @@ Steward
 
 .. automodule:: pyfilebrowser.squire.steward
    :exclude-members: EnvConfig, FileIO
-
-Struct
-======
-
-.. automodule:: pyfilebrowser.squire.struct
 
 Indices and tables
 ==================

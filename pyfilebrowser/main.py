@@ -1,16 +1,11 @@
 import json
-import logging
-import multiprocessing
 import os
-import socket
 import subprocess
-import time
 import warnings
 from typing import Dict, List
 
 from pyfilebrowser.modals import models
-from pyfilebrowser.proxy import proxy_server, proxy_settings
-from pyfilebrowser.squire import download, steward, struct
+from pyfilebrowser.squire import download, steward
 
 
 class FileBrowser:
@@ -25,7 +20,6 @@ class FileBrowser:
 
         Keyword Args:
             logger: Bring your own logger.
-            proxy: Boolean flag to enable proxy.
         """
         self.env = steward.EnvConfig(**kwargs)
         self.logger = kwargs.get(
@@ -39,47 +33,22 @@ class FileBrowser:
         github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
-        self.proxy_engine: multiprocessing.Process | None = None
-        self.proxy = kwargs.get("proxy")
-        assert self.proxy is None or isinstance(
-            self.proxy, bool
-        ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
 
     def cleanup(self, log: bool = True) -> None:
-        """Removes the config and proxy database."""
+        """Removes the config and auth databases."""
         try:
             os.remove(download.executable.filebrowser_db)
-            self.logger.info(
-                "Removed config database %s", download.executable.filebrowser_db
-            )
+            if log:
+                self.logger.info(
+                    "Removed config database %s", download.executable.filebrowser_db
+                )
+            os.remove(download.executable.auth_db)
+            if log:
+                self.logger.info(
+                    "Removed auth database %s", download.executable.auth_db
+                )
         except FileNotFoundError as warn:
             self.logger.warning(warn) if log else None
-        try:
-            os.remove(proxy_settings.database)
-            self.logger.info("Removed proxy database %s", proxy_settings.database)
-        except FileNotFoundError as warn:
-            self.logger.warning(warn) if self.proxy_engine and log else None
-
-    def exit_process(self) -> None:
-        """Deletes the database file, and all the subtitles that were created by this application."""
-        if self.proxy_engine:
-            self.proxy_engine.join(timeout=3)  # Gracefully terminate the proxy server
-            for i in range(1, 6):
-                if self.proxy_engine.is_alive():
-                    self.proxy_engine.terminate()
-                else:
-                    self.logger.debug(
-                        "Daemon process terminated in %s attempt", steward.ordinal(i)
-                    )
-                    self.proxy_engine.close()
-                    break
-                time.sleep(1e-1)  # 0.1s
-            else:
-                warnings.warn(
-                    f"Failed to terminate daemon process PID: [{self.proxy_engine.pid}] within 5 attempts",
-                    RuntimeWarning,
-                )
-        self.cleanup()
 
     def run_subprocess(
         self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False
@@ -116,7 +85,10 @@ class FileBrowser:
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
                 process.terminate()
-            self.exit_process()
+            self.cleanup()
+        except AssertionError:
+            self.cleanup()
+            raise
 
     def create_users(self) -> Dict[str, str]:
         """Creates the JSON file for user profiles.
@@ -161,9 +133,6 @@ class FileBrowser:
 
     def create_config(self) -> None:
         """Creates the JSON file for configuration."""
-        if self.proxy:
-            self.env.config_settings.settings.authMethod = "json"
-            self.env.config_settings.settings.authHeader = ""
         if str(self.env.config_settings.settings.branding.files) == ".":
             self.env.config_settings.settings.branding.files = ""
         self.env.config_settings.server.port = str(self.env.config_settings.server.port)
@@ -204,45 +173,9 @@ class FileBrowser:
         )
         return auth_map
 
-    def background_tasks(self, auth_map: Dict[str, str]) -> None:
-        """Initiates the proxy engine and subtitles' format conversion as background tasks.
-
-        Args:
-            auth_map: Authentication map provided as environment variables.
-        """
-        if self.proxy:
-            assert proxy_settings.port != int(
-                self.env.config_settings.server.port
-            ), f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
-            # This is to check if the port is available, before starting the proxy server in a dedicated process
-            try:
-                with socket.socket() as sock:
-                    sock.bind((proxy_settings.host, proxy_settings.port))
-            except OSError as error:
-                self.logger.error(error)
-                self.logger.critical(
-                    "Cannot initiate proxy server, retry after sometime or change the port number."
-                )
-                self.cleanup()
-                raise
-            log_config = struct.LoggerConfig(self.logger).get()
-            if proxy_settings.debug:
-                log_config = struct.update_log_level(log_config, logging.DEBUG)
-            # noinspection HttpUrlsUsage
-            self.proxy_engine = multiprocessing.Process(
-                target=proxy_server,
-                daemon=True,
-                args=(
-                    f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
-                    log_config,
-                    auth_map,
-                ),
-            )
-            self.proxy_engine.start()
-
     def start(self) -> None:
         """Handler for all the functions above."""
         self.cleanup(False)
         self.import_config()
-        self.background_tasks(self.import_users())
-        self.run_subprocess([], "Failed to run the server", True)
+        self.import_users()
+        # self.run_subprocess([], "Failed to run the server", True)

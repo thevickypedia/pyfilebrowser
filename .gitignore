@@ -8,6 +8,7 @@ venv
 
 # .env files
 .*.env
+.*.json
 
 # Sphinx docs
 source

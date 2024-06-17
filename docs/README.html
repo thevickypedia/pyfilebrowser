@@ -89,7 +89,6 @@ and follow the naming convention below.</p>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">browser</span> <span class="o">=</span> <span class="n">pyfilebrowser</span><span class="o">.</span><span class="n">FileBrowser</span><span class="p">()</span>
-    <span class="c1"># browser.proxy = True  # [Optional] Enables proxy server to run in parallel</span>
     <span class="n">browser</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -104,27 +103,6 @@ and follow the naming convention below.</p>
 <section id="env-files">
 <h3><code class="docutils literal notranslate"><span class="pre">.env</span></code> files<a class="headerlink" href="#env-files" title="Permalink to this heading">¶</a></h3>
 <details>
-<summary><strong>proxy server</strong></summary><blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">.proxy.env</span></code> - Loads the proxy server’s configuration.</p>
-</div></blockquote>
-<ul class="simple">
-<li><p><strong>host</strong> <code class="docutils literal notranslate"><span class="pre">str</span></code> - Hostname/IP for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">socket.gethostbyname('localhost')</span></code></em></p></li>
-<li><p><strong>port</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code> - Port number for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">8000</span></code></em></p></li>
-<li><p><strong>workers</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code> - Number of workers used to run the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code></em></p></li>
-<li><p><strong>debug</strong> <code class="docutils literal notranslate"><span class="pre">bool</span></code> - Boolean flag to enable debug level logging. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
-<li><p><strong>origins</strong> <code class="docutils literal notranslate"><span class="pre">List[str]</span></code> - Origins to allow connections through proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">host</span></code></em></p></li>
-<li><p><strong>allow_public_ip</strong> <code class="docutils literal notranslate"><span class="pre">bool</span></code> - Boolean flag to allow public IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
-<li><p><strong>allow_private_ip</strong> <code class="docutils literal notranslate"><span class="pre">bool</span></code> - Boolean flag to allow private IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
-<li><p><strong>origin_refresh</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code> - Interval in seconds to refresh all the allowed origins. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></em></p></li>
-<li><p><strong>error_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Error page to serve when filebrowser API is down. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html">error.html</a></p></li>
-<li><p><strong>warn_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Warning page to serve when accessed from Unsupported browsers. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/warn.html">warn.html</a></p></li>
-<li><p><strong>rate_limit</strong> - <code class="docutils literal notranslate"><span class="pre">Dict/List[Dict]</span></code> with the rate limit for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></em></p></li>
-</ul>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">origin_refresh</span></code> allows users to set a custom interval to update the public and private IP address of the host,
-based on their DHCP lease renewal.<br>This is specifically useful in cases of long running sessions.</p>
-</div></blockquote>
-</details><details>
 <summary><strong>filebrowser configuration</strong></summary><blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">.config.env</span></code> - Loads the server’s default configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#configuration">config</a></p>
 </div></blockquote>
@@ -156,39 +134,6 @@ Changes should always go through the <code class="docutils literal notranslate">
 <div><p>Object level instantiation might be complex for configuration settings. So it is better to use <code class="docutils literal notranslate"><span class="pre">.env</span></code> files instead.</p>
 </div></blockquote>
 </details></section>
-</section>
-<section id="proxy-server">
-<h2>Proxy Server<a class="headerlink" href="#proxy-server" title="Permalink to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code> allows you to run a proxy server in parallel,
-which includes a collection of security features and trace level logging information.</p>
-<blockquote>
-<div><p>The proxy server is pretty restrictive in nature.</p>
-</div></blockquote>
-<section id="firewall">
-<h3><a class="reference external" href="https://www.zenarmor.com/docs/network-security-tutorials/what-is-proxy-firewall">Firewall</a><a class="headerlink" href="#firewall" title="Permalink to this heading">¶</a></h3>
-<p>While CORS may solve the purpose at the webpage level, the built-in proxy’s firewall restricts connections
-from any origin regardless of the tool used to connect (PostMan, curl, wget etc.)</p>
-<p>Due to this behavior, please make sure to specify <strong>ALL</strong> the origins that are supposed to be allowed
-(including but not limited to reverse-proxy, CDN, redirect servers etc.)</p>
-</section>
-<section id="brute-force-protection">
-<h3><a class="reference external" href="https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks">Brute Force Protection</a><a class="headerlink" href="#brute-force-protection" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>The built-in proxy service limits the number of failed login attempts from a host address to <strong>three</strong>.</p></li>
-<li><p>Any more than 3 attempts, will result in the host address being temporarily blocked.</p></li>
-<li><p>For every failed attempt <em>(after the initial 3)</em>, the host address will be blocked at an incremental rate.</p></li>
-<li><p>After 10 such attempts, the host address will be permanently <em>(1 month)</em> forbidden.</p></li>
-</ul>
-</section>
-<section id="rate-limiter">
-<h3><a class="reference external" href="https://builtin.com/software-engineering-perspectives/rate-limiter">Rate Limiter</a><a class="headerlink" href="#rate-limiter" title="Permalink to this heading">¶</a></h3>
-<p>The built-in proxy service allows you to implement a rate limiter.</p>
-<p><a class="reference external" href="https://www.cloudflare.com/learning/bots/what-is-rate-limiting/">Rate limiting</a> allows you to prevent <a class="reference external" href="https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/">DDoS</a> attacks and maintain server stability and performance.</p>
-<blockquote>
-<div><p>Enabling proxy server increases an inconspicuous latency to the connections,
-but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.</p>
-</div></blockquote>
-</section>
 </section>
 <section id="coding-standards">
 <h2>Coding Standards<a class="headerlink" href="#coding-standards" title="Permalink to this heading">¶</a></h2>
@@ -249,12 +194,6 @@ Styling conventions: <a class="reference external" href="https://www.python.org/
 <li><a class="reference internal" href="#kick-off">Kick Off</a></li>
 <li><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
 <li><a class="reference internal" href="#env-files"><code class="docutils literal notranslate"><span class="pre">.env</span></code> files</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#proxy-server">Proxy Server</a><ul>
-<li><a class="reference internal" href="#firewall">Firewall</a></li>
-<li><a class="reference internal" href="#brute-force-protection">Brute Force Protection</a></li>
-<li><a class="reference internal" href="#rate-limiter">Rate Limiter</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#coding-standards">Coding Standards</a></li>

@@ -19,14 +19,9 @@ requires-python = ">=3.11"
 [tool.setuptools]
 packages = [
     "pyfilebrowser",
-    "pyfilebrowser.proxy",
     "pyfilebrowser.modals",
     "pyfilebrowser.squire",
-    "pyfilebrowser.proxy.templates"
 ]
-
-[tool.setuptools.package-data]
-"pyfilebrowser.proxy.templates" = ["warn.html", "error.html"]
 
 [tool.setuptools.dynamic]
 version = { attr = "pyfilebrowser.version" }

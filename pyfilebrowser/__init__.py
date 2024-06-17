@@ -12,13 +12,11 @@ def _cli() -> None:
 
     Keyword Args:
         --version | -V: Prints the version.
-        --proxy | -P: Initiates PyFileBrowser with proxy server enabled.
         --help | -H: Prints the help section.
         start: Initiates the PyFilebrowser.
     """
     assert sys.argv[0].endswith("pyfilebrowser"), "Invalid commandline trigger!!"
     options = {
-        "--proxy | -P": "Initiates PyFileBrowser with proxy server enabled.",
         "--version | -V": "Prints the version.",
         "--help | -H": "Prints the help section.",
         "start": "Initiates the PyFilebrowser.",
@@ -38,13 +36,9 @@ def _cli() -> None:
             f"Cannot proceed without a valid arbitrary command. Please choose from {choices}"
         )
         exit(1)
-    # Set the proxy flag to False by default
-    proxy_flag = False
     if any(arg in args for arg in ["version", "--version", "-v"]):
         print(f"PyFileBrowser: {version}")
         exit(0)
-    elif any(arg in args for arg in ["proxy", "--proxy", "-p"]):
-        proxy_flag = True
     elif any(arg in args for arg in ["help", "--help", "-h"]):
         print(
             f"Usage: pyfilebrowser [arbitrary-command]\nOptions (and corresponding behavior):{choices}"
@@ -58,7 +52,7 @@ def _cli() -> None:
         )
         exit(1)
     if any(arg in args for arg in ["start", "run"]):
-        FileBrowser(proxy=proxy_flag).start()
+        FileBrowser().start()
     else:
         raise ValueError(
             "\n\tNo 'start' or 'run' command received to initiate the PyFileBrowser"
