@@ -24,7 +24,7 @@ def alias_choices(variable: str) -> AliasChoices:
         Returns the alias choices for the variable.
     """
     return AliasChoices(
-        f"FILEBROWSER_{variable}", f"GIT_{variable}", f"GITHUB_{variable}"
+        variable, f"FILEBROWSER_{variable}", f"GIT_{variable}", f"GITHUB_{variable}"
     )
 
 

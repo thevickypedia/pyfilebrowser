@@ -1,0 +1,8 @@
+# Sample extra settings for the server which cannot be set via .config.env (default settings)
+---
+server:
+  allowedOrigins:
+    - sub.example.com
+  refreshAllowedOrigins: 300
+  allowPrivateIP: true
+  allowPublicIP: true

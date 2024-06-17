@@ -9,6 +9,7 @@ venv
 # .env files
 .*.env
 extra.*
+!samples/extra.yaml
 
 # Sphinx docs
 source
