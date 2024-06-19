@@ -63,6 +63,26 @@
 </ul>
 </div>
 </section>
+<section id="module-pyfilebrowser.__init__">
+<span id="initialization"></span><h1>Initialization<a class="headerlink" href="#module-pyfilebrowser.__init__" title="Permalink to this heading">¶</a></h1>
+<p>Module for packaging.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.__init__._cli">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.__init__.</span></span><span class="sig-name descname"><span class="pre">_cli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.__init__._cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starter function to invoke the file browser via CLI commands.</p>
+<dl class="simple">
+<dt><strong>Flags</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--version</span> <span class="pre">|</span> <span class="pre">-V</span></code>: Prints the version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--proxy</span> <span class="pre">|</span> <span class="pre">-P</span></code>: Initiates PyFileBrowser with proxy server enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--help</span> <span class="pre">|</span> <span class="pre">-H</span></code>: Prints the help section.</p></li>
+</ul>
+</dd>
+<dt><strong>Commands</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">|</span> <span class="pre">run</span></code>: Initiates the PyFilebrowser.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="proxy-server">
 <h1>——–Proxy Server——–<a class="headerlink" href="#proxy-server" title="Permalink to this heading">¶</a></h1>
 </section>
@@ -829,8 +849,13 @@ validated to form a valid model.</p>
 </div>
 <p class="rubric">References</p>
 <ul class="simple">
-<li><p>A custom CSS file can be used to style the application. The file should be placed in the <code class="docutils literal notranslate"><span class="pre">files</span></code> directory.</p></li>
+<li><dl class="simple">
+<dt>A custom CSS file can be used to style the application. The file should be placed in the <code class="docutils literal notranslate"><span class="pre">files</span></code> directory.</dt><dd><ul>
 <li><p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/samples/custom.css">samples/custom.css</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <p class="rubric">Notes</p>
 <ul class="simple">
@@ -1918,11 +1943,6 @@ validated to form a valid model.</p>
 <span class="sig-name descname"><span class="pre">config_settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.ConfigSettings" title="pyfilebrowser.modals.config.ConfigSettings"><span class="pre">ConfigSettings</span></a></em><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.config_settings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.user_home_base">
-<span class="sig-name descname"><span class="pre">user_home_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.user_home_base" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.load_user_profiles">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_user_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.UserSettings" title="pyfilebrowser.modals.users.UserSettings"><span class="pre">UserSettings</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.load_user_profiles" title="Permalink to this definition">¶</a></dt>
@@ -2147,6 +2167,7 @@ validated to form a valid model.</p>
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Welcome to PyFileBrowser’s documentation!</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.__init__">Initialization</a></li>
 <li><a class="reference internal" href="#proxy-server">——–Proxy Server——–</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.main">Engine</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.proxy.templates.templates">Templates</a></li>

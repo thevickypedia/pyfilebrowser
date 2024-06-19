@@ -17,7 +17,7 @@ class Branding(BaseSettings):
 
     References:
         - A custom CSS file can be used to style the application. The file should be placed in the ``files`` directory.
-        - `samples/custom.css <https://github.com/thevickypedia/pyfilebrowser/blob/main/samples/custom.css>`__
+            - `samples/custom.css <https://github.com/thevickypedia/pyfilebrowser/blob/main/samples/custom.css>`__
 
     Notes:
         - **name** - Instance name that will show up on login and signup pages.

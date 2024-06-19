@@ -36,17 +36,14 @@ class ProxyServer(uvicorn.Server):
         uvicorn_access.disabled = True
         uvicorn_access.propagate = False
         assert logger.name == "proxy"
-        timers = []
+        timer = None
         if settings.env_config.origin_refresh and (
             settings.env_config.allow_private_ip or settings.env_config.allow_public_ip
         ):
-            timers.append(
-                repeated_timer.RepeatedTimer(
-                    function=main.refresh_allowed_origins,
-                    interval=settings.env_config.origin_refresh,
-                )
+            timer = repeated_timer.RepeatedTimer(
+                function=main.refresh_allowed_origins,
+                interval=settings.env_config.origin_refresh,
             )
-        for timer in timers:
             logger.info(
                 "Initiating the background task '%s' with interval %d seconds",
                 timer.function.__name__,
@@ -56,7 +53,7 @@ class ProxyServer(uvicorn.Server):
         try:
             self.run()
         except KeyboardInterrupt:
-            for timer in timers:
+            if timer:
                 logger.info(
                     "Stopping the background task '%s'", timer.function.__name__
                 )

@@ -131,15 +131,14 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
     logger.info("Download URL: %s", filebrowser_url)
 
     # Get asset id
-    existing = []
     for asset in release_info["assets"]:
         if asset.get("name") == executable.filebrowser_file:
             asset_id = asset["id"]
             break
-        elif asset.get("name"):
-            existing.append(asset["name"])
     else:
-        existing = "\n\t".join(existing)
+        existing = "\n\t".join(
+            asset["name"] for asset in release_info["assets"] if asset.get("name")
+        )
         raise Exception(
             f"\n\tFailed to get the asset id for {executable.filebrowser_file!r}\n\n"
             f"Available asset names:\n\t{existing}"

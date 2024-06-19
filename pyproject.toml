@@ -37,7 +37,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.optional-dependencies]
-dev = ["sphinx==5.1.1", "pre-commit", "recommonmark"]
+dev = ["sphinx==5.1.1", "pre-commit", "recommonmark", "gitverse"]
 
 [project.scripts]
 pyfilebrowser = "pyfilebrowser:_cli"

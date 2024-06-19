@@ -10,18 +10,20 @@ version = "0.1.0"
 def _cli() -> None:
     """Starter function to invoke the file browser via CLI commands.
 
-    Keyword Args:
-        --version | -V: Prints the version.
-        --proxy | -P: Initiates PyFileBrowser with proxy server enabled.
-        --help | -H: Prints the help section.
-        start: Initiates the PyFilebrowser.
+    **Flags**
+        - ``--version | -V``: Prints the version.
+        - ``--proxy | -P``: Initiates PyFileBrowser with proxy server enabled.
+        - ``--help | -H``: Prints the help section.
+
+    **Commands**
+        ``start | run``: Initiates the PyFilebrowser.
     """
     assert sys.argv[0].endswith("pyfilebrowser"), "Invalid commandline trigger!!"
     options = {
         "--proxy | -P": "Initiates PyFileBrowser with proxy server enabled.",
         "--version | -V": "Prints the version.",
         "--help | -H": "Prints the help section.",
-        "start": "Initiates the PyFilebrowser.",
+        "start | run": "Initiates the PyFilebrowser.",
     }
     # weird way to increase spacing to keep all values monotonic
     _longest_key = len(max(options.keys()))

@@ -127,7 +127,10 @@ class EnvConfig(BaseModel):
 
     user_profiles: List[users.UserSettings] = []
     config_settings: config.ConfigSettings = config.ConfigSettings()
-    if not config_settings.settings.userHomeBasePath:
+    if (
+        config_settings.settings.createUserDir
+        and not config_settings.settings.userHomeBasePath
+    ):
         user_home_base: DirectoryPath = os.path.join(
             config_settings.server.root, "users"
         )
@@ -145,17 +148,17 @@ class EnvConfig(BaseModel):
         for file in os.listdir(os.getcwd()):
             if "user" in file and file.endswith(".env"):
                 user_settings = users.UserSettings.from_env_file(file)
-                user_settings.lockPassword = not user_settings.authentication.admin
-                user_settings.hideDotfiles = not user_settings.authentication.admin
-                if (
-                    not user_settings.authentication.admin
-                    and user_settings.scope == "/"
-                ):
-                    warnings.warn(
-                        f"User {user_settings.authentication.username!r} is not an admin, "
-                        "but has permissions to the root directory.",
-                        UserWarning,
-                    )
+                if not user_settings.authentication.admin:
+                    # Default users can't reset passwords or view dot files
+                    # For admins, these settings are enforced by env vars
+                    user_settings.lockPassword = True
+                    user_settings.hideDotfiles = True
+                    if user_settings.scope == "/":
+                        warnings.warn(
+                            f"User {user_settings.authentication.username!r} is not an admin, "
+                            "but has permissions to the root directory.",
+                            UserWarning,
+                        )
                 yield user_settings
 
 

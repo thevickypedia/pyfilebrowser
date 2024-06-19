@@ -12,6 +12,11 @@ Welcome to PyFileBrowser's documentation!
 
    README
 
+Initialization
+==============
+
+.. automodule:: pyfilebrowser.__init__
+
 --------Proxy Server--------
 ============================
 Engine
