@@ -58,8 +58,19 @@ class UserSettings(BaseSettings):
 
     >>> UserSettings
 
-    See Also:
+    Notes:
+        - **authentication** - Authentication settings for each user profile.
+        - **scope** - The default scope for the users. Defaults to the root directory.
+        - **locale** - The default locale for the users. Locale is an RFC 5646 language tag.
+        - **lockPassword** - Default setting to prevent the user from changing the password.
+        - **viewMode** - Default view mode for the users.
+        - **singleClick** - Use single clicks to open files and directories.
         - **perm** - Permissions are set based on the admin flag for each ``Authentication`` model.
+        - **commands** - List of commands that can be executed by the user.
+        - **sorting** - Default sorting settings for the user.
+        - **rules** - List of allow and disallow rules. This overrides the server's default rules.
+        - **hideDotfiles** - Default setting to hide dotfiles.
+        - **dateFormat** - Default setting to set the exact date format.
     """
 
     authentication: Optional[Authentication] = Authentication(
@@ -68,7 +79,7 @@ class UserSettings(BaseSettings):
     scope: Optional[str] = "/"
     locale: Optional[str] = "en"
     lockPassword: Optional[bool] = False
-    viewMode: Optional[str] = "list"
+    viewMode: Optional[models.Listing] = models.Listing.list
     singleClick: Optional[bool] = False
     perm: Optional[models.Perm | None] = None
     commands: Optional[List[str]] = []

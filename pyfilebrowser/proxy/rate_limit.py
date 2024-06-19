@@ -34,11 +34,8 @@ class RateLimiter:
         self.exception = HTTPException(
             status_code=HTTPStatus.TOO_MANY_REQUESTS.value,
             detail=HTTPStatus.TOO_MANY_REQUESTS.phrase,
-            headers={
-                "Retry-After": str(
-                    math.ceil(self.seconds)
-                )  # reset headers, which will invalidate auth token
-            },
+            # reset headers, which will invalidate auth token
+            headers={"Retry-After": str(math.ceil(self.seconds))},
         )
 
     def init(self, request: Request) -> None:

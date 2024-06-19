@@ -34,11 +34,6 @@ Repeated Timer
 
 .. automodule:: pyfilebrowser.proxy.repeated_timer
 
-Secure
-======
-
-.. automodule:: pyfilebrowser.proxy.secure
-
 Server
 ======
 
@@ -132,11 +127,15 @@ Models
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.models.Theme(StrEnum)
+.. autoclass:: pyfilebrowser.modals.models.Listing(StrEnum)
 
 ====
 
 .. autoclass:: pyfilebrowser.modals.models.SortBy(StrEnum)
+
+====
+
+.. autoclass:: pyfilebrowser.modals.models.Theme(StrEnum)
 
 ====
 
@@ -151,7 +150,7 @@ Models
 ====
 
 .. automodule:: pyfilebrowser.modals.models
-   :exclude-members: Log, Theme, SortBy, Sorting, Perm
+   :exclude-members: Log, Listing, Theme, SortBy, Sorting, Perm
 
 Users
 =====

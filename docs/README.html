@@ -121,7 +121,7 @@ and follow the naming convention below.</p>
 </ul>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">origin_refresh</span></code> allows users to set a custom interval to update the public and private IP address of the host,
-based on their DHCP lease renewal.<br>This is specifically useful in cases of long running sessions.</p>
+based on their DHCP lease renewal.<br>This is specifically useful in cases of long-running server sessions.</p>
 </div></blockquote>
 </details><details>
 <summary><strong>filebrowser configuration</strong></summary><blockquote>
@@ -129,7 +129,8 @@ based on their DHCP lease renewal.<br>This is specifically useful in cases of lo
 </div></blockquote>
 <p>Extra configuration settings can be loaded using a <code class="docutils literal notranslate"><span class="pre">JSON</span></code>/<code class="docutils literal notranslate"><span class="pre">YAML</span></code> file.
 These settings will be merged with the default configuration settings.
-The filename should be passed as <code class="docutils literal notranslate"><span class="pre">extra_env</span></code> during object instantiation.</p>
+The filename should be passed as <code class="docutils literal notranslate"><span class="pre">extra_env</span></code> during object instantiation.
+Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#module-pyfilebrowser.main">extra_env</a></p>
 </details><details>
 <summary><strong>filebrowser user profiles</strong></summary><blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">.user*.env</span></code> - Loads each user’s profile specific configuration. Reference: <a class="reference external" href="https://thevickypedia.github.io/pyfilebrowser/#users">users</a></p>
@@ -164,7 +165,10 @@ Changes should always go through the <code class="docutils literal notranslate">
 <p><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code> allows you to run a proxy server in parallel,
 which includes a collection of security features and trace level logging information.</p>
 <blockquote>
-<div><p>The proxy server is pretty restrictive in nature.</p>
+<div><p>Enabling proxy server increases an inconspicuous latency to the connections,
+but due to asynchronous functionality, it is hardly noticeable.<br>
+The proxy server is designed to be lightweight and efficient, however streaming large video files may increase
+the memory usage at server side, due to multi-layered buffering.</p>
 </div></blockquote>
 <section id="firewall">
 <h3><a class="reference external" href="https://www.zenarmor.com/docs/network-security-tutorials/what-is-proxy-firewall">Firewall</a><a class="headerlink" href="#firewall" title="Permalink to this heading">¶</a></h3>
@@ -187,8 +191,7 @@ from any origin regardless of the tool used to connect (PostMan, curl, wget etc.
 <p>The built-in proxy service allows you to implement a rate limiter.</p>
 <p><a class="reference external" href="https://www.cloudflare.com/learning/bots/what-is-rate-limiting/">Rate limiting</a> allows you to prevent <a class="reference external" href="https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/">DDoS</a> attacks and maintain server stability and performance.</p>
 <blockquote>
-<div><p>Enabling proxy server increases an inconspicuous latency to the connections,
-but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.</p>
+<div><p>Brute force protection and rate limiting are reset when the server is restarted.</p>
 </div></blockquote>
 </section>
 </section>

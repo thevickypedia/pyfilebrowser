@@ -1,6 +1,8 @@
 import logging
 import os
 import re
+import warnings
+from collections.abc import Generator
 from datetime import datetime
 from typing import List
 
@@ -125,20 +127,36 @@ class EnvConfig(BaseModel):
 
     user_profiles: List[users.UserSettings] = []
     config_settings: config.ConfigSettings = config.ConfigSettings()
+    if not config_settings.settings.userHomeBasePath:
+        user_home_base: DirectoryPath = os.path.join(
+            config_settings.server.root, "users"
+        )
+        os.makedirs(user_home_base, exist_ok=True)
+        config_settings.settings.userHomeBasePath = user_home_base
 
     @classmethod
-    def load_user_profiles(cls) -> List[users.UserSettings]:
+    def load_user_profiles(cls) -> Generator[users.UserSettings]:
         """Load UserSettings instances from .env files in the current directory.
 
-        Returns:
-            List[users.UserSettings]:
-            Returns a list of ``UserSettings`` objects.
+        Yields:
+            Generator[users.UserSettings]:
+            A generator of ``UserSettings`` object.
         """
-        profiles = []
         for file in os.listdir(os.getcwd()):
             if "user" in file and file.endswith(".env"):
-                profiles.append(users.UserSettings.from_env_file(file))
-        return profiles
+                user_settings = users.UserSettings.from_env_file(file)
+                user_settings.lockPassword = not user_settings.authentication.admin
+                user_settings.hideDotfiles = not user_settings.authentication.admin
+                if (
+                    not user_settings.authentication.admin
+                    and user_settings.scope == "/"
+                ):
+                    warnings.warn(
+                        f"User {user_settings.authentication.username!r} is not an admin, "
+                        "but has permissions to the root directory.",
+                        UserWarning,
+                    )
+                yield user_settings
 
 
 class FileIO(BaseModel):

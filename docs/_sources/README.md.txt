@@ -88,7 +88,7 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
 
 > `origin_refresh` allows users to set a custom interval to update the public and private IP address of the host,
-based on their DHCP lease renewal.<br>This is specifically useful in cases of long running sessions.
+based on their DHCP lease renewal.<br>This is specifically useful in cases of long-running server sessions.
 </details>
 
 <details>
@@ -99,6 +99,7 @@ based on their DHCP lease renewal.<br>This is specifically useful in cases of lo
 Extra configuration settings can be loaded using a `JSON`/`YAML` file.
 These settings will be merged with the default configuration settings.
 The filename should be passed as `extra_env` during object instantiation.
+Reference: [extra_env]
 
 </details>
 
@@ -141,7 +142,10 @@ if __name__ == '__main__':
 `pyfilebrowser` allows you to run a proxy server in parallel,
 which includes a collection of security features and trace level logging information.
 
-> The proxy server is pretty restrictive in nature.
+> Enabling proxy server increases an inconspicuous latency to the connections,
+> but due to asynchronous functionality, it is hardly noticeable.<br>
+> The proxy server is designed to be lightweight and efficient, however streaming large video files may increase
+> the memory usage at server side, due to multi-layered buffering.
 
 ### [Firewall]
 
@@ -163,8 +167,7 @@ The built-in proxy service allows you to implement a rate limiter.
 
 [Rate limiting] allows you to prevent [DDoS] attacks and maintain server stability and performance.
 
-> Enabling proxy server increases an inconspicuous latency to the connections,
-> but due to asynchronous functionality, and the rendered payload size it is hardly noticeable.
+> Brute force protection and rate limiting are reset when the server is restarted.
 
 ## Coding Standards
 Docstring format: [`Google`][google-docs] <br>
@@ -215,6 +218,7 @@ Licensed under the [MIT License][license]
 [license]: https://github.com/thevickypedia/pyfilebrowser/blob/main/LICENSE
 [config]: https://thevickypedia.github.io/pyfilebrowser/#configuration
 [users]: https://thevickypedia.github.io/pyfilebrowser/#users
+[extra_env]: https://thevickypedia.github.io/pyfilebrowser/#module-pyfilebrowser.main
 [home]: https://filebrowser.org/
 [pypi]: https://pypi.org/project/pyfilebrowser
 [pypi-repo]: https://packaging.python.org/tutorials/packaging-projects/

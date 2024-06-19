@@ -27,6 +27,18 @@ class Theme(StrEnum):
     blank: Optional[str] = ""
 
 
+class Listing(StrEnum):
+    """Enum for different listing options.
+
+    >>> Listing
+
+    """
+
+    list: Optional[str] = "list"
+    mosaic: Optional[str] = "mosaic"
+    gallery: Optional[str] = "gallery"
+
+
 class SortBy(StrEnum):
     """Enum for different sort-by options.
 
@@ -46,7 +58,7 @@ class Sorting(BaseModel):
 
     """
 
-    by: str = "name"
+    by: SortBy = SortBy.name
     asc: bool = False
 
 
@@ -103,7 +115,7 @@ def default_perm() -> Perm:
             "rename": False,
             "modify": False,
             "delete": False,
-            "share": True,
+            "share": False,
             "download": True,
         }
     )

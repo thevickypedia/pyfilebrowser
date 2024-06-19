@@ -34,10 +34,12 @@ class FileBrowser:
             - ``extra_env`` is a feature to load additional configuration settings to the filebrowser server.
             - This is useful when you want to load custom settings that are not available in the default configuration.
             - The file should be a JSON or YAML file with the following structure:
-                - The key should be the same as the configuration setting in the filebrowser. Example: ``server``
-                - The value should also be a dictionary, with the custom setting.
+                - The key should be the same as the one in configuration settings of the filebrowser.
+                  Options: (``server``, ``auther``, ``settings``)
+                - The JSON/YAML structure should follow the same parent key-value mapping.
                 - The file should be placed in the same directory as the script that invokes the filebrowser.
                 - The filename should be passed as a keyword argument to the ``FileBrowser`` object.
+                  (By default, searched for ``extra.json`` in the current directory)
         """
         self.env = steward.EnvConfig(**kwargs)
         self.logger = kwargs.get(
@@ -72,6 +74,12 @@ class FileBrowser:
             self.logger.info("Removed proxy database %s", proxy_settings.database)
         except FileNotFoundError as warn:
             self.logger.warning(warn) if self.proxy_engine and log else None
+        try:
+            os.remove(steward.fileio.config)
+            os.remove(steward.fileio.users)
+            self.logger.info("Removed config and user profiles' JSON files")
+        except FileNotFoundError as warn:
+            self.logger.warning(warn) if log else None
 
     def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
@@ -139,7 +147,7 @@ class FileBrowser:
             Authentication map provided as environment variables.
         """
         final_settings = []
-        user_profiles = self.env.user_profiles or self.env.load_user_profiles()
+        user_profiles = self.env.user_profiles or list(self.env.load_user_profiles())
         auth_map = {}
         for idx, profile in enumerate(user_profiles):
             if profile.authentication.admin:
@@ -154,18 +162,14 @@ class FileBrowser:
             profile.authentication.password = hashed_password
             model_settings = json.loads(profile.model_dump_json())
             user_settings = {"id": idx + 1}
-            model_settings["authentication"].pop(
-                "admin", None
-            )  # remove custom 'admin' model within authentication
-            user_settings.update(
-                model_settings["authentication"]
-            )  # insert custom 'authentication' model into new dict
-            model_settings.pop(
-                "authentication", None
-            )  # remove custom 'authentication' model from 'model_settings'
-            user_settings.update(
-                model_settings
-            )  # insert cleaned 'model_settings' into new dict 'user_settings'
+            # remove custom 'admin' model within authentication
+            model_settings["authentication"].pop("admin", None)
+            # insert custom 'authentication' model into new dict
+            user_settings.update(model_settings["authentication"])
+            # remove custom 'authentication' model from 'model_settings'
+            model_settings.pop("authentication", None)
+            # insert cleaned 'model_settings' into new dict 'user_settings'
+            user_settings.update(model_settings)
             final_settings.append(user_settings)
         with open(steward.fileio.users, "w") as file:
             json.dump(final_settings, file, indent=4)
@@ -244,6 +248,7 @@ class FileBrowser:
                 self.env.config_settings.server.port
             ), f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
             # This is to check if the port is available, before starting the proxy server in a dedicated process
+            # If not for this, the proxy server will fail to initiate in the child process and become unmanageable
             try:
                 with socket.socket() as sock:
                     sock.bind((proxy_settings.host, proxy_settings.port))

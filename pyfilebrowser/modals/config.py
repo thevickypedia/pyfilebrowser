@@ -1,4 +1,3 @@
-import os
 import socket as sock
 from typing import List, Optional
 
@@ -15,9 +14,23 @@ class Branding(BaseSettings):
 
     See Also:
         Environment variables should be prefixed with ``branding_``, and present in ``.config.env``
+
+    References:
+        - A custom CSS file can be used to style the application. The file should be placed in the ``files`` directory.
+        - `samples/custom.css <https://github.com/thevickypedia/pyfilebrowser/blob/main/samples/custom.css>`__
+
+    Notes:
+        - **name** - Instance name that will show up on login and signup pages.
+        - **disableExternal** - This will disable any external links.
+        - **disableUsedPercentage** - Disables the used volume percentage.
+        - **files** - The path to the branding files.
+            - custom.css, containing the styles you want to apply to your installation.
+            - img a directory whose files can replace the default logotypes in the application
+        - **theme** - The theme of the brand. Uses system default if not set.
+        - **color** - The color of the brand.
     """
 
-    name: Optional[str] = ""
+    name: Optional[str] = "PyFilebrowser"
     disableExternal: Optional[bool] = False
     disableUsedPercentage: Optional[bool] = False
     files: Optional[DirectoryPath] = ""
@@ -39,6 +52,10 @@ class Tus(BaseSettings):
 
     See Also:
         Environment variables should be prefixed with ``tus_``, and present in ``.config.env``
+
+    Notes:
+        - **chunkSize** - The size of the chunks to be uploaded.
+        - **retryCount** - The number of retries to be made in case of a failure.
     """
 
     chunkSize: Optional[PositiveInt] = 10 * 1024 * 1024  # Defaults to 10 MB
@@ -59,16 +76,27 @@ class Defaults(BaseSettings):
 
     See Also:
         Environment variables should be prefixed with ``defaults_``, and present in ``.config.env``
+
+    Notes:
+        - **scope** - The default scope for the users. Defaults to the root directory.
+        - **locale** - The default locale for the users. Locale is an RFC 5646 language tag.
+        - **viewMode** - The default view mode for the users.
+        - **singleClick** - The default single click setting for the users.
+        - **sorting** - The default sorting settings for the users.
+        - **perm** - The default permission settings for the users.
+        - **commands** - The default list of commands that can be executed by users.
+        - **hideDotfiles** - The default setting to hide dotfiles.
+        - **dateFormat** - The default setting to set the exact date format.
     """
 
     scope: Optional[str] = "."
     locale: Optional[str] = "en"
-    viewMode: Optional[str] = "list"
+    viewMode: Optional[models.Listing] = models.Listing.list
     singleClick: Optional[bool] = False
     sorting: models.Sorting = models.Sorting()
     perm: models.Perm = models.default_perm()
     commands: Optional[List[str]] = []
-    hideDotfiles: Optional[bool] = False
+    hideDotfiles: Optional[bool] = True
     dateFormat: Optional[bool] = False
 
     class Config:
@@ -86,6 +114,18 @@ class Commands(BaseSettings):
 
     See Also:
         The command runner is a feature that enables you to execute shell commands before or after a certain event.
+
+    Notes:
+        - **after_copy** - List of commands to be executed after copying a file.
+        - **after_delete** - List of commands to be executed after deleting a file.
+        - **after_rename** - List of commands to be executed after renaming a file.
+        - **after_save** - List of commands to be executed after saving a file.
+        - **after_upload** - List of commands to be executed after uploading a file.
+        - **before_copy** - List of commands to be executed before copying a file.
+        - **before_delete** - List of commands to be executed before deleting a file.
+        - **before_rename** - List of commands to be executed before renaming a file.
+        - **before_save** - List of commands to be executed before saving a file.
+        - **before_upload** - List of commands to be executed before uploading a file.
     """
 
     after_copy: Optional[List[str]] = []
@@ -112,6 +152,10 @@ class ReCAPTCHA(BaseModel):
 
     >>> ReCAPTCHA
 
+    Notes:
+        - **host** - The host for the ReCaptcha.
+        - **key** - The key for the ReCaptcha.
+        - **secret** - The secret for the ReCaptcha.
     """
 
     host: Optional[HttpUrl]
@@ -124,6 +168,23 @@ class Server(BaseSettings):
 
     >>> Server
 
+    Notes:
+        - **root** - The root directory for the server. Contents of this directory will be served.
+        - **baseURL** - The base URL for the server.
+        - **socket** - Socket to listen to (cannot be used with ``address``, ``port`` or TLS settings)
+        - **tlsKey** - The TLS key for the server.
+        - **tlsCert** - The TLS certificate for the server.
+        - **port** - The port for the server.
+        - **address** - Address to listen on. Defaults to ``127.0.0.1``
+        - **log** - The log settings for the server.
+        - **enableThumbnails** - Enable thumbnails for the server.
+        - **resizePreview** - Resize the preview for the server.
+        - **enableExec** - Enable command execution for the server.
+        - **typeDetectionByHeader** - Enable type detection by header for the server.
+        - **authHook** - The authentication hook for the server.
+        - **tokenExpirationTime** - The token expiration time for the server.
+          A duration string is a signed sequence of decimal numbers, each with optional fraction and a unit suffix.
+          Examples "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
     """
 
     root: DirectoryPath
@@ -154,11 +215,24 @@ class Config(BaseSettings):
 
     >>> Config
 
+    Notes:
+        - **signup** - Enable signup option for new users.
+        - **createUserDir** - Auto create user home dir while adding new user.
+        - **userHomeBasePath** - The base path for user home directories.
+        - **defaults** - The default settings for the server.
+        - **authMethod** - The authentication method for the server.
+        - **authHeader** - The authentication header for the server.
+        - **branding** - The branding settings for the server.
+        - **tus** - The upload settings for the server.
+        - **commands** - The command settings for the server.
+        - **shell_** - The shell settings for the server.
+        - **rules** - This is a global set of allow and disallow rules. They apply to every user.
+          You can define specific rules on each user's settings to override these. Supports regex.
     """
 
     signup: Optional[bool] = False
     createUserDir: Optional[bool] = False
-    userHomeBasePath: Optional[str] = os.path.join(os.path.expanduser("~"), "users")
+    userHomeBasePath: Optional[DirectoryPath] = None
     defaults: Optional[Defaults] = Defaults()
     authMethod: Optional[str] = "json"
     authHeader: Optional[str] = ""
@@ -183,6 +257,9 @@ class Auther(BaseSettings):
 
     See Also:
         Environment variables should be prefixed with ``auth_``, and present in ``.config.env``
+
+    Notes:
+        - **recaptcha** - ReCaptcha settings for the server.
     """
 
     recaptcha: Optional[ReCAPTCHA] = None

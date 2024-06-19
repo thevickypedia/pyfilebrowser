@@ -1,5 +1,4 @@
 import difflib
-import json
 import logging
 import time
 from datetime import datetime, timedelta
@@ -84,9 +83,8 @@ async def handle_auth_error(request: Request) -> None:
             request.client.host,
         )
         if settings.session.auth_counter[request.client.host] >= 10:
-            until = (
-                epoch() + 2_592_000
-            )  # Block the host address for 1 month or until the server restarts
+            # Block the host address for 1 month or until the server restarts
+            until = epoch() + 2_592_000
             LOGGER.warning(
                 "%s is blocked until %s",
                 request.client.host,
@@ -94,9 +92,8 @@ async def handle_auth_error(request: Request) -> None:
             )
             database.remove_record(request.client.host)
             database.put_record(request.client.host, until)
-        elif (
-            settings.session.auth_counter[request.client.host] > 3
-        ):  # Allows up to 3 failed login attempts
+        elif settings.session.auth_counter[request.client.host] > 3:
+            # Allows up to 3 failed login attempts
             settings.session.forbid.add(request.client.host)
             minutes = await incrementer(
                 settings.session.auth_counter[request.client.host]
@@ -161,13 +158,6 @@ async def proxy_engine(proxy_request: Request) -> Response:
     try:
         headers = dict(proxy_request.headers)
         body = await proxy_request.body()
-        if proxy_request.url.path in ("/", "/login"):
-            cookie = "set"  # set cookie only for login page
-        if proxy_request.url.path == "/api/login" and (
-            auth_response := squire.proxy_auth(headers.get("authorization"))
-        ):
-            cookie = "delete"  # delete cookie as soon as login has been successful
-            headers["authorization"] = json.dumps(auth_response).encode()
         # noinspection PyTypeChecker
         server_response = CLIENT.request(
             method=proxy_request.method,
