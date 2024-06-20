@@ -115,7 +115,7 @@ def remove_trailing_underscore(dictionary: dict) -> dict:
 
 def remove_prefix(text: str) -> str:
     """Returns the message part from the default log output from filebrowser."""
-    return DATETIME_PATTERN.sub("", text).strip().capitalize()
+    return DATETIME_PATTERN.sub("", text).strip()
 
 
 class EnvConfig(BaseModel):

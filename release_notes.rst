@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+v0.1.1 (06/20/2024)
+-------------------
+- Resetting passwords and viewing dot files are only for admins
+- Removed unnecessary overhead with proxy encode/decode for auth headers
+- Includes upgraded dependencies, logging and runbook
+- Reduces code redundancies, and improved documentation
+
 v0.1.0 (06/17/2024)
 -------------------
 - Includes a new feature `extra_env` to load additional configuration settings
