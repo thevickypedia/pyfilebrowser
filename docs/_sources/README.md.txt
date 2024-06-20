@@ -234,8 +234,8 @@ Licensed under the [MIT License][license]
 [google-docs]: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
 [pep8]: https://www.python.org/dev/peps/pep-0008/
 [isort]: https://pycqa.github.io/isort/
-[error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/error.html
-[warn.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/warn.html
+[error.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/error.html
+[warn.html]: https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/warn.html
 [Rate limiting]: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
 [DDoS]: https://www.cloudflare.com/learning/ddos/glossary/denial-of-service/
 [Rate Limiter]: https://builtin.com/software-engineering-perspectives/rate-limiter
