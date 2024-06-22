@@ -116,7 +116,6 @@ class Destination(BaseModel):
     """
 
     url: HttpUrl
-    auth_config: Dict[str, str]
 
 
 class Session(BaseModel):

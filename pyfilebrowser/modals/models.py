@@ -9,6 +9,9 @@ class Log(StrEnum):
 
     >>> Log
 
+    See Also:
+        - Options are valid only for default/built-in logger.
+        - Any custom logger passed during PyFilebrowser object init, will take precedence.
     """
 
     stdout: Optional[str] = "stdout"

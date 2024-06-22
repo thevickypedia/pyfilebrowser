@@ -1,6 +1,5 @@
 import contextlib
 import logging.config
-from typing import Dict
 
 import uvicorn
 from fastapi import Depends, FastAPI
@@ -62,13 +61,12 @@ class ProxyServer(uvicorn.Server):
             logger.info("Proxy service terminated")
 
 
-def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> None:
+def proxy_server(server: str, log_config: dict) -> None:
     """Triggers the proxy engine in parallel.
 
     Args:
         server: Server URL that has to be proxied.
         log_config: Server's logger object.
-        auth_map: Server's authorization mapping.
 
     See Also:
         - Creates a logging configuration similar to the main logger.
@@ -79,7 +77,6 @@ def proxy_server(server: str, log_config: dict, auth_map: Dict[str, str]) -> Non
     logger = logging.getLogger("proxy")
 
     settings.destination.url = server
-    settings.destination.auth_config = auth_map
     settings.session.allowed_origins.update(settings.env_config.origins)
     settings.session.allowed_origins.update(settings.allowance())
 

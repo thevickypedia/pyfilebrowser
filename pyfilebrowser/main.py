@@ -6,7 +6,7 @@ import socket
 import subprocess
 import time
 import warnings
-from typing import Dict, List
+from typing import List
 
 import yaml
 
@@ -139,22 +139,15 @@ class FileBrowser:
                 process.terminate()
             self.exit_process()
 
-    def create_users(self) -> Dict[str, str]:
-        """Creates the JSON file for user profiles.
-
-        Returns:
-            Dict[str, str]:
-            Authentication map provided as environment variables.
-        """
+    def create_users(self) -> None:
+        """Creates the JSON file(s) for user profiles."""
         final_settings = []
         user_profiles = self.env.user_profiles or list(self.env.load_user_profiles())
-        auth_map = {}
         for idx, profile in enumerate(user_profiles):
             if profile.authentication.admin:
                 profile.perm = models.admin_perm()
             else:
                 profile.perm = models.default_perm()
-            auth_map[profile.authentication.username] = profile.authentication.password
             hashed_password = steward.hash_password(profile.authentication.password)
             assert steward.validate_password(
                 profile.authentication.password, hashed_password
@@ -162,7 +155,7 @@ class FileBrowser:
             profile.authentication.password = hashed_password
             model_settings = json.loads(profile.model_dump_json())
             user_settings = {"id": idx + 1}
-            # remove custom 'admin' model within authentication
+            # remove custom 'admin' item within authentication
             model_settings["authentication"].pop("admin", None)
             # insert custom 'authentication' model into new dict
             user_settings.update(model_settings["authentication"])
@@ -174,7 +167,6 @@ class FileBrowser:
         with open(steward.fileio.users, "w") as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
-        return auth_map
 
     def create_config(self) -> None:
         """Creates the JSON file for configuration."""
@@ -220,63 +212,53 @@ class FileBrowser:
             "Failed to import configuration",
         )
 
-    def import_users(self) -> Dict[str, str]:
-        """Imports the user profiles into filebrowser.
-
-        Returns:
-            Dict[str, str]:
-            Authentication map provided as environment variables.
-        """
+    def import_users(self) -> None:
+        """Imports the user profile(s) into filebrowser."""
         self.logger.info("Importing user profiles from %s", steward.fileio.users)
-        auth_map = self.create_users()
+        self.create_users()
         assert os.path.isfile(
             steward.fileio.users
         ), f"{steward.fileio.users!r} doesn't exist"
         self.run_subprocess(
             ["users", "import", steward.fileio.users], "Failed to import user profiles"
         )
-        return auth_map
 
-    def background_tasks(self, auth_map: Dict[str, str]) -> None:
-        """Initiates the proxy engine and subtitles' format conversion as background tasks.
-
-        Args:
-            auth_map: Authentication map provided as environment variables.
-        """
-        if self.proxy:
-            assert proxy_settings.port != int(
-                self.env.config_settings.server.port
-            ), f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
-            # This is to check if the port is available, before starting the proxy server in a dedicated process
-            # If not for this, the proxy server will fail to initiate in the child process and become unmanageable
-            try:
-                with socket.socket() as sock:
-                    sock.bind((proxy_settings.host, proxy_settings.port))
-            except OSError as error:
-                self.logger.error(error)
-                self.logger.critical(
-                    "Cannot initiate proxy server, retry after sometime or change the port number."
-                )
-                self.cleanup()
-                raise
-            log_config = struct.LoggerConfig(self.logger).get()
-            if proxy_settings.debug:
-                log_config = struct.update_log_level(log_config, logging.DEBUG)
-            # noinspection HttpUrlsUsage
-            self.proxy_engine = multiprocessing.Process(
-                target=proxy_server,
-                daemon=True,
-                args=(
-                    f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
-                    log_config,
-                    auth_map,
-                ),
+    def background_tasks(self) -> None:
+        """Initiates the proxy engine and subtitles' format conversion as background tasks."""
+        assert proxy_settings.port != int(
+            self.env.config_settings.server.port
+        ), f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
+        # This is to check if the port is available, before starting the proxy server in a dedicated process
+        # If not for this, the proxy server will fail to initiate in the child process and become unmanageable
+        try:
+            with socket.socket() as sock:
+                sock.bind((proxy_settings.host, proxy_settings.port))
+        except OSError as error:
+            self.logger.error(error)
+            self.logger.critical(
+                "Cannot initiate proxy server, retry after sometime or change the port number."
             )
-            self.proxy_engine.start()
+            self.cleanup()
+            raise
+        log_config = struct.LoggerConfig(self.logger).get()
+        if proxy_settings.debug:
+            log_config = struct.update_log_level(log_config, logging.DEBUG)
+        # noinspection HttpUrlsUsage
+        self.proxy_engine = multiprocessing.Process(
+            target=proxy_server,
+            daemon=True,
+            args=(
+                f"http://{self.env.config_settings.server.address}:{self.env.config_settings.server.port}",
+                log_config,
+            ),
+        )
+        self.proxy_engine.start()
 
     def start(self) -> None:
         """Handler for all the functions above."""
         self.cleanup(False)
         self.import_config()
-        self.background_tasks(self.import_users())
+        self.import_users()
+        if self.proxy:
+            self.background_tasks()
         self.run_subprocess([], "Failed to run the server", True)

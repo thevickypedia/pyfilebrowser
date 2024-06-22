@@ -331,14 +331,13 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.server.proxy_server">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">proxy_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.proxy_server" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.server.</span></span><span class="sig-name descname"><span class="pre">proxy_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.server.proxy_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Triggers the proxy engine in parallel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>server</strong> – Server URL that has to be proxied.</p></li>
 <li><p><strong>log_config</strong> – Server’s logger object.</p></li>
-<li><p><strong>auth_map</strong> – Server’s authorization mapping.</p></li>
 </ul>
 </dd>
 </dl>
@@ -393,11 +392,6 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination.url">
 <span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Url</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination.auth_config">
-<span class="sig-name descname"><span class="pre">auth_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.auth_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -649,16 +643,8 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.create_users">
-<span class="sig-name descname"><span class="pre">create_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_users" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the JSON file for user profiles.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Authentication map provided as environment variables.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[str, str]</p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">create_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the JSON file(s) for user profiles.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -675,27 +661,14 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.import_users">
-<span class="sig-name descname"><span class="pre">import_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_users" title="Permalink to this definition">¶</a></dt>
-<dd><p>Imports the user profiles into filebrowser.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Authentication map provided as environment variables.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[str, str]</p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">import_users</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.import_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports the user profile(s) into filebrowser.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.background_tasks">
-<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">background_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.background_tasks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initiates the proxy engine and subtitles’ format conversion as background tasks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>auth_map</strong> – Authentication map provided as environment variables.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1408,6 +1381,13 @@ validated to form a valid model.</p>
 <dd><p>Enum for different log options.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Log</span>
 </pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Options are valid only for default/built-in logger.</p></li>
+<li><p>Any custom logger passed during PyFilebrowser object init, will take precedence.</p></li>
+</ul>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.models.Log.stdout">
