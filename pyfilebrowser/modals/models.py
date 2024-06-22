@@ -1,7 +1,12 @@
+import os
 from enum import StrEnum
 from typing import Optional
 
 from pydantic import BaseModel
+
+SECRETS_PATH = (
+    os.environ.get("SECRETS_PATH") or os.environ.get("secrets_path") or os.getcwd()
+)
 
 
 class Log(StrEnum):

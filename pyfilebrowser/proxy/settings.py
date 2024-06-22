@@ -9,6 +9,8 @@ import requests
 from pydantic import BaseModel, Field, FilePath, HttpUrl, PositiveInt, field_validator
 from pydantic_settings import BaseSettings
 
+from pyfilebrowser.modals import models
+
 # noinspection LongLine
 IP_REGEX = re.compile(
     r"""^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"""  # noqa: E501
@@ -209,7 +211,7 @@ class EnvConfig(BaseSettings):
     class Config:
         """Environment variables configuration."""
 
-        env_file = ".proxy.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".proxy.env")
         extra = "ignore"
 
 

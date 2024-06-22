@@ -12,6 +12,8 @@ from pydantic import BaseModel, FilePath
 from pydantic.fields import AliasChoices, Field
 from pydantic_settings import BaseSettings
 
+from pyfilebrowser.modals import models
+
 
 def alias_choices(variable: str) -> AliasChoices:
     """Custom alias choices for environment variables for GitHub.
@@ -44,7 +46,7 @@ class GitHub(BaseSettings):
         """Custom configuration for GitHub settings."""
 
         env_prefix = ""
-        env_file = ".github.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".github.env")
         extra = "ignore"
 
 

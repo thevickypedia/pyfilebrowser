@@ -1,3 +1,4 @@
+import os.path
 import socket as sock
 from typing import List, Optional
 
@@ -41,7 +42,7 @@ class Branding(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "branding_"
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -65,7 +66,7 @@ class Tus(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "tus_"
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -103,7 +104,7 @@ class Defaults(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "defaults_"
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -143,7 +144,7 @@ class Commands(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "commands_"
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -206,7 +207,7 @@ class Server(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = ""
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -246,7 +247,7 @@ class Config(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = ""
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 
@@ -268,7 +269,7 @@ class Auther(BaseSettings):
         """Environment variables configuration."""
 
         env_prefix = "auth_"
-        env_file = ".config.env"
+        env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
 

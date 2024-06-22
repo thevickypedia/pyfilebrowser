@@ -113,6 +113,45 @@ User profile's permissions are automatically set based on the `admin` flag set i
 
 </details>
 
+> `.env` files can be placed in a dedicated directory, whose path can be set using the env var `SECRETS_PATH`
+> before importing `pyfilebrowser`
+
+<details>
+<summary>Example</summary>
+
+**Sample directory structure**
+```text
+root (current working directory)
+  ├ secrets
+  | ├ .config.env
+  | ├ .github.env
+  | ├ .proxy.env
+  | └ .user.env
+  ├ venv/
+  └ main.py
+```
+
+**Set custom location for secrets [programmatically]**
+```python
+import os
+
+os.environ["secrets_path"] = os.path.join(os.getcwd(), "secrets")
+
+import pyfilebrowser
+...
+```
+
+**[OR]**
+
+**Set custom location for secrets [CLI]**
+```shell
+export secrets_path="secrets"
+
+pyfilebrowser run
+```
+
+</details>
+
 Refer [samples] directory for sample `.env` files. For nested configuration settings, refer the [runbook]
 
 > Any configuration changes made in the UI will be lost, unless backed up manually.<br>
