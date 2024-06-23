@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+v0.1.2 (06/22/2024)
+-------------------
+- Includes automatic restart configuration
+- Allows `.env` files to be stored in a dedicated location
+- Remove some code redundancies
+
 v0.1.1 (06/20/2024)
 -------------------
 - Resetting passwords and viewing dot files are only for admins
