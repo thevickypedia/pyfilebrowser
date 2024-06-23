@@ -9,7 +9,7 @@ from typing import List
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
 
-from pyfilebrowser.modals import config, users
+from pyfilebrowser.modals import config, models, users
 
 DATETIME_PATTERN = re.compile(r"^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ")
 
@@ -145,9 +145,11 @@ class EnvConfig(BaseModel):
             Generator[users.UserSettings]:
             A generator of ``UserSettings`` object.
         """
-        for file in os.listdir(os.getcwd()):
+        for file in os.listdir(models.SECRETS_PATH):
             if "user" in file and file.endswith(".env"):
-                user_settings = users.UserSettings.from_env_file(file)
+                user_settings = users.UserSettings.from_env_file(
+                    os.path.join(models.SECRETS_PATH, file)
+                )
                 if not user_settings.authentication.admin:
                     # Default users can't reset passwords or view dot files
                     # For admins, these settings are enforced by env vars

@@ -10,7 +10,7 @@ from typing import List
 
 import yaml
 
-from pyfilebrowser.modals import models
+from pyfilebrowser.modals import models, settings
 from pyfilebrowser.proxy import proxy_server, proxy_settings
 from pyfilebrowser.squire import download, steward, struct
 
@@ -42,6 +42,9 @@ class FileBrowser:
                   (By default, searched for ``extra.json`` in the current directory)
         """
         self.env = steward.EnvConfig(**kwargs)
+        self.settings = settings.ServerSettings(**kwargs)
+        github = download.GitHub(**kwargs)
+
         self.logger = kwargs.get(
             "logger",
             steward.default_logger(
@@ -50,7 +53,6 @@ class FileBrowser:
         )
         # Reset to stdout, so the log output stream can be controlled with custom logging
         self.env.config_settings.server.log = models.Log.stdout
-        github = download.GitHub(**kwargs)
         if not os.path.isfile(download.executable.filebrowser_bin):
             download.binary(logger=self.logger, github=github)
         self.proxy_engine: multiprocessing.Process | None = None
@@ -103,7 +105,7 @@ class FileBrowser:
         self.cleanup()
 
     def run_subprocess(
-        self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = False
+        self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = True
     ) -> None:
         """Run ``filebrowser`` commands as subprocess.
 
@@ -112,10 +114,10 @@ class FileBrowser:
             failed_msg: Failure message in case of bad return code.
             stdout: Boolean flag to show/hide standard output.
         """
-        arguments.insert(0, "")
-        command = os.path.join(
-            os.getcwd(), download.executable.filebrowser_bin
-        ) + " ".join(arguments)
+        command = os.path.join(os.getcwd(), download.executable.filebrowser_bin)
+        if arguments:
+            arguments.insert(0, "")
+            command += " ".join(arguments)
         process = subprocess.Popen(
             command,
             shell=True,
@@ -131,13 +133,15 @@ class FileBrowser:
             process.wait()
             for line in process.stderr:
                 self.logger.warning(steward.remove_prefix(line))
-            assert process.returncode == 0, failed_msg
+            assert process.returncode == 0, (
+                failed_msg or f"filebrowser returned an exit code {process.returncode}"
+            )
         except KeyboardInterrupt:
             if process.poll() is None:
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
                 process.terminate()
-            self.exit_process()
+            raise
 
     def create_users(self) -> None:
         """Creates the JSON file(s) for user profiles."""
@@ -210,6 +214,7 @@ class FileBrowser:
         self.run_subprocess(
             ["config", "import", steward.fileio.config],
             "Failed to import configuration",
+            False,
         )
 
     def import_users(self) -> None:
@@ -220,7 +225,9 @@ class FileBrowser:
             steward.fileio.users
         ), f"{steward.fileio.users!r} doesn't exist"
         self.run_subprocess(
-            ["users", "import", steward.fileio.users], "Failed to import user profiles"
+            ["users", "import", steward.fileio.users],
+            "Failed to import user profiles",
+            False,
         )
 
     def background_tasks(self) -> None:
@@ -255,10 +262,27 @@ class FileBrowser:
         self.proxy_engine.start()
 
     def start(self) -> None:
-        """Handler for all the functions above."""
+        """Handler to process config, user profiles, proxy server and main filebrowser."""
         self.cleanup(False)
         self.import_config()
         self.import_users()
         if self.proxy:
             self.background_tasks()
-        self.run_subprocess([], "Failed to run the server", True)
+        for idx in range(self.settings.restart + 1):
+            idx += 1
+            self.logger.info("Initiating filebrowser API")
+            try:
+                self.run_subprocess()
+            except AssertionError as error:
+                if self.settings.restart > idx:
+                    self.logger.error(error)
+                    self.logger.info("Attempt #%d failed, restarting server", idx)
+                    # Give some breathing room for port to be free
+                    time.sleep(3)
+                elif self.settings.restart:
+                    self.logger.error("All %d restart attempts failed. Exiting.", idx)
+                else:
+                    break
+            except KeyboardInterrupt:
+                break
+        self.exit_process()
