@@ -668,8 +668,31 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.handle_shutdown">
+<span class="sig-name descname"><span class="pre">handle_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">frame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.handle_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles shutdown signals (e.g., SIGINT, SIGTERM) to initiate a graceful shutdown.</p>
+<p>This function is intended to be registered with the <cite>signal</cite> module and will be
+triggered when the process receives a termination signal. It logs relevant
+information and sets a shutdown flag to allow the main process to exit cleanly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signum</strong> – The signal number received (e.g., signal.SIGINT).</p></li>
+<li><p><strong>frame</strong> – The current stack frame when the signal was received.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register signals (cross-platform) to handle graceful shutdown on various levels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start_server">
+<span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler to process config, user profiles, proxy server and main filebrowser.</p>
 </dd></dl>
 

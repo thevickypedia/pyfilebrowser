@@ -2,11 +2,14 @@ import json
 import logging
 import multiprocessing
 import os
+import signal
 import socket
 import subprocess
+import threading
 import time
 import warnings
-from typing import List
+from types import FrameType
+from typing import List, Optional
 
 import yaml
 
@@ -61,6 +64,7 @@ class FileBrowser:
         assert self.proxy is None or isinstance(
             self.proxy, bool
         ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
+        self.shutdown_flag = threading.Event()
 
     def cleanup(self, log: bool = True) -> None:
         """Removes the config and proxy database."""
@@ -286,7 +290,39 @@ class FileBrowser:
             else:
                 self.logger.warning("No symbolic link found to remove: %s", target_path)
 
+    def handle_shutdown(self, signum: int, frame: Optional[FrameType]) -> None:
+        """Handles shutdown signals (e.g., SIGINT, SIGTERM) to initiate a graceful shutdown.
+
+        This function is intended to be registered with the `signal` module and will be
+        triggered when the process receives a termination signal. It logs relevant
+        information and sets a shutdown flag to allow the main process to exit cleanly.
+
+        Args:
+            signum: The signal number received (e.g., signal.SIGINT).
+            frame: The current stack frame when the signal was received.
+        """
+        for atr in dir(frame):
+            if atr.startswith("f_"):
+                self.logger.debug(f"frame.{atr}: {getattr(frame, atr)}")
+        self.logger.info("Received signal %d", signum)
+        self.logger.info("Setting shutdown flag")
+        self.shutdown_flag.set()
+
     def start(self) -> None:
+        """Register signals (cross-platform) to handle graceful shutdown on various levels."""
+        # Ctrl+C / KeyboardInterrupt
+        signal.signal(signal.SIGINT, self.handle_shutdown)
+        # Service stop / kill
+        signal.signal(signal.SIGTERM, self.handle_shutdown)
+        try:
+            while not self.shutdown_flag.is_set():
+                self.start_server()
+            self.logger.info("Cleanup complete. Exiting.")
+        except Exception as error:
+            self.logger.error("Unexpected exception: %s", error)
+            self.exit_process()
+
+    def start_server(self) -> None:
         """Handler to process config, user profiles, proxy server and main filebrowser."""
         self.cleanup(False)
         self.import_config()
