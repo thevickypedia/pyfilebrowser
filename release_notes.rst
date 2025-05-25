@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+v0.2.0 (05/25/2025)
+-------------------
+- Automatically creates symlinks to mount multiple directories
+- Gracefully handles service level shutdown
+- Improved error handling and logging
+
 v0.1.2 (06/22/2024)
 -------------------
 - Includes automatic restart configuration
