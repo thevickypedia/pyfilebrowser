@@ -599,6 +599,12 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 </ul>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.register_signal_handlers">
+<span class="sig-name descname"><span class="pre">register_signal_handlers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.register_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register signals (cross-platform) to handle graceful shutdown on various levels.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.cleanup">
 <span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.cleanup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes the config and proxy database.</p>
@@ -687,7 +693,7 @@ information and sets a shutdown flag to allow the main process to exit cleanly.<
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register signals (cross-platform) to handle graceful shutdown on various levels.</p>
+<dd><p>Starts the filebrowser server and handles cleanup on shutdown.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -733,6 +739,7 @@ validated to form a valid model.</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p><strong>root</strong> - The root directory for the server. Contents of this directory will be served.</p></li>
+<li><p><strong>symlinks</strong> - List of symlinks to be created in the root directory. Accepts file or directory paths.</p></li>
 <li><p><strong>baseURL</strong> - The base URL for the server.</p></li>
 <li><p><strong>socket</strong> - Socket to listen to (cannot be used with <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code> or TLS settings)</p></li>
 <li><p><strong>tlsKey</strong> - The TLS key for the server.</p></li>

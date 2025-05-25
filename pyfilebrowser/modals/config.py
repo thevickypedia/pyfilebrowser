@@ -1,4 +1,4 @@
-import os.path
+import os
 import socket as sock
 from typing import List, Optional
 
@@ -171,6 +171,7 @@ class Server(BaseSettings):
 
     Notes:
         - **root** - The root directory for the server. Contents of this directory will be served.
+        - **symlinks** - List of symlinks to be created in the root directory. Accepts file or directory paths.
         - **baseURL** - The base URL for the server.
         - **socket** - Socket to listen to (cannot be used with ``address``, ``port`` or TLS settings)
         - **tlsKey** - The TLS key for the server.

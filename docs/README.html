@@ -84,7 +84,7 @@ and follow the naming convention below.</p>
 </pre></div>
 </div>
 <p><strong>Initiate [programmatically]</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyfilebrowser</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyfilebrowser</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">browser</span> <span class="o">=</span> <span class="n">pyfilebrowser</span><span class="o">.</span><span class="n">FileBrowser</span><span class="p">()</span>
@@ -154,11 +154,11 @@ before importing <code class="docutils literal notranslate"><span class="pre">py
 </pre></div>
 </div>
 <p><strong>Set custom location for secrets [programmatically]</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;secrets_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;secrets&quot;</span><span class="p">)</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">pyfilebrowser</span>
+<span class="kn">import</span> <span class="nn">pyfilebrowser</span>
 <span class="o">...</span>
 </pre></div>
 </div>
@@ -175,7 +175,7 @@ pyfilebrowser<span class="w"> </span>run
 Changes should always go through the <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.</p>
 </div></blockquote>
 <details>
-<summary><strong>Object level instantiation is also possible, but not recommended</strong></summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyfilebrowser</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileBrowser</span>
+<summary><strong>Object level instantiation is also possible, but not recommended</strong></summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyfilebrowser</span> <span class="kn">import</span> <span class="n">FileBrowser</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">file_browser</span> <span class="o">=</span> <span class="n">FileBrowser</span><span class="p">(</span>

@@ -66,6 +66,13 @@ class FileBrowser:
         ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
         self.shutdown_flag = threading.Event()
 
+    def register_signal_handlers(self) -> None:
+        """Register signals (cross-platform) to handle graceful shutdown on various levels."""
+        # Ctrl+C / KeyboardInterrupt
+        signal.signal(signal.SIGINT, self.handle_shutdown)
+        # Service stop / kill
+        signal.signal(signal.SIGTERM, self.handle_shutdown)
+
     def cleanup(self, log: bool = True) -> None:
         """Removes the config and proxy database."""
         self.unlink()
@@ -205,6 +212,8 @@ class FileBrowser:
                     )
                     self.logger.debug("Extra settings - %s: %s", key, value)
                     final_settings[key].update(value)
+        # Remove symlinks from the final settings
+        final_settings["server"].pop("symlinks")
         with open(steward.fileio.config, "w") as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
@@ -304,22 +313,20 @@ class FileBrowser:
         for atr in dir(frame):
             if atr.startswith("f_"):
                 self.logger.debug(f"frame.{atr}: {getattr(frame, atr)}")
-        self.logger.info("Received signal %d", signum)
-        self.logger.info("Setting shutdown flag")
+        self.logger.info("Received signal %d, setting shutdown flag", signum)
         self.shutdown_flag.set()
 
     def start(self) -> None:
-        """Register signals (cross-platform) to handle graceful shutdown on various levels."""
-        # Ctrl+C / KeyboardInterrupt
-        signal.signal(signal.SIGINT, self.handle_shutdown)
-        # Service stop / kill
-        signal.signal(signal.SIGTERM, self.handle_shutdown)
+        """Starts the filebrowser server and handles cleanup on shutdown."""
+        self.register_signal_handlers()
         try:
             while not self.shutdown_flag.is_set():
                 self.start_server()
             self.logger.info("Cleanup complete. Exiting.")
         except Exception as error:
-            self.logger.error("Unexpected exception: %s", error)
+            self.logger.error(
+                "Unexpected exception: [%s - %s]", type(error).__name__, error
+            )
             self.exit_process()
 
     def start_server(self) -> None:
@@ -345,6 +352,4 @@ class FileBrowser:
                     self.logger.error("All %d restart attempts failed. Exiting.", idx)
                 else:
                     break
-            except KeyboardInterrupt:
-                break
         self.exit_process()
