@@ -656,6 +656,18 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.link">
+<span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates symlinks for the directories specified in the configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.unlink">
+<span class="sig-name descname"><span class="pre">unlink</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.unlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the symbolic links created in the server root directory.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler to process config, user profiles, proxy server and main filebrowser.</p>
@@ -721,6 +733,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.root">
 <span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.symlinks">
+<span class="sig-name descname"><span class="pre">symlinks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.symlinks" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

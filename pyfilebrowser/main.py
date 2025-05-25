@@ -64,6 +64,7 @@ class FileBrowser:
 
     def cleanup(self, log: bool = True) -> None:
         """Removes the config and proxy database."""
+        self.unlink()
         try:
             os.remove(download.executable.filebrowser_db)
             self.logger.info(
@@ -261,11 +262,36 @@ class FileBrowser:
         )
         self.proxy_engine.start()
 
+    def link(self) -> None:
+        """Creates symlinks for the directories specified in the configuration."""
+        for source_path in self.env.config_settings.server.symlinks:
+            target_path = os.path.join(
+                self.env.config_settings.server.root, source_path.name
+            )
+            if os.path.lexists(target_path):
+                self.logger.warning("Symbolic link already exists: %s", target_path)
+            else:
+                os.symlink(source_path, target_path)
+                self.logger.info("Symbolic created: %s -> %s", source_path, target_path)
+
+    def unlink(self) -> None:
+        """Removes the symbolic links created in the server root directory."""
+        for source_path in self.env.config_settings.server.symlinks:
+            target_path = os.path.join(
+                self.env.config_settings.server.root, source_path.name
+            )
+            if os.path.lexists(target_path):
+                self.logger.info("Removing symbolic link: %s", target_path)
+                os.unlink(target_path)
+            else:
+                self.logger.warning("No symbolic link found to remove: %s", target_path)
+
     def start(self) -> None:
         """Handler to process config, user profiles, proxy server and main filebrowser."""
         self.cleanup(False)
         self.import_config()
         self.import_users()
+        self.link()
         if self.proxy:
             self.background_tasks()
         for idx in range(self.settings.restart + 1):

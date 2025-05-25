@@ -189,6 +189,7 @@ class Server(BaseSettings):
     """
 
     root: DirectoryPath
+    symlinks: Optional[List[DirectoryPath | FilePath]] = []
     baseURL: Optional[str] = ""
     socket: Optional[str] = ""
     tlsKey: Optional[FilePath | str] = ""
