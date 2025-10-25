@@ -1,3 +1,5 @@
+.DS_Store
+.vscode/
 __pycache__/
 
 # Jetbrains
@@ -21,6 +23,7 @@ temp.py
 settings/
 logs/
 filebrowser
+branding/
 *.db
 
 # Build
