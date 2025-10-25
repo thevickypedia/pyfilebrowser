@@ -29,3 +29,5 @@ branding/
 # Build
 dist/
 *.egg-info
+
+!samples/.*.env
