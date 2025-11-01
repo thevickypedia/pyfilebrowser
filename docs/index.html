@@ -391,7 +391,7 @@ validated to form a valid model.</p>
 <p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.Destination.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Url</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.url" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">HttpUrl</span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.Destination.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -430,7 +430,7 @@ validated to form a valid model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.origins">
-<span class="sig-name descname"><span class="pre">origins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.origins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">origins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">HttpUrl</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.origins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -481,7 +481,7 @@ validated to form a valid model.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig.parse_origins">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_origins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_origins" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_origins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">origins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">HttpUrl</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig.parse_origins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate origins’ input as a URL, and stores only the host part of the URL.</p>
 </dd></dl>
 
@@ -1204,7 +1204,7 @@ validated to form a valid model.</p>
 <p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.ReCAPTCHA.host">
-<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Url</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA.host" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">HttpUrl</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.ReCAPTCHA.host" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1234,6 +1234,7 @@ validated to form a valid model.</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p><strong>recaptcha</strong> - ReCaptcha settings for the server.</p></li>
+<li><p><strong>token</strong> - The authenticator token for TOTP.</p></li>
 </ul>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
@@ -1242,6 +1243,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.recaptcha">
 <span class="sig-name descname"><span class="pre">recaptcha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.config.ReCAPTCHA" title="pyfilebrowser.modals.config.ReCAPTCHA"><span class="pre">ReCAPTCHA</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.recaptcha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.token">
+<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.token" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -212,6 +212,11 @@ class FileBrowser:
                     )
                     self.logger.debug("Extra settings - %s: %s", key, value)
                     final_settings[key].update(value)
+        # Move the authenticator token to the expected location
+        final_settings["auther"][
+            "authenticator_token"
+        ] = self.env.config_settings.auther.token
+        final_settings["auther"].pop("token")
         # Remove symlinks from the final settings
         final_settings["server"].pop("symlinks")
         with open(steward.fileio.config, "w") as file:
