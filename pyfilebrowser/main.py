@@ -11,6 +11,7 @@ import warnings
 from types import FrameType
 from typing import List, Optional
 
+import pyotp
 import yaml
 
 from pyfilebrowser.modals import models, settings
@@ -212,10 +213,13 @@ class FileBrowser:
                     )
                     self.logger.debug("Extra settings - %s: %s", key, value)
                     final_settings[key].update(value)
-        # Move the authenticator token to the expected location
-        final_settings["auther"][
-            "authenticator_token"
-        ] = self.env.config_settings.auther.token
+        # Move the authenticator token to the expected location, if token is valid
+        if self.env.config_settings.auther.token:
+            totp = pyotp.TOTP(self.env.config_settings.auther.token)
+            assert totp.verify(totp.now(), for_time=time.time()), "Invalid auth_token!"
+            final_settings["auther"][
+                "authenticator_token"
+            ] = self.env.config_settings.auther.token
         final_settings["auther"].pop("token")
         # Remove symlinks from the final settings
         final_settings["server"].pop("symlinks")
