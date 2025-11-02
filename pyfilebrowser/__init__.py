@@ -3,6 +3,7 @@
 import sys
 
 from pyfilebrowser.main import FileBrowser  # noqa: F401
+from pyfilebrowser.squire import otp  # noqa: F401
 
 version = "0.2.0"
 
@@ -51,6 +52,9 @@ def _cli() -> None:
         print(
             f"Usage: pyfilebrowser [arbitrary-command]\nOptions (and corresponding behavior):{choices}"
         )
+        exit(0)
+    elif any(arg in args for arg in ["generate-otp", "otp", "--otp", "-o"]):
+        otp.generate_qr(show_qr=True)
         exit(0)
     elif any(arg in args for arg in ["start", "run"]):
         pass

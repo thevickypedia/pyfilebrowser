@@ -263,9 +263,11 @@ class Auther(BaseSettings):
 
     Notes:
         - **recaptcha** - ReCaptcha settings for the server.
+        - **token** - The authenticator token for TOTP.
     """
 
     recaptcha: Optional[ReCAPTCHA] = None
+    token: Optional[str] = None
 
     class Config:
         """Environment variables configuration."""

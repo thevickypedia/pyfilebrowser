@@ -37,7 +37,7 @@ def complexity_checker(password: str) -> None:
 
     # searches for symbols
     assert re.search(
-        r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]', password
+        r"[ !@#$%&'()*+,-./[\\\]^_`{|}~" + r'"]', password
     ), "Password must contain at least one special character"
 
 
