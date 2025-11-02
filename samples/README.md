@@ -1,4 +1,5 @@
-### Server Configuration
+## Server Configuration
+Filebrowser's server configuration.
 
 File source: `.config.env`
 
@@ -48,6 +49,7 @@ Configuration for list of the commands to be executed before or after a certain 
 - **commands_before_upload** - List of commands to be executed before uploading a file.
 
 #### Server
+Configuration for the server.
 
 - **root** - The root directory for the server. Contents of this directory will be served.
 - **symlinks** - List of symlinks to be created in the root directory. Accepts file or directory paths.
@@ -66,6 +68,7 @@ Configuration for list of the commands to be executed before or after a certain 
 - **tokenExpirationTime** - The token expiration time for the server.
 
 #### Config
+Configuration for the user authentication.
 
 - **signup** - Enable signup option for new users.
 - **createUserDir** - Auto create user home dir while adding new user.
@@ -76,10 +79,13 @@ Configuration for list of the commands to be executed before or after a certain 
 - **rules** - This is a global set of allow and disallow rules. They apply to every user.
 
 #### Auther
+Configuration for server security.
+
 - **auth_recaptcha** - ReCaptcha settings for the server.
 - **auth_token** - The authenticator token for TOTP.
 
-### User Profiles
+## User Profiles
+Configuration for user profiles.
 
 File source: `.user*.env`
 
@@ -97,22 +103,26 @@ File source: `.user*.env`
 - **hideDotfiles** - Default setting to hide dotfiles.
 - **dateFormat** - Default setting to set the exact date format.
 
-### GitHub
+## GitHub
+Configuration to download the `filebrowser` executable from GitHub.
 
-GitHub account information to download the ``filebrowser`` executable.
+File source: `.github.env`
 
 - **owner** - GitHub account username or organization name.
 - **repo** - Repository name where the executable is stored in the releases.
 - **token** - GitHub account PAT.
 - **version** - Release version to download the asset.
 
-### Extra (specific for [thevickypedia/filebrowser])
-
+## Extra (specific for [thevickypedia/filebrowser])
 Extra configuration that needs to be added for the server.
 
-### Proxy
+File source: `extra.yaml` or `extra.json`
 
+## Proxy
 Proxy server configuration.
+
+File source: `.proxy.env`
+
 > Use proxy server only after reading [proxy-readme] and [proxy-runbook]
 
 - **host**: The host address for the server.
