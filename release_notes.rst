@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+v0.2.2 (11/02/2025)
+-------------------
+- Includes an option to pass TOTP token for the ``filebrowser`` server
+  - Change authenticator token to lower camel case
+- Remove ``auth_`` prefix for ``Auther`` object
+
 v0.2.1 (11/02/2025)
 -------------------
 - Includes an option to pass TOTP token for the ``filebrowser`` server
