@@ -11,9 +11,9 @@ import requests
 from pydantic import BaseModel, FilePath
 from pydantic.aliases import AliasChoices
 from pydantic.fields import Field
-from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
 
 
 def alias_choices(variable: str) -> AliasChoices:
@@ -31,7 +31,7 @@ def alias_choices(variable: str) -> AliasChoices:
     )
 
 
-class GitHub(BaseSettings):
+class GitHub(PydanticEnvConfig):
     """Custom GitHub account information loaded using multiple env prefixes.
 
     >>> GitHub
@@ -96,7 +96,7 @@ class Executable(BaseModel):
     else:
         raise OSError(f"Aborted, unsupported or unknown architecture: {machine}")
 
-    filebrowser_file: str = FilePath(
+    filebrowser_file: str = (
         f"{filebrowser_os}-{filebrowser_arch}-filebrowser{filebrowser_dl_ext}"
     )
     filebrowser_db: str = f"{filebrowser_bin}.db"

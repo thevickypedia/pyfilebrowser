@@ -57,7 +57,7 @@ Settings
 
 ====
 
-.. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
@@ -79,40 +79,46 @@ Main Module
 
 Modals
 ======
+PydanticEnvConfig
+=================
+
+.. autoclass:: pyfilebrowser.modals.pydantic_config.PydanticEnvConfig(pydantic_settings.BaseSettings)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
 Configuration
 =============
 
-.. autoclass:: pyfilebrowser.modals.settings.ServerSettings(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.settings.ServerSettings(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Server(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Server(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Branding(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Branding(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Tus(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Tus(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Defaults(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Defaults(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Commands(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Commands(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Config(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Config(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
@@ -122,7 +128,7 @@ Configuration
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.config.Auther(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.config.Auther(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 ====
@@ -170,7 +176,7 @@ Users
 
 ====
 
-.. autoclass:: pyfilebrowser.modals.users.UserSettings(pydantic_settings.BaseSettings)
+.. autoclass:: pyfilebrowser.modals.users.UserSettings(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 Squire

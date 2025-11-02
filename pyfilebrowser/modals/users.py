@@ -2,9 +2,9 @@ import re
 from typing import Dict, List, Optional
 
 from pydantic import BaseModel, field_validator
-from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
 
 
 def complexity_checker(password: str) -> None:
@@ -53,7 +53,7 @@ class Authentication(BaseModel):
     admin: Optional[bool] = False
 
 
-class UserSettings(BaseSettings):
+class UserSettings(PydanticEnvConfig):
     """Profile settings for each user.
 
     >>> UserSettings

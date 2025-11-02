@@ -3,6 +3,11 @@ Filebrowser's server configuration.
 
 File source: `.config.env`
 
+#### Faut Tolerance
+Configuration for restart attempts.
+
+- **restart** - Number of retries to attempt before exiting.
+
 #### Branding
 Configuration for the custom branding settings for the server.
 

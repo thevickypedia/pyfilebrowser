@@ -7,9 +7,9 @@ from typing import Dict, List, Set
 
 import requests
 from pydantic import BaseModel, Field, FilePath, HttpUrl, PositiveInt, field_validator
-from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
 
 # noinspection LongLine
 IP_REGEX = re.compile(
@@ -146,7 +146,7 @@ class RateLimit(BaseModel):
     seconds: PositiveInt
 
 
-class EnvConfig(BaseSettings):
+class EnvConfig(PydanticEnvConfig):
     """Configure all env vars and validate using ``pydantic`` to share across modules.
 
     >>> EnvConfig

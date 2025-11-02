@@ -399,7 +399,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.proxy.settings.EnvConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">EnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.proxy.settings.</span></span><span class="sig-name descname"><span class="pre">EnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.proxy.settings.EnvConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure all env vars and validate using <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> to share across modules.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EnvConfig</span>
 </pre></div>
@@ -786,11 +786,33 @@ information and sets a shutdown flag to allow the main process to exit cleanly.<
 <section id="modals">
 <h1>Modals<a class="headerlink" href="#modals" title="Permalink to this heading">¶</a></h1>
 </section>
+<section id="pydanticenvconfig">
+<h1>PydanticEnvConfig<a class="headerlink" href="#pydanticenvconfig" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.pydantic_config.PydanticEnvConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.pydantic_config.</span></span><span class="sig-name descname"><span class="pre">PydanticEnvConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.pydantic_config.PydanticEnvConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pydantic BaseSettings with custom order for loading environment variables.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PydanticEnvConfig</span>
+</pre></div>
+</div>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.pydantic_config.PydanticEnvConfig.settings_customise_sources">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">settings_customise_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dotenv_settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_secret_settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.pydantic_config.PydanticEnvConfig.settings_customise_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Order: dotenv, env, init, secrets files.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.settings.ServerSettings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.settings.</span></span><span class="sig-name descname"><span class="pre">ServerSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.settings.ServerSettings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.settings.</span></span><span class="sig-name descname"><span class="pre">ServerSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.settings.ServerSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration settings for PyFilebrowser.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ServerSettings</span>
 </pre></div>
@@ -809,7 +831,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Server" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">server</span></code> section] for the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Server</span>
 </pre></div>
@@ -918,7 +940,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Branding">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Branding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Branding" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Branding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Branding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration for the custom branding settings for the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Branding</span>
 </pre></div>
@@ -992,7 +1014,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Tus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Tus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Tus" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Tus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Tus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration for the upload settings in the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Tus</span>
 </pre></div>
@@ -1025,7 +1047,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Defaults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Defaults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration for all the default settings for the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Defaults</span>
 </pre></div>
@@ -1100,7 +1122,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Commands">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Commands" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration for list of the commands to be executed before or after a certain event.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Commands</span>
 </pre></div>
@@ -1181,7 +1203,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">config</span></code> section] for the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Config</span>
 </pre></div>
@@ -1300,7 +1322,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Auther</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Auther" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Auther</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Auther" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration settings [<code class="docutils literal notranslate"><span class="pre">server</span></code> section] for the server.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Auther</span>
 </pre></div>
@@ -1600,7 +1622,7 @@ validated to form a valid model.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">UserSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic_settings.BaseSettings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">UserSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Profile settings for each user.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">UserSettings</span>
 </pre></div>
@@ -2105,6 +2127,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#pyfb-api-client">——–PyFB API Client——–</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
 <li><a class="reference internal" href="#modals">Modals</a></li>
+<li><a class="reference internal" href="#pydanticenvconfig">PydanticEnvConfig</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#models">Models</a></li>
 <li><a class="reference internal" href="#users">Users</a></li>

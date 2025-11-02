@@ -3,12 +3,12 @@ import socket as sock
 from typing import List, Optional
 
 from pydantic import BaseModel, DirectoryPath, FilePath, HttpUrl, PositiveInt
-from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
 
 
-class Branding(BaseSettings):
+class Branding(PydanticEnvConfig):
     """Configuration for the custom branding settings for the server.
 
     >>> Branding
@@ -46,7 +46,7 @@ class Branding(BaseSettings):
         extra = "ignore"
 
 
-class Tus(BaseSettings):
+class Tus(PydanticEnvConfig):
     """Configuration for the upload settings in the server.
 
     >>> Tus
@@ -70,7 +70,7 @@ class Tus(BaseSettings):
         extra = "ignore"
 
 
-class Defaults(BaseSettings):
+class Defaults(PydanticEnvConfig):
     """Configuration for all the default settings for the server.
 
     >>> Defaults
@@ -108,7 +108,7 @@ class Defaults(BaseSettings):
         extra = "ignore"
 
 
-class Commands(BaseSettings):
+class Commands(PydanticEnvConfig):
     """Configuration for list of the commands to be executed before or after a certain event.
 
     >>> Commands
@@ -164,7 +164,7 @@ class ReCAPTCHA(BaseModel):
     secret: Optional[str]
 
 
-class Server(BaseSettings):
+class Server(PydanticEnvConfig):
     """Configuration settings [``server`` section] for the server.
 
     >>> Server
@@ -213,7 +213,7 @@ class Server(BaseSettings):
         extra = "ignore"
 
 
-class Config(BaseSettings):
+class Config(PydanticEnvConfig):
     """Configuration settings [``config`` section] for the server.
 
     >>> Config
@@ -253,7 +253,7 @@ class Config(BaseSettings):
         extra = "ignore"
 
 
-class Auther(BaseSettings):
+class Auther(PydanticEnvConfig):
     """Configuration settings [``server`` section] for the server.
 
     >>> Auther

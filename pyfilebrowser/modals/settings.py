@@ -3,12 +3,12 @@
 import os
 
 from pydantic import Field
-from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
+from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
 
 
-class ServerSettings(BaseSettings):
+class ServerSettings(PydanticEnvConfig):
     """Configuration settings for PyFilebrowser.
 
     >>> ServerSettings
