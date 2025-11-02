@@ -81,8 +81,8 @@ Configuration for the user authentication.
 #### Auther
 Configuration for server security.
 
-- **auth_recaptcha** - ReCaptcha settings for the server.
-- **auth_token** - The authenticator token for TOTP.
+- **recaptcha** - ReCaptcha settings for the server.
+- **authenticatorToken** - The authenticator token for TOTP.
 
 ## User Profiles
 Configuration for user profiles.

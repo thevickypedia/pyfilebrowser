@@ -9,7 +9,8 @@ import zipfile
 
 import requests
 from pydantic import BaseModel, FilePath
-from pydantic.fields import AliasChoices, Field
+from pydantic.aliases import AliasChoices
+from pydantic.fields import Field
 from pydantic_settings import BaseSettings
 
 from pyfilebrowser.modals import models
@@ -75,7 +76,7 @@ class Executable(BaseModel):
         filebrowser_os: str = "openbsd"
     elif system.startswith("win") or system == "msys":
         filebrowser_os: str = "windows"
-        filebrowser_bin: FilePath = "filebrowser.exe"
+        filebrowser_bin: str = "filebrowser.exe"
         filebrowser_dl_ext: str = ".zip"
     else:
         raise OSError(f"Aborted, unsupported or unknown OS: {system}")
@@ -95,10 +96,10 @@ class Executable(BaseModel):
     else:
         raise OSError(f"Aborted, unsupported or unknown architecture: {machine}")
 
-    filebrowser_file: FilePath = (
+    filebrowser_file: str = FilePath(
         f"{filebrowser_os}-{filebrowser_arch}-filebrowser{filebrowser_dl_ext}"
     )
-    filebrowser_db: FilePath = f"{filebrowser_bin}.db"
+    filebrowser_db: str = f"{filebrowser_bin}.db"
 
 
 executable = Executable()

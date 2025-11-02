@@ -1,6 +1,10 @@
 Release Notes
 =============
 
+v0.2.1 (11/02/2025)
+-------------------
+- Includes an option to pass TOTP token for the ``filebrowser`` server
+
 v0.2.0 (05/25/2025)
 -------------------
 - Automatically creates symlinks to mount multiple directories

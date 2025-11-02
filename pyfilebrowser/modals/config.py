@@ -258,21 +258,18 @@ class Auther(BaseSettings):
 
     >>> Auther
 
-    See Also:
-        Environment variables should be prefixed with ``auth_``, and present in ``.config.env``
-
     Notes:
         - **recaptcha** - ReCaptcha settings for the server.
-        - **token** - The authenticator token for TOTP.
+        - **authenticatorToken** - The authenticator token for TOTP.
     """
 
     recaptcha: Optional[ReCAPTCHA] = None
-    token: Optional[str] = None
+    authenticatorToken: Optional[str] = None
 
     class Config:
         """Environment variables configuration."""
 
-        env_prefix = "auth_"
+        env_prefix = ""
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 

@@ -8,6 +8,7 @@ import subprocess
 import threading
 import time
 import warnings
+from datetime import datetime
 from types import FrameType
 from typing import List, Optional
 
@@ -213,14 +214,14 @@ class FileBrowser:
                     )
                     self.logger.debug("Extra settings - %s: %s", key, value)
                     final_settings[key].update(value)
-        # Move the authenticator token to the expected location, if token is valid
-        if self.env.config_settings.auther.token:
-            totp = pyotp.TOTP(self.env.config_settings.auther.token)
-            assert totp.verify(totp.now(), for_time=time.time()), "Invalid auth_token!"
-            final_settings["auther"][
-                "authenticator_token"
-            ] = self.env.config_settings.auther.token
-        final_settings["auther"].pop("token")
+        if self.env.config_settings.auther.authenticatorToken:
+            totp = pyotp.TOTP(self.env.config_settings.auther.authenticatorToken)
+            # Sampler can also be generated with totp.now()
+            now = datetime.now()
+            sampler = totp.generate_otp(totp.timecode(now))
+            assert totp.verify(sampler, for_time=now), "Invalid authenticatorToken!"
+        else:
+            final_settings["auther"].pop("authenticatorToken")
         # Remove symlinks from the final settings
         final_settings["server"].pop("symlinks")
         with open(steward.fileio.config, "w") as file:

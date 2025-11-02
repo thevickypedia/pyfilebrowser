@@ -1305,14 +1305,10 @@ validated to form a valid model.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Auther</span>
 </pre></div>
 </div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Environment variables should be prefixed with <code class="docutils literal notranslate"><span class="pre">auth_</span></code>, and present in <code class="docutils literal notranslate"><span class="pre">.config.env</span></code></p>
-</div>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p><strong>recaptcha</strong> - ReCaptcha settings for the server.</p></li>
-<li><p><strong>token</strong> - The authenticator token for TOTP.</p></li>
+<li><p><strong>authenticatorToken</strong> - The authenticator token for TOTP.</p></li>
 </ul>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
@@ -1324,8 +1320,8 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.token">
-<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.token" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Auther.authenticatorToken">
+<span class="sig-name descname"><span class="pre">authenticatorToken</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Auther.authenticatorToken" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1773,12 +1769,12 @@ validated to form a valid model.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.Executable.filebrowser_file">
-<span class="sig-name descname"><span class="pre">filebrowser_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.filebrowser_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filebrowser_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.filebrowser_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.Executable.filebrowser_db">
-<span class="sig-name descname"><span class="pre">filebrowser_db</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.filebrowser_db" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filebrowser_db</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.squire.download.Executable.filebrowser_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
