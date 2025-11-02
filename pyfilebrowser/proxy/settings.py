@@ -151,6 +151,20 @@ class EnvConfig(BaseSettings):
 
     >>> EnvConfig
 
+    Attributes:
+        - **host**: The host address for the server.
+        - **port**: The port number for the server.
+        - **workers**: The number of worker processes for handling requests.
+        - **debug**: Enable or disable debug mode.
+        - **origins**: A list of allowed origins for CORS.
+        - **database**: The path to the database file.
+        - **allow_public_ip**: Allow access from public IP address.
+        - **allow_private_ip**: Allow access from private IP address.
+        - **origin_refresh**: Time interval to refresh allowed origins.
+        - **rate_limit**: Rate limiting settings for incoming requests.
+        - **unsupported_browsers**: List of unsupported browsers.
+        - **warn_page**: Path to the custom warning page HTML file.
+        - **error_page**: Path to the custom error page HTML file.
     """
 
     host: str = socket.gethostbyname("localhost")

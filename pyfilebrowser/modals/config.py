@@ -25,8 +25,8 @@ class Branding(BaseSettings):
         - **disableExternal** - This will disable any external links.
         - **disableUsedPercentage** - Disables the used volume percentage.
         - **files** - The path to the branding files.
-            - custom.css, containing the styles you want to apply to your installation.
-            - img a directory whose files can replace the default logotypes in the application
+            - custom.css: Containing the styles you want to apply to your installation.
+            - img: A directory whose files can replace the default logotypes in the application.
         - **theme** - The theme of the brand. Uses system default if not set.
         - **color** - The color of the brand.
     """

@@ -404,6 +404,84 @@ validated to form a valid model.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EnvConfig</span>
 </pre></div>
 </div>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**host**</span></span></dt>
+<dd><p>The host address for the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**port**</span></span></dt>
+<dd><p>The port number for the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**workers**</span></span></dt>
+<dd><p>The number of worker processes for handling requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**debug**</span></span></dt>
+<dd><p>Enable or disable debug mode.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**origins**</span></span></dt>
+<dd><p>A list of allowed origins for CORS.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**database**</span></span></dt>
+<dd><p>The path to the database file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**allow_public_ip**</span></span></dt>
+<dd><p>Allow access from public IP address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**allow_private_ip**</span></span></dt>
+<dd><p>Allow access from private IP address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**origin_refresh**</span></span></dt>
+<dd><p>Time interval to refresh allowed origins.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**rate_limit**</span></span></dt>
+<dd><p>Rate limiting settings for incoming requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**unsupported_browsers**</span></span></dt>
+<dd><p>List of unsupported browsers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**warn_page**</span></span></dt>
+<dd><p>Path to the custom warning page HTML file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">-</span> <span class="pre">**error_page**</span></span></dt>
+<dd><p>Path to the custom error page HTML file.</p>
+</dd></dl>
+
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
 validated to form a valid model.</p>
@@ -866,8 +944,8 @@ validated to form a valid model.</p>
 <li><p><strong>disableUsedPercentage</strong> - Disables the used volume percentage.</p></li>
 <li><dl class="simple">
 <dt><strong>files</strong> - The path to the branding files.</dt><dd><ul>
-<li><p>custom.css, containing the styles you want to apply to your installation.</p></li>
-<li><p>img a directory whose files can replace the default logotypes in the application</p></li>
+<li><p>custom.css: Containing the styles you want to apply to your installation.</p></li>
+<li><p>img: A directory whose files can replace the default logotypes in the application.</p></li>
 </ul>
 </dd>
 </dl>
