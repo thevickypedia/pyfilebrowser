@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+v0.2.3 (11/02/2025)
+-------------------
+- Prioritizes environment variables from dotenv files over system env vars
+- Fixes a bug with downloading ``filebrowser`` executable from GitHub releases
+
 v0.2.2 (11/02/2025)
 -------------------
 - Includes an option to pass TOTP token for the ``filebrowser`` server
