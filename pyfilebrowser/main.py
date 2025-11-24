@@ -382,4 +382,7 @@ class FileBrowser:
                     self.logger.error("All %d restart attempts failed. Exiting.", idx)
                 else:
                     break
+            except KeyboardInterrupt:
+                self.logger.info("Stopped by user, shutting down.")
+                break
         self.exit_process()
