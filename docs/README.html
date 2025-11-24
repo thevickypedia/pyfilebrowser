@@ -137,6 +137,14 @@ Reference: <a class="reference external" href="https://thevickypedia.github.io/p
 </div></blockquote>
 <p>Multiple user profiles can be loaded using <code class="docutils literal notranslate"><span class="pre">.user1.env</span></code>, <code class="docutils literal notranslate"><span class="pre">.user2.env</span></code> and so on.<br>
 User profile’s permissions are automatically set based on the <code class="docutils literal notranslate"><span class="pre">admin</span></code> flag set in the env-var <code class="docutils literal notranslate"><span class="pre">authentication</span></code></p>
+</details><details>
+<summary><strong>filebrowser binary/executable</strong></summary><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">.github.env</span></code> - Loads GitHub config to download the <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code> executable/binary.</p>
+</div></blockquote>
+</details><details>
+<summary><strong>filebrowser with docker</strong></summary><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">.container.env</span></code> - Loads the docker env vars to run <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code> in a Docker container.</p>
+</div></blockquote>
 </details><blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">.env</span></code> files can be placed in a dedicated directory, whose path can be set using the env var <code class="docutils literal notranslate"><span class="pre">SECRETS_PATH</span></code>
 before importing <code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></p>
@@ -148,7 +156,9 @@ before importing <code class="docutils literal notranslate"><span class="pre">py
   | ├ .config.env
   | ├ .github.env
   | ├ .proxy.env
-  | └ .user.env
+  | ├ .user1.env
+  | ├ .user2.env
+  | └ .container.env
   ├ venv/
   └ main.py
 </pre></div>
