@@ -15,6 +15,7 @@ from typing import List, Optional
 import pyotp
 import yaml
 
+from pyfilebrowser.container import ContainerEngine
 from pyfilebrowser.modals import models, settings
 from pyfilebrowser.proxy import proxy_server, proxy_settings
 from pyfilebrowser.squire import download, steward, struct
@@ -327,15 +328,6 @@ class FileBrowser:
 
     def start_container(self) -> None:
         """Starts the filebrowser server inside a Docker container."""
-        try:
-            from pyfilebrowser.container import ContainerEngine
-        except ModuleNotFoundError as error:
-            self.logger.critical(
-                "Docker SDK not found. Install with 'pip install docker'"
-            )
-            raise ValueError(
-                "\n\tDocker SDK not found, run `pip install docker` to use container options"
-            ) from error
         container_engine = ContainerEngine(
             container_settings=self.container_settings, logger=self.logger
         )
