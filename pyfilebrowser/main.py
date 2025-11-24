@@ -78,24 +78,15 @@ class FileBrowser:
     def cleanup(self, log: bool = True) -> None:
         """Removes the config and proxy database."""
         self.unlink()
-        try:
-            os.remove(download.executable.filebrowser_db)
-            self.logger.info(
-                "Removed config database %s", download.executable.filebrowser_db
-            )
-        except FileNotFoundError as warn:
-            self.logger.warning(warn) if log else None
-        try:
-            os.remove(proxy_settings.database)
-            self.logger.info("Removed proxy database %s", proxy_settings.database)
-        except FileNotFoundError as warn:
-            self.logger.warning(warn) if self.proxy_engine and log else None
-        try:
-            os.remove(steward.fileio.config)
-            os.remove(steward.fileio.users)
-            self.logger.info("Removed config and user profiles' JSON files")
-        except FileNotFoundError as warn:
-            self.logger.warning(warn) if log else None
+        steward.delete(
+            (
+                steward.fileio.users,
+                steward.fileio.config,
+                proxy_settings.database,
+                download.executable.filebrowser_db,
+            ),
+            logger=self.logger if log else None,
+        )
 
     def exit_process(self) -> None:
         """Deletes the database file, and all the subtitles that were created by this application."""
@@ -338,8 +329,6 @@ class FileBrowser:
         container_engine.run_container(
             port=self.env.config_settings.server.port,
             data_volume=str(self.env.config_settings.server.root),
-            config_volume=steward.fileio.settings_dir,
-            config_filename=os.path.basename(steward.fileio.config),
         )
 
     def start_service(self) -> None:
@@ -365,6 +354,7 @@ class FileBrowser:
         self.import_config()
         self.import_users()
         self.link()
+        steward.delete((steward.fileio.users, steward.fileio.config))
         if self.proxy:
             self.background_tasks()
         for idx in range(self.settings.restart + 1):

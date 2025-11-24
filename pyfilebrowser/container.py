@@ -1,8 +1,11 @@
 import logging
+import os
+import threading
 
 import docker
 
 from pyfilebrowser.modals.settings import ContainerSettings
+from pyfilebrowser.squire import steward
 
 
 class ContainerEngine:
@@ -53,18 +56,27 @@ class ContainerEngine:
         self,
         port: int,
         data_volume: str,
-        config_volume: str,
-        config_filename: str,
     ) -> None:
         """Run the Docker container for PyFilebrowser.
 
         Args:
             port: Host port to map to the container's port.
             data_volume: Root directory path to mount as data volume.
-            config_volume: Config directory path to mount as config volume.
-            config_filename: Configuration filename inside the config volume.
         """
         self.remove_existing()
+        config_volume = steward.fileio.settings_dir
+        assert os.path.exists(
+            data_volume
+        ), f"Data volume path does not exist: {data_volume}"
+        assert os.path.exists(
+            config_volume
+        ), f"Config volume path does not exist: {config_volume}"
+        assert os.path.isfile(
+            steward.fileio.config
+        ), f"Config file does not exist: {steward.fileio.config}"
+        assert os.path.isfile(
+            steward.fileio.users
+        ), f"Users file does not exist: {steward.fileio.users}"
         container = self.client.containers.run(
             self.settings.image,
             name=self.settings.name,
@@ -79,15 +91,26 @@ class ContainerEngine:
                     "mode": self.settings.config_mode,
                 },
             },
-            restart_policy={"Name": "no"},  # self.settings.restart},
+            restart_policy={"Name": self.settings.restart},
             detach=True,
-            environment={"CONFIG_FILE": config_filename},
+            environment={
+                "CONFIG_FILE": os.path.basename(steward.fileio.config),
+                "USERS_FILE": os.path.basename(steward.fileio.users),
+            },
         )
 
+        timer = threading.Timer(
+            interval=10,
+            function=steward.delete,
+            kwargs=dict(files=(steward.fileio.config, steward.fileio.users)),
+        )
         if self.settings.detach:
             self.logger.info(f"Container started in detached mode: {container.name}")
+            timer.daemon = True
+            timer.start()
             return
 
+        timer.start()
         try:
             for log in container.logs(stream=True):
                 self.logger.info(log.strip().decode("utf-8"))
@@ -96,3 +119,11 @@ class ContainerEngine:
             self.logger.info("Container %s has stopped.", container.name)
             container.remove()
             self.logger.info("Container %s has been removed.", container.name)
+            # Cancel future and run immediately
+            if timer.is_alive():
+                timer.cancel()
+                kwargs = dict(timer.kwargs)
+                kwargs.setdefault("logger", self.logger)
+                timer.function(**kwargs)
+            db_file = os.path.join(steward.fileio.settings_dir, "filebrowser.db")
+            steward.delete((db_file,), self.logger)

@@ -109,7 +109,7 @@ def binary(logger: logging.Logger, github: GitHub) -> None:
     """Downloads the latest released binary asset.
 
     Args:
-        logger: Bring your own logger.
+        logger: Custom logger object.
         github: Custom GitHub source configuration.
     """
     logger.info(

@@ -4,7 +4,7 @@ import re
 import warnings
 from collections.abc import Generator
 from datetime import datetime
-from typing import List
+from typing import Iterable, List
 
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
@@ -111,6 +111,21 @@ def remove_trailing_underscore(dictionary: dict) -> dict:
         for i, item in enumerate(dictionary):
             dictionary[i] = remove_trailing_underscore(item)
     return dictionary
+
+
+def delete(files: Iterable[str], logger: logging.Logger = None) -> None:
+    """Deletes the provided list of files.
+
+    Args:
+        files: List or tuple of files to delete.
+        logger: Custom logger object.
+    """
+    for file in files:
+        try:
+            os.remove(file)
+            logger.info("Removed %s", file) if logger else None
+        except FileNotFoundError as warn:
+            logger.warning(warn) if logger else None
 
 
 def remove_prefix(text: str) -> str:
