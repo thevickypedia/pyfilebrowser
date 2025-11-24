@@ -47,8 +47,9 @@ class FileBrowser:
                   (By default, searched for ``extra.json`` in the current directory)
         """
         self.env = steward.EnvConfig(**kwargs)
+        self.github = download.GitHub(**kwargs)
         self.settings = settings.ServerSettings(**kwargs)
-        github = download.GitHub(**kwargs)
+        self.container_settings = settings.ContainerSettings(**kwargs)
 
         self.logger = kwargs.get(
             "logger",
@@ -58,8 +59,6 @@ class FileBrowser:
         )
         # Reset to stdout, so the log output stream can be controlled with custom logging
         self.env.config_settings.server.log = models.Log.stdout
-        if not os.path.isfile(download.executable.filebrowser_bin):
-            download.binary(logger=self.logger, github=github)
         self.proxy_engine: multiprocessing.Process | None = None
         self.proxy = kwargs.get("proxy")
         self.extra_env = kwargs.get("extra_env", "extra.json")
@@ -326,9 +325,36 @@ class FileBrowser:
         self.logger.info("Received signal %d, setting shutdown flag", signum)
         self.shutdown_flag.set()
 
-    def start(self) -> None:
-        """Starts the filebrowser server and handles cleanup on shutdown."""
+    def start_container(self) -> None:
+        """Starts the filebrowser server inside a Docker container."""
+        try:
+            from pyfilebrowser.container import ContainerEngine
+        except ModuleNotFoundError as error:
+            self.logger.critical(
+                "Docker SDK not found. Install with 'pip install docker'"
+            )
+            raise ValueError(
+                "\n\tDocker SDK not found, run `pip install docker` to use container options"
+            ) from error
+        container_engine = ContainerEngine(
+            container_settings=self.container_settings, logger=self.logger
+        )
+        container_engine.pull_image()
+        self.create_config()
+        self.create_users()
+        self.link()
+        container_engine.run_container(
+            port=self.env.config_settings.server.port,
+            data_volume=str(self.env.config_settings.server.root),
+            config_volume=steward.fileio.settings_dir,
+            config_filename=os.path.basename(steward.fileio.config),
+        )
+
+    def start_service(self) -> None:
+        """Starts the filebrowser server as a service with graceful shutdown handling."""
         self.register_signal_handlers()
+        if not os.path.isfile(download.executable.filebrowser_bin):
+            download.binary(logger=self.logger, github=self.github)
         try:
             while not self.shutdown_flag.is_set():
                 self.start_server()
@@ -340,8 +366,10 @@ class FileBrowser:
             self.exit_process()
 
     def start_server(self) -> None:
-        """Handler to process config, user profiles, proxy server and main filebrowser."""
+        """Starts the filebrowser server as a regular script with automatic restarts."""
         self.cleanup(False)
+        if not os.path.isfile(download.executable.filebrowser_bin):
+            download.binary(logger=self.logger, github=self.github)
         self.import_config()
         self.import_users()
         self.link()

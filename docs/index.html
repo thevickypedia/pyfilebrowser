@@ -769,15 +769,61 @@ information and sets a shutdown flag to allow the main process to exit cleanly.<
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Starts the filebrowser server and handles cleanup on shutdown.</p>
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start_container">
+<span class="sig-name descname"><span class="pre">start_container</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the filebrowser server inside a Docker container.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start_service">
+<span class="sig-name descname"><span class="pre">start_service</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the filebrowser server as a service with graceful shutdown handling.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.start_server">
 <span class="sig-name descname"><span class="pre">start_server</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.start_server" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handler to process config, user profiles, proxy server and main filebrowser.</p>
+<dd><p>Starts the filebrowser server as a regular script with automatic restarts.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pyfilebrowser.container">
+<span id="container-module"></span><h1>Container Module<a class="headerlink" href="#module-pyfilebrowser.container" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyfilebrowser.container.ContainerEngine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.container.</span></span><span class="sig-name descname"><span class="pre">ContainerEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ContainerSettings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.container.ContainerEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Container engine to manage Docker containers for PyFilebrowser.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ContainerEngine</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.container.ContainerEngine.pull_image">
+<span class="sig-name descname"><span class="pre">pull_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.container.ContainerEngine.pull_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull the Docker image from the registry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.container.ContainerEngine.remove_existing">
+<span class="sig-name descname"><span class="pre">remove_existing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.container.ContainerEngine.remove_existing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove docker container if it exists already.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.container.ContainerEngine.run_container">
+<span class="sig-name descname"><span class="pre">run_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_volume</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_volume</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.container.ContainerEngine.run_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Docker container for PyFilebrowser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – Host port to map to the container’s port.</p></li>
+<li><p><strong>data_volume</strong> – Root directory path to mount as data volume.</p></li>
+<li><p><strong>config_volume</strong> – Config directory path to mount as config volume.</p></li>
+<li><p><strong>config_filename</strong> – Configuration filename inside the config volume.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -2126,6 +2172,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#settings">Settings</a></li>
 <li><a class="reference internal" href="#pyfb-api-client">——–PyFB API Client——–</a></li>
 <li><a class="reference internal" href="#module-pyfilebrowser.main">Main Module</a></li>
+<li><a class="reference internal" href="#module-pyfilebrowser.container">Container Module</a></li>
 <li><a class="reference internal" href="#modals">Modals</a></li>
 <li><a class="reference internal" href="#pydanticenvconfig">PydanticEnvConfig</a></li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
