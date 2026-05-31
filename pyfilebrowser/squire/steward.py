@@ -4,7 +4,7 @@ import re
 import warnings
 from collections.abc import Generator
 from datetime import datetime
-from typing import Iterable, List
+from typing import Callable, Iterable, List
 
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
@@ -12,6 +12,14 @@ from pydantic import BaseModel, DirectoryPath, FilePath
 from pyfilebrowser.modals import config, models, users
 
 DATETIME_PATTERN = re.compile(r"^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ")
+
+
+def get_env(key: str, default: str = None, convert_to: Callable = None) -> str | None:
+    """Get OS agnostic environment variable based on the key with an optional default value."""
+    value = os.getenv(key.lower()) or os.getenv(key.upper()) or default
+    if all(value, convert_to):
+        return convert_to(value)
+    return value
 
 
 def ordinal(n: int) -> str:

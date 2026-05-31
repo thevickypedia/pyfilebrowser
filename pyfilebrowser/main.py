@@ -59,8 +59,10 @@ class FileBrowser:
         # Reset to stdout, so the log output stream can be controlled with custom logging
         self.env.config_settings.server.log = models.Log.stdout
         self.proxy_engine: multiprocessing.Process | None = None
-        self.proxy = kwargs.get("proxy")
-        self.extra_env = kwargs.get("extra_env", "extra.json")
+        self.proxy = kwargs.get("proxy") or steward.get_env(
+            "pyfb_proxy", convert_to=bool
+        )
+        self.extra_env = kwargs.get("extra_env") or steward.get_env("pyfb_extra_env")
         assert self.proxy is None or isinstance(
             self.proxy, bool
         ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
@@ -187,7 +189,7 @@ class FileBrowser:
             final_settings = steward.remove_trailing_underscore(
                 json.loads(self.env.config_settings.model_dump_json())
             )
-        if os.path.isfile(self.extra_env):
+        if self.extra_env and os.path.isfile(self.extra_env):
             if self.extra_env.endswith(".json"):
                 with open(self.extra_env) as file:
                     extra_settings = json.load(file)

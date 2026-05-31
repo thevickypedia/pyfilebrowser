@@ -98,7 +98,8 @@ based on their DHCP lease renewal.<br>This is specifically useful in cases of lo
 
 Extra configuration settings can be loaded using a `JSON`/`YAML` file.
 These settings will be merged with the default configuration settings.
-The filename should be passed as `extra_env` during object instantiation.
+The filename can either be passed as `extra_env` during object instantiation
+[OR] through an environment variable `pyfb_extra_env` key.
 Reference: [extra_env]
 
 </details>
