@@ -120,13 +120,6 @@ User profile's permissions are automatically set based on the `admin` flag set i
 
 </details>
 
-<details>
-<summary><strong>filebrowser with docker</strong></summary>
-
-> `.container.env` - Loads the docker env vars to run `filebrowser` in a Docker container.
-
-</details>
-
 > `.env` files can be placed in a dedicated directory, whose path can be set using the env var `SECRETS_PATH`
 > before importing `pyfilebrowser`
 
@@ -141,8 +134,7 @@ root (current working directory)
   | ├ .github.env
   | ├ .proxy.env
   | ├ .user1.env
-  | ├ .user2.env
-  | └ .container.env
+  | └ .user2.env
   ├ venv/
   └ main.py
 ```

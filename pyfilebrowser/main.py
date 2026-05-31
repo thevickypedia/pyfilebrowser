@@ -15,7 +15,6 @@ from typing import List, Optional
 import pyotp
 import yaml
 
-from pyfilebrowser.container import ContainerEngine
 from pyfilebrowser.modals import models, settings
 from pyfilebrowser.proxy import proxy_server, proxy_settings
 from pyfilebrowser.squire import download, steward, struct
@@ -50,7 +49,6 @@ class FileBrowser:
         self.env = steward.EnvConfig(**kwargs)
         self.github = download.GitHub(**kwargs)
         self.settings = settings.ServerSettings(**kwargs)
-        self.container_settings = settings.ContainerSettings(**kwargs)
 
         self.logger = kwargs.get(
             "logger",
@@ -316,20 +314,6 @@ class FileBrowser:
                 self.logger.debug(f"frame.{atr}: {getattr(frame, atr)}")
         self.logger.info("Received signal %d, setting shutdown flag", signum)
         self.shutdown_flag.set()
-
-    def start_container(self) -> None:
-        """Starts the filebrowser server inside a Docker container."""
-        container_engine = ContainerEngine(
-            container_settings=self.container_settings, logger=self.logger
-        )
-        container_engine.pull_image()
-        self.create_config()
-        self.create_users()
-        self.link()
-        container_engine.run_container(
-            port=self.env.config_settings.server.port,
-            data_volume=str(self.env.config_settings.server.root),
-        )
 
     def start_service(self) -> None:
         """Starts the filebrowser server as a service with graceful shutdown handling."""

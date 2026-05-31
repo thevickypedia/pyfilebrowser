@@ -1,5 +1,4 @@
 bcrypt==5.0.*
-docker==7.1.*
 fastapi==0.120.*
 httpx==0.28.*
 Jinja2==3.1.*

@@ -21,7 +21,6 @@ def _cli() -> None:
     **Commands**
         ``start``: Initiates the PyFilebrowser as a regular script.
         ``start-service``: Initiates the PyFilebrowser as a service.
-        ``start-container``: Initiates the PyFilebrowser as a containerized application.
     """
     assert sys.argv[0].endswith("pyfilebrowser"), "Invalid commandline trigger!!"
     options = {
@@ -32,7 +31,6 @@ def _cli() -> None:
         "--extra | -E <path>": "Specifies an extra environment YAML file to load additional configurations.",
         "start": "Initiates the PyFilebrowser as a regular script.",
         "start-service": "Initiates the PyFilebrowser as a service.",
-        "start-container": "Initiates the PyFilebrowser as a containerized application.",
     }
     # weird way to increase spacing to keep all values monotonic
     _longest_key = len(max(options.keys()))
@@ -87,8 +85,6 @@ def _cli() -> None:
             "start_server",
             "start-service",
             "start_service",
-            "start-container",
-            "start_container",
         )
     ):
         pass
@@ -101,8 +97,6 @@ def _cli() -> None:
         FileBrowser(proxy=proxy_flag, extra_env=extra_env).start_server()
     elif any(arg in args for arg in ("start-service", "start_service")):
         FileBrowser(proxy=proxy_flag, extra_env=extra_env).start_service()
-    elif any(arg in args for arg in ("start-container", "start_container")):
-        FileBrowser(proxy=proxy_flag, extra_env=extra_env).start_container()
     else:
         print(
             "Insufficient Arguments:\n\tNo command received to initiate the PyFileBrowser. "

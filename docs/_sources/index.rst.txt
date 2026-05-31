@@ -77,11 +77,6 @@ Main Module
 
 .. automodule:: pyfilebrowser.main
 
-Container Module
-================
-
-.. automodule:: pyfilebrowser.container
-
 Modals
 ======
 PydanticEnvConfig
