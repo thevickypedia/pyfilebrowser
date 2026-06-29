@@ -1,0 +1,15 @@
+*.db
+*.yml
+docs/
+.git/
+logs/
+*.yaml
+LICENSE
+.github/
+doc_gen/
+samples/
+secrets/
+branding/
+pre_commit.sh
+release_notes.rst
+.pre-commit-config.yaml

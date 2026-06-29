@@ -39,7 +39,7 @@ def _cli() -> None:
         f"{k} {'·' * (_longest_key - len(k) + 8)}→ {v}".expandtabs()
         for k, v in options.items()
     )
-    args = [arg.lower() for arg in sys.argv[1:]]
+    args = [arg.lower() for arg in sys.argv]
     try:
         assert len(args) > 1
     except (IndexError, AttributeError, AssertionError):

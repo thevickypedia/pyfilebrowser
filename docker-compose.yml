@@ -1,0 +1,33 @@
+########################################################################################################################
+#                                  Use this docker-compose file as a sample.                                           #
+########################################################################################################################
+services:
+  app:
+    image: thevickypedia/pyfilebrowser
+    container_name: pyfilebrowser
+    build:
+     context: .
+     dockerfile: Dockerfile
+    volumes:
+      - ./branding:/app/branding
+      - ./secrets:/app/secrets
+      - ./logs:/app/logs
+      # Sample volumes that are mounted and exposed for ROOT and SYMLINKS (via .config.env)
+      # NOTE: Volume specified for ROOT should be set to 'rw' for SYMLINKS to work
+      - /home/vicky/Desktop:/mnt/Desktop:rw
+      - /home/vicky/Downloads:/mnt/Downloads:rw
+      - /home/vicky/Documents/Drive:/mnt/Drive:ro
+    environment:
+      - SECRETS_PATH=/app/secrets
+      - ADDRESS=0.0.0.0
+      - PORT=80
+      - LOG=file
+    ports:
+      # host_port:container_port
+      - "${FB_PORT:-8000}:80"
+    deploy:
+      # 'reservations' key is supported only in swarm mode
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
