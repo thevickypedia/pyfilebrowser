@@ -10,7 +10,7 @@ import time
 import warnings
 from datetime import datetime
 from types import FrameType
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import pyotp
 import yaml
@@ -67,6 +67,7 @@ class FileBrowser:
             self.proxy, bool
         ), f"\n\tproxy flag should be a boolean value, received {type(self.proxy).__name__!r}"
         self.shutdown_flag = threading.Event()
+        self.is_docker = os.path.isfile(os.path.join("/", ".dockerenv"))
 
     def register_signal_handlers(self) -> None:
         """Register signals (cross-platform) to handle graceful shutdown on various levels."""
@@ -177,6 +178,52 @@ class FileBrowser:
             json.dump(final_settings, file, indent=4)
             file.flush()
 
+    def load_extra_env(self, settings: Dict[str, Any]) -> Dict[str, Any]:
+        """Load extra env settings from a yaml or json file.
+
+        Args:
+            settings: Base settings.
+
+        Returns:
+            Dict[str, Any]:
+            Returns the final settings after patching the extra config values.
+        """
+        if self.extra_env and os.path.isfile(self.extra_env):
+            self.logger.debug("Extra configuration file found: %s", self.extra_env)
+            if self.extra_env.endswith(".json"):
+                with open(self.extra_env) as file:
+                    extra_env = json.load(file)
+            elif self.extra_env.endswith(".yaml") or self.extra_env.endswith(".yml"):
+                with open(self.extra_env) as file:
+                    extra_env = yaml.load(file, Loader=yaml.FullLoader)
+            else:
+                raise ValueError("Extra settings should be either a JSON or YAML file.")
+        elif self.extra_env:
+            raise FileNotFoundError(
+                "Received '%s' for 'extra_env', but file not found.", self.extra_env
+            )
+        else:
+            self.logger.debug("No extra configuration to be added")
+            return settings
+        if not isinstance(extra_env, dict):
+            raise ValueError(
+                "Invalid configuration received for extra_env. Expected dict, received %s",
+                type(extra_env),
+            )
+        valid_keys = list(settings.keys())
+        for key, value in extra_env.items():
+            if key in valid_keys:
+                self.logger.info(
+                    "Loading extra settings for '%s' from '%s'", key, self.extra_env
+                )
+                self.logger.debug("Extra settings - %s: %s", key, value)
+                settings[key].update(value)
+            else:
+                raise ValueError(
+                    f"Updates are allowed only for existing keys: {valid_keys!r}. Received: {key!r}"
+                )
+        return settings
+
     def create_config(self) -> None:
         """Creates the JSON file for configuration."""
         if self.proxy:
@@ -186,25 +233,11 @@ class FileBrowser:
             self.env.config_settings.settings.branding.files = ""
         self.env.config_settings.server.port = str(self.env.config_settings.server.port)
         with warnings.catch_warnings(action="ignore"):
-            final_settings = steward.remove_trailing_underscore(
+            base_settings = steward.remove_trailing_underscore(
                 json.loads(self.env.config_settings.model_dump_json())
             )
-        if self.extra_env and os.path.isfile(self.extra_env):
-            if self.extra_env.endswith(".json"):
-                with open(self.extra_env) as file:
-                    extra_settings = json.load(file)
-            elif self.extra_env.endswith(".yaml") or self.extra_env.endswith(".yml"):
-                with open(self.extra_env) as file:
-                    extra_settings = yaml.load(file, Loader=yaml.FullLoader)
-            else:
-                raise ValueError("Extra settings should be either a JSON or YAML file.")
-            for key, value in extra_settings.items():
-                if final_settings.get(key):
-                    self.logger.info(
-                        "Loading extra settings for '%s' from '%s'", key, self.extra_env
-                    )
-                    self.logger.debug("Extra settings - %s: %s", key, value)
-                    final_settings[key].update(value)
+        self.logger.info("Loaded the base settings for: %s", base_settings.keys())
+        final_settings = self.load_extra_env(base_settings)
         if self.env.config_settings.auther.authenticatorToken:
             totp = pyotp.TOTP(self.env.config_settings.auther.authenticatorToken)
             # Sampler can also be generated with totp.now()
@@ -278,6 +311,11 @@ class FileBrowser:
 
     def link(self) -> None:
         """Creates symlinks for the directories specified in the configuration."""
+        if self.is_docker and self.env.config_settings.server.symlinks:
+            msg = "Symlinks are not supported, when running in Docker context. Please mount volumes instead."
+            self.logger.warning(msg)
+            warnings.warn(msg)
+            return
         for source_path in self.env.config_settings.server.symlinks:
             target_path = os.path.join(
                 self.env.config_settings.server.root, source_path.name
@@ -290,6 +328,8 @@ class FileBrowser:
 
     def unlink(self) -> None:
         """Removes the symbolic links created in the server root directory."""
+        if self.is_docker:
+            return
         for source_path in self.env.config_settings.server.symlinks:
             target_path = os.path.join(
                 self.env.config_settings.server.root, source_path.name
@@ -327,9 +367,7 @@ class FileBrowser:
                 self.start_server()
             self.logger.info("Cleanup complete. Exiting.")
         except Exception as error:
-            self.logger.error(
-                "Unexpected exception: [%s - %s]", type(error).__name__, error
-            )
+            self.logger.error("Unexpected [%s]: %s", type(error).__name__, error)
             self.exit_process()
 
     def start_server(self) -> None:

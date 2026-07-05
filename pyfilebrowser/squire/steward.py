@@ -12,12 +12,15 @@ from pydantic import BaseModel, DirectoryPath, FilePath
 from pyfilebrowser.modals import config, models, users
 
 DATETIME_PATTERN = re.compile(r"^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ")
+LOG_LEVELS = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
 
 
 def get_env(key: str, default: str = None, convert_to: Callable = None) -> str | None:
-    """Get OS agnostic environment variable based on the key with an optional default value."""
+    """Get case agnostic environment variable based on the key with an optional default value."""
     value = os.getenv(key.lower()) or os.getenv(key.upper()) or default
-    if all((value, convert_to)):
+    if value and convert_to:
+        if convert_to is bool:
+            return value.lower() in ("1", "true")
         return convert_to(value)
     return value
 
@@ -60,7 +63,11 @@ def default_logger(log_to_file: bool) -> logging.Logger:
     else:
         handler = logging.StreamHandler()
     logger = logging.getLogger(__name__)
-    logger.setLevel(level=logging.INFO)
+    log_level = get_env("log_level") or get_env("pyfb_log_level") or "INFO"
+    assert (
+        log_level in LOG_LEVELS
+    ), f"Log level must be set to one of {LOG_LEVELS}, received {log_level}"
+    logger.setLevel(level=log_level)
     handler.setFormatter(
         fmt=logging.Formatter(
             fmt="%(asctime)s - %(levelname)-8s - [%(funcName)s:%(lineno)d] - %(message)s"

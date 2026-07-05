@@ -14,14 +14,17 @@ services:
       - ./logs:/app/logs
       # Sample volumes that are mounted and exposed for ROOT and SYMLINKS (via .config.env)
       # NOTE: Volume specified for ROOT should be set to 'rw' for SYMLINKS to work
-      - /home/vicky/Desktop:/mnt/Desktop:rw
-      - /home/vicky/Downloads:/mnt/Downloads:rw
-      - /home/vicky/Documents/Drive:/mnt/Drive:ro
+      - /Users/vicky/Desktop:/mnt/Desktop:rw
+      - /Users/vicky/Downloads:/mnt/Downloads:rw
+      - /Users/vicky/Documents:/mnt/Documents:ro
     environment:
       - SECRETS_PATH=/app/secrets
       - ADDRESS=0.0.0.0
       - PORT=80
       - LOG=file
+      - PYFB_PROXY=false
+      - PYFB_LOG_LEVEL=DEBUG
+      - PYFB_EXTRA_ENV=/app/secrets/extra.yaml
     ports:
       # host_port:container_port
       - "${FB_PORT:-8000}:80"

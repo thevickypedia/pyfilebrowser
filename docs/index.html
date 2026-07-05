@@ -719,6 +719,23 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.load_extra_env">
+<span class="sig-name descname"><span class="pre">load_extra_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.load_extra_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load extra env settings from a yaml or json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> – Base settings.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the final settings after patching the extra config values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.create_config">
 <span class="sig-name descname"><span class="pre">create_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.create_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates the JSON file for configuration.</p>
@@ -1940,7 +1957,7 @@ validated to form a valid model.</p>
 <span class="target" id="module-pyfilebrowser.squire.steward"></span><dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.steward.get_env">
 <span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">get_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.get_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get OS agnostic environment variable based on the key with an optional default value.</p>
+<dd><p>Get case agnostic environment variable based on the key with an optional default value.</p>
 </dd></dl>
 
 <dl class="py function">
