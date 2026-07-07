@@ -1,7 +1,7 @@
 import re
-from typing import Dict, List, Optional
+from typing import List, Optional
 
-from pydantic import BaseModel, field_validator
+from pydantic import field_validator
 
 from pyfilebrowser.modals import models
 from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
@@ -41,18 +41,6 @@ def complexity_checker(password: str) -> None:
     ), "Password must contain at least one special character"
 
 
-class Authentication(BaseModel):
-    """Authentication settings for each user profile.
-
-    >>> models.Perm
-
-    """
-
-    username: Optional[str]
-    password: Optional[str]
-    admin: Optional[bool] = False
-
-
 class UserSettings(PydanticEnvConfig):
     """Profile settings for each user.
 
@@ -73,9 +61,9 @@ class UserSettings(PydanticEnvConfig):
         - **dateFormat** - Default setting to set the exact date format.
     """
 
-    authentication: Optional[Authentication] = Authentication(
-        username="admin", password="admin", admin=True
-    )
+    username: str
+    password: str
+    admin: Optional[bool] = False
     scope: Optional[str] = "/"
     locale: Optional[str] = "en"
     lockPassword: Optional[bool] = False
@@ -87,6 +75,7 @@ class UserSettings(PydanticEnvConfig):
     rules: Optional[List[str]] = []
     hideDotfiles: Optional[bool] = False
     dateFormat: Optional[bool] = False
+    id: Optional[int] = None
 
     @classmethod
     def from_env_file(cls, env_file: Optional[str]) -> "UserSettings":
@@ -102,27 +91,19 @@ class UserSettings(PydanticEnvConfig):
         return cls(_env_file=env_file)
 
     # noinspection PyMethodParameters
-    @field_validator("authentication", mode="before")
-    def validate_password_complexity(
-        cls, value: Authentication
-    ) -> Authentication | Dict:
+    @field_validator("password", mode="before")
+    def validate_password(cls, value: str) -> str:
         """Field validator for password.
 
         Args:
             value: Value as entered by the user.
 
         Returns:
-            Authentication | Dict:
-            Returns an ``Authentication`` object or a dictionary with the authentication payload.
+            str:
+            Returns the validated password.
         """
-        if isinstance(value, Authentication):
-            passwd = value.password
-        elif isinstance(value, dict):
-            passwd = value.get("password")
-        else:
-            raise ValueError(f"unknown type ({type(value)})")
         try:
-            complexity_checker(passwd)
+            complexity_checker(value)
         except AssertionError as error:
             raise ValueError(error)
         return value

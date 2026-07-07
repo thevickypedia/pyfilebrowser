@@ -152,27 +152,18 @@ class FileBrowser:
     def create_users(self) -> None:
         """Creates the JSON file(s) for user profiles."""
         final_settings = []
-        user_profiles = self.env.user_profiles or list(self.env.load_user_profiles())
-        for idx, profile in enumerate(user_profiles):
-            if profile.authentication.admin:
+        for idx, profile in enumerate(self.env.user_profiles):
+            if profile.admin:
                 profile.perm = models.admin_perm()
             else:
                 profile.perm = models.default_perm()
-            hashed_password = steward.hash_password(profile.authentication.password)
+            hashed_password = steward.hash_password(profile.password)
             assert steward.validate_password(
-                profile.authentication.password, hashed_password
+                profile.password, hashed_password
             ), "Validation failed!"
-            profile.authentication.password = hashed_password
-            model_settings = json.loads(profile.model_dump_json())
-            user_settings = {"id": idx + 1}
-            # remove custom 'admin' item within authentication
-            model_settings["authentication"].pop("admin", None)
-            # insert custom 'authentication' model into new dict
-            user_settings.update(model_settings["authentication"])
-            # remove custom 'authentication' model from 'model_settings'
-            model_settings.pop("authentication", None)
-            # insert cleaned 'model_settings' into new dict 'user_settings'
-            user_settings.update(model_settings)
+            profile.password = hashed_password
+            profile.id = idx + 1
+            user_settings = json.loads(profile.model_dump_json())
             final_settings.append(user_settings)
         with open(steward.fileio.users, "w") as file:
             json.dump(final_settings, file, indent=4)

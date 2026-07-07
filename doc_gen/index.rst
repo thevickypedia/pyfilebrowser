@@ -171,11 +171,6 @@ Models
 Users
 =====
 
-.. autoclass:: pyfilebrowser.modals.users.Authentication(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
-
-====
-
 .. autoclass:: pyfilebrowser.modals.users.UserSettings(PydanticEnvConfig)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 

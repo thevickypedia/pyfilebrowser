@@ -1612,35 +1612,6 @@ validated to form a valid model.</p>
 <section id="users">
 <h1>Users<a class="headerlink" href="#users" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">Authentication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pydantic.BaseModel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication" title="Permalink to this definition">¶</a></dt>
-<dd><p>Authentication settings for each user profile.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">models</span><span class="o">.</span><span class="n">Perm</span>
-</pre></div>
-</div>
-<p>Create a new model by parsing and validating input data from keyword arguments.</p>
-<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
-validated to form a valid model.</p>
-<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.username">
-<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.username" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.password">
-<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.password" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.Authentication.admin">
-<span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.Authentication.admin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<hr class="docutils" />
-<dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.users.</span></span><span class="sig-name descname"><span class="pre">UserSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Profile settings for each user.</p>
@@ -1667,8 +1638,18 @@ validated to form a valid model.</p>
 validated to form a valid model.</p>
 <p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.authentication">
-<span class="sig-name descname"><span class="pre">authentication</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.Authentication" title="pyfilebrowser.modals.users.Authentication"><span class="pre">Authentication</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.authentication" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.username">
+<span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.admin">
+<span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.admin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1726,6 +1707,11 @@ validated to form a valid model.</p>
 <span class="sig-name descname"><span class="pre">dateFormat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.dateFormat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.from_env_file">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_env_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyfilebrowser.modals.users.UserSettings" title="pyfilebrowser.modals.users.UserSettings"><span class="pre">UserSettings</span></a></span></span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.from_env_file" title="Permalink to this definition">¶</a></dt>
@@ -1744,18 +1730,18 @@ validated to form a valid model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.validate_password_complexity">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_password_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyfilebrowser.modals.users.Authentication" title="pyfilebrowser.modals.users.Authentication"><span class="pre">Authentication</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.Authentication" title="pyfilebrowser.modals.users.Authentication"><span class="pre">Authentication</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.validate_password_complexity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.validate_password">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.validate_password" title="Permalink to this definition">¶</a></dt>
 <dd><p>Field validator for password.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> – Value as entered by the user.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns an <code class="docutils literal notranslate"><span class="pre">Authentication</span></code> object or a dictionary with the authentication payload.</p>
+<dd class="field-even"><p>Returns the validated password.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pyfilebrowser.modals.users.Authentication" title="pyfilebrowser.modals.users.Authentication">Authentication</a> | Dict</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1911,17 +1897,6 @@ validated to form a valid model.</p>
 <span class="sig-name descname"><span class="pre">config_settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.config.ConfigSettings" title="pyfilebrowser.modals.config.ConfigSettings"><span class="pre">ConfigSettings</span></a></em><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.config_settings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.EnvConfig.load_user_profiles">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_user_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.UserSettings" title="pyfilebrowser.modals.users.UserSettings"><span class="pre">UserSettings</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.EnvConfig.load_user_profiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load UserSettings instances from .env files in the current directory.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Yields<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>Generator[users.UserSettings]</em> – A generator of <code class="docutils literal notranslate"><span class="pre">UserSettings</span></code> object.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <hr class="docutils" />
@@ -2066,6 +2041,17 @@ validated to form a valid model.</p>
 <dt class="sig sig-object py" id="pyfilebrowser.squire.steward.remove_prefix">
 <span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">remove_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.remove_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the message part from the default log output from filebrowser.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.squire.steward.load_user_profiles">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.steward.</span></span><span class="sig-name descname"><span class="pre">load_user_profiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.users.UserSettings" title="pyfilebrowser.modals.users.UserSettings"><span class="pre">UserSettings</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.squire.steward.load_user_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load UserSettings instances from .env files in the current directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yields<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Generator[users.UserSettings]</em> – A generator of <code class="docutils literal notranslate"><span class="pre">UserSettings</span></code> object.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

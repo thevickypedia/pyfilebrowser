@@ -148,6 +148,32 @@ def remove_prefix(text: str) -> str:
     return DATETIME_PATTERN.sub("", text).strip()
 
 
+def load_user_profiles() -> Generator[users.UserSettings]:
+    """Load UserSettings instances from .env files in the current directory.
+
+    Yields:
+        Generator[users.UserSettings]:
+        A generator of ``UserSettings`` object.
+    """
+    for file in os.listdir(models.SECRETS_PATH):
+        if "user" in file and file.endswith(".env"):
+            user_settings = users.UserSettings.from_env_file(
+                os.path.join(models.SECRETS_PATH, file)
+            )
+            if not user_settings.admin:
+                # Default users can't reset passwords or view dot files
+                # For admins, these settings are enforced by env vars
+                user_settings.lockPassword = True
+                user_settings.hideDotfiles = True
+                if user_settings.scope == "/":
+                    warnings.warn(
+                        f"User {user_settings.username!r} is not an admin, "
+                        "but has permissions to the root directory.",
+                        UserWarning,
+                    )
+            yield user_settings
+
+
 class EnvConfig(BaseModel):
     """Configure all env vars and validate using ``pydantic`` to share across modules.
 
@@ -155,7 +181,7 @@ class EnvConfig(BaseModel):
 
     """
 
-    user_profiles: List[users.UserSettings] = []
+    user_profiles: List[users.UserSettings] = list(load_user_profiles())
     config_settings: config.ConfigSettings = config.ConfigSettings()
     if (
         config_settings.settings.createUserDir
@@ -166,32 +192,6 @@ class EnvConfig(BaseModel):
         )
         os.makedirs(user_home_base, exist_ok=True)
         config_settings.settings.userHomeBasePath = user_home_base
-
-    @classmethod
-    def load_user_profiles(cls) -> Generator[users.UserSettings]:
-        """Load UserSettings instances from .env files in the current directory.
-
-        Yields:
-            Generator[users.UserSettings]:
-            A generator of ``UserSettings`` object.
-        """
-        for file in os.listdir(models.SECRETS_PATH):
-            if "user" in file and file.endswith(".env"):
-                user_settings = users.UserSettings.from_env_file(
-                    os.path.join(models.SECRETS_PATH, file)
-                )
-                if not user_settings.authentication.admin:
-                    # Default users can't reset passwords or view dot files
-                    # For admins, these settings are enforced by env vars
-                    user_settings.lockPassword = True
-                    user_settings.hideDotfiles = True
-                    if user_settings.scope == "/":
-                        warnings.warn(
-                            f"User {user_settings.authentication.username!r} is not an admin, "
-                            "but has permissions to the root directory.",
-                            UserWarning,
-                        )
-                yield user_settings
 
 
 class FileIO(BaseModel):
