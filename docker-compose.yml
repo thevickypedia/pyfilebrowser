@@ -12,8 +12,8 @@ services:
       - ./branding:/app/branding
       - ./secrets:/app/secrets
       - ./logs:/app/logs
-      # Sample volumes that are mounted and exposed for ROOT and SYMLINKS (via .config.env)
-      # NOTE: Volume specified for ROOT should be set to 'rw' for SYMLINKS to work
+      # Sample volumes that are mounted and exposed for ROOT (via .config.env)
+      # NOTE: Dockerized version DOES NOT support SYMLINKS and will make storage information (in the UI) unreliable
       - /Users/vicky/Desktop:/mnt/Desktop:rw
       - /Users/vicky/Downloads:/mnt/Downloads:rw
       - /Users/vicky/Documents:/mnt/Documents:ro
