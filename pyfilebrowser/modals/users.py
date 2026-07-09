@@ -47,13 +47,15 @@ class UserSettings(PydanticEnvConfig):
     >>> UserSettings
 
     Notes:
-        - **authentication** - Authentication settings for each user profile.
+        - **username** - Plain text username.
+        - **password** - Plain text password.
+        - **admin** - Boolean flag to indicate admin status. Permissions are set automatically based on this flag.
         - **scope** - The default scope for the users. Defaults to the root directory.
         - **locale** - The default locale for the users. Locale is an RFC 5646 language tag.
         - **lockPassword** - Default setting to prevent the user from changing the password.
         - **viewMode** - Default view mode for the users.
         - **singleClick** - Use single clicks to open files and directories.
-        - **perm** - Permissions are set based on the admin flag for each ``Authentication`` model.
+        - **perm** - Permissions are set based on the admin flag for each user profile.
         - **commands** - List of commands that can be executed by the user.
         - **sorting** - Default sorting settings for the user.
         - **rules** - List of allow and disallow rules. This overrides the server's default rules.

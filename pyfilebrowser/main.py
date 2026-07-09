@@ -50,7 +50,7 @@ class FileBrowser:
         self.github = download.GitHub(**kwargs)
         self.settings = settings.ServerSettings(**kwargs)
 
-        self.logger = kwargs.get(
+        self.logger: logging.Logger = kwargs.get(
             "logger",
             steward.default_logger(
                 self.env.config_settings.server.log == models.Log.file
@@ -153,7 +153,10 @@ class FileBrowser:
         """Creates the JSON file(s) for user profiles."""
         final_settings = []
         for idx, profile in enumerate(self.env.user_profiles):
-            if profile.admin:
+            if profile.perm:
+                self.logger.info("Setting custom permissions for: %s", profile.username)
+                self.logger.debug(profile.perm.model_dump_json())
+            elif profile.admin:
                 profile.perm = models.admin_perm()
             else:
                 profile.perm = models.default_perm()

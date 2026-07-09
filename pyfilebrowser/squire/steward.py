@@ -160,9 +160,7 @@ def load_user_profiles() -> Generator[users.UserSettings]:
             user_settings = users.UserSettings.from_env_file(
                 os.path.join(models.SECRETS_PATH, file)
             )
-            if not user_settings.admin:
-                # Default users can't reset passwords or view dot files
-                # For admins, these settings are enforced by env vars
+            if not user_settings.perm and not user_settings.admin:
                 user_settings.lockPassword = True
                 user_settings.hideDotfiles = True
                 if user_settings.scope == "/":
