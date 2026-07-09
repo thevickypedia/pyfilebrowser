@@ -1,0 +1,127 @@
+---
+name: Build and Publish Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        type: string
+        description: 'Tag name for the release (e.g., v1.0.0)'
+        required: false
+        default: null
+      dockerfile:
+        type: string
+        description: 'Path to the Dockerfile'
+        required: true
+        default: 'Dockerfile'
+
+  workflow_call:
+    inputs:
+      tag_name:
+        type: string
+        description: 'Tag name for the release (e.g., v1.0.0)'
+        required: false
+        default: null
+      dockerfile:
+        type: string
+        description: 'Path to the Dockerfile'
+        required: true
+        default: 'Dockerfile'
+
+env:
+  repository: ${{ github.repository || 'thevickypedia/pyfilebrowser' }}
+  repository_name: ${{ github.repository.name || 'pyfilebrowser' }}
+  repository_description: ${{ github.event.repository.description || '📂 Web File Browser' }}
+  # workflow_call first, fallback to workflow_dispatch
+  dockerfile: ${{ inputs.dockerfile || github.event.inputs.dockerfile }}
+  tag_name: ${{ inputs.tag_name || github.event.inputs.tag_name }}
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker Prerequisites
+        run: |
+          # Ensure Dockerfile exists
+          if [ -f "${{ env.dockerfile }}" ]; then
+            echo "Dockerfile found at path: ${{ env.dockerfile }}"
+          else
+            echo "::error title=Dockerfile Not Found::The specified Dockerfile path '${{ env.dockerfile }}' does not exist."
+            exit 1
+          fi
+
+          # Start with an empty tag list
+          tags=""
+
+          # Detect base vs release image
+          if [[ "${{ env.dockerfile }}" == *"base"* ]]; then
+            echo "Building base Docker image."
+
+            # Base tag
+            tags="${{ env.repository }}:base"
+
+            # Only add <tag>-base if tag_name is set
+            if [ -n "${{ env.tag_name }}" ]; then
+              tags="$tags,${{ env.repository }}:${{ env.tag_name }}-base"
+            else
+              echo "::warning title=Missing Tag::Release tag name is not set. Skipping versioned tags."
+            fi
+
+            # latest ONLY for base
+            tags="$tags,${{ env.repository }}:latest"
+
+          else
+            echo "Building release Docker image."
+
+            # Release tag
+            tags="${{ env.repository }}:release"
+
+            # Only add <tag>-release if tag_name is set
+            if [ -n "${{ env.tag_name }}" ]; then
+              tags="$tags,${{ env.repository }}:${{ env.tag_name }}-release"
+            else
+              echo "::warning title=Missing Tag::Release tag name is not set. Skipping versioned tags."
+            fi
+          fi
+
+          echo "Docker image will be published with tags: ${tags}"
+          echo "dockertags=${tags}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          file: ${{ env.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.dockertags }}
+          build-args: |
+            VERSION=${{ env.tag_name || 'latest' }}
+          secrets: |
+            git_token=${{ secrets.GIT_TOKEN }}
+            repo_name=${{ env.repository }}
+
+      - name: Update description
+        uses: thevickypedia/describe-docker@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          summary: "${{ env.repository_description }}"
+          repository: "${{ env.repository_name }}"
+          filename: "README.md"

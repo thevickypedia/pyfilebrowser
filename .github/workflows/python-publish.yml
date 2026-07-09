@@ -9,6 +9,16 @@ jobs:
   pypi-publisher:
     runs-on: thevickypedia-default
     steps:
-      - uses: thevickypedia/pypi-publisher@v3
+      - uses: thevickypedia/pypi-publisher@v5
         env:
           token: ${{ secrets.PYPI_TOKEN }}
+  docker-build-and-publish:
+    if: ${{ github.event_name == 'release' }}
+    needs:
+      - pypi-publisher
+    uses:
+      ./.github/workflows/build-publish.yml
+    with:
+      tag_name: ${{ needs.pypi-publisher.outputs.version }}
+      dockerfile: 'Dockerfile'
+    secrets: inherit
