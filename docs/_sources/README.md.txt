@@ -8,6 +8,8 @@
 
 [![book][gha_pages_badge]][gha_pages]
 
+[![docker][gha_docker_badge]][gha_docker]
+
 [![PyPI version shields.io](https://img.shields.io/pypi/v/pyfilebrowser)][pypi]
 [![Pypi-format](https://img.shields.io/pypi/format/pyfilebrowser)](https://pypi.org/project/pyfilebrowser/#files)
 [![Pypi-status](https://img.shields.io/pypi/status/pyfilebrowser)][pypi]
@@ -274,6 +276,8 @@ Licensed under the [MIT License][license]
 [runbook]: https://thevickypedia.github.io/pyfilebrowser/
 [gha_pages]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment
 [gha_pages_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/pages/pages-build-deployment/badge.svg
+[gha_docker]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/build-publish.yml
+[gha_docker_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/build-publish.yml/badge.svg
 [gha_pypi]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml
 [gha_pypi_badge]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/python-publish.yml/badge.svg
 [gha_none_shall_pass]: https://github.com/thevickypedia/pyfilebrowser/actions/workflows/markdown.yml
