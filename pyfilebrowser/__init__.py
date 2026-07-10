@@ -5,7 +5,7 @@ import sys
 from pyfilebrowser.main import FileBrowser  # noqa: F401
 from pyfilebrowser.squire import otp  # noqa: F401
 
-version = "0.3.0a1"
+version = "0.3.0a2"
 
 
 def _cli() -> None:
