@@ -13,12 +13,13 @@ jobs:
         env:
           token: ${{ secrets.PYPI_TOKEN }}
   docker-build-and-publish:
-    if: ${{ github.event_name == 'release' }}
     needs:
       - pypi-publisher
     uses:
       ./.github/workflows/build-publish.yml
     with:
       tag_name: ${{ needs.pypi-publisher.outputs.version }}
-      dockerfile: 'Dockerfile'
+      # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=released#release
+      latest: ${{ github.event_name == 'release' && !github.event.release.prereleased }}
     secrets: inherit
