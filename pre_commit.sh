@@ -5,6 +5,7 @@ set -e
 
 # shellcheck disable=SC2155
 export ROOT="$(pwd)"  # root is mandatory, so set to pwd
+export PRE_COMMIT="true"
 
 clean_docs() {
   # Clean up docs directory keeping the CNAME file if present

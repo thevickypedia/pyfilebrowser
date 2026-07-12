@@ -22,5 +22,6 @@ class ServerSettings(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = ""
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"

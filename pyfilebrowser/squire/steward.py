@@ -9,7 +9,7 @@ from typing import Callable, Iterable, List
 import bcrypt
 from pydantic import BaseModel, DirectoryPath, FilePath
 
-from pyfilebrowser.modals import config, models, users
+from pyfilebrowser.modals import config, models, pydantic_config, users
 
 DATETIME_PATTERN = re.compile(r"^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} ")
 LOG_LEVELS = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
@@ -148,6 +148,25 @@ def remove_prefix(text: str) -> str:
     return DATETIME_PATTERN.sub("", text).strip()
 
 
+def get_user_settings() -> Generator[users.UserSettings]:
+    """Get user profile settings.
+
+    Yields:
+        users.UserSettings:
+        Yields the normalized and loaded user profile settings.
+    """
+    if pydantic_config.vault_client:
+        for table in pydantic_config.vault_client.list_tables():
+            if "user" in table:
+                yield users.UserSettings.from_vault(table)
+    if os.path.isdir(models.SECRETS_PATH):
+        for file in os.listdir(models.SECRETS_PATH):
+            if "user" in file and file.endswith(".env"):
+                yield users.UserSettings.from_env_file(
+                    str(os.path.join(models.SECRETS_PATH, file))
+                )
+
+
 def load_user_profiles() -> Generator[users.UserSettings]:
     """Load UserSettings instances from .env files in the current directory.
 
@@ -155,21 +174,17 @@ def load_user_profiles() -> Generator[users.UserSettings]:
         Generator[users.UserSettings]:
         A generator of ``UserSettings`` object.
     """
-    for file in os.listdir(models.SECRETS_PATH):
-        if "user" in file and file.endswith(".env"):
-            user_settings = users.UserSettings.from_env_file(
-                os.path.join(models.SECRETS_PATH, file)
-            )
-            if not user_settings.perm and not user_settings.admin:
-                user_settings.lockPassword = True
-                user_settings.hideDotfiles = True
-                if user_settings.scope == "/":
-                    warnings.warn(
-                        f"User {user_settings.username!r} is not an admin, "
-                        "but has permissions to the root directory.",
-                        UserWarning,
-                    )
-            yield user_settings
+    for user_settings in get_user_settings():
+        if not user_settings.perm and not user_settings.admin:
+            user_settings.lockPassword = True
+            user_settings.hideDotfiles = True
+            if user_settings.scope == "/":
+                warnings.warn(
+                    f"User {user_settings.username!r} is not an admin, "
+                    "but has permissions to the root directory.",
+                    UserWarning,
+                )
+        yield user_settings
 
 
 class EnvConfig(BaseModel):

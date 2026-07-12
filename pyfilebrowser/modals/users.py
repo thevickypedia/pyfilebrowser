@@ -2,9 +2,9 @@ import re
 from typing import List, Optional
 
 from pydantic import field_validator
+from pydantic_settings import BaseSettings
 
-from pyfilebrowser.modals import models
-from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
+from pyfilebrowser.modals import models, pydantic_config
 
 
 def complexity_checker(password: str) -> None:
@@ -41,7 +41,7 @@ def complexity_checker(password: str) -> None:
     ), "Password must contain at least one special character"
 
 
-class UserSettings(PydanticEnvConfig):
+class UserSettings(BaseSettings):
     """Profile settings for each user.
 
     >>> UserSettings
@@ -80,6 +80,24 @@ class UserSettings(PydanticEnvConfig):
     id: Optional[int] = None
 
     @classmethod
+    def from_vault(cls, table):
+        """Create UserSettings object from vault table.
+
+        Args:
+            table: Vault tablename.
+
+        Returns:
+            UserSettings:
+            Loads the ``UserSettings`` model.
+        """
+        # noinspection PyUnresolvedReferences
+        return cls(
+            **pydantic_config.normalize_vault_secrets(
+                cls, pydantic_config.vault_client.get_table(table)
+            )
+        )
+
+    @classmethod
     def from_env_file(cls, env_file: Optional[str]) -> "UserSettings":
         """Create UserSettings instance from environment file.
 
@@ -115,3 +133,4 @@ class UserSettings(PydanticEnvConfig):
 
         env_prefix = ""
         extra = "ignore"
+        hide_input_in_errors = True

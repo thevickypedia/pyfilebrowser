@@ -42,6 +42,7 @@ class Branding(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = "branding_"
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -66,6 +67,7 @@ class Tus(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = "tus_"
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -104,6 +106,7 @@ class Defaults(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = "defaults_"
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -144,6 +147,7 @@ class Commands(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = "commands_"
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -209,6 +213,7 @@ class Server(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = ""
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -249,6 +254,7 @@ class Config(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = ""
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 
@@ -270,6 +276,7 @@ class Auther(PydanticEnvConfig):
         """Environment variables configuration."""
 
         env_prefix = ""
+        vault_table = "pyfilebrowser.config"
         env_file = os.path.join(models.SECRETS_PATH, ".config.env")
         extra = "ignore"
 

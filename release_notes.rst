@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+v0.3.0a3 (07/09/2026)
+---------------------
+- Restructure docker publish twined with pypi-publish
+
+v0.3.0a2 (07/09/2026)
+---------------------
+- temp commit
+
 v0.2.3 (11/02/2025)
 -------------------
 - Prioritizes environment variables from dotenv files over system env vars

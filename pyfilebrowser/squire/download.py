@@ -47,6 +47,7 @@ class GitHub(PydanticEnvConfig):
         """Custom configuration for GitHub settings."""
 
         env_prefix = ""
+        vault_table = "pyfilebrowser.github"
         env_file = os.path.join(models.SECRETS_PATH, ".github.env")
         extra = "ignore"
 

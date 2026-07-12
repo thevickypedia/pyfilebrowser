@@ -17,59 +17,6 @@ Initialization
 
 .. automodule:: pyfilebrowser.__init__
 
---------Proxy Server--------
-============================
-Engine
-======
-
-.. automodule:: pyfilebrowser.proxy.main
-
-Templates
-=========
-
-.. automodule:: pyfilebrowser.proxy.templates.templates
-
-Rate Limit
-==========
-
-.. automodule:: pyfilebrowser.proxy.rate_limit
-
-Repeated Timer
-==============
-
-.. automodule:: pyfilebrowser.proxy.repeated_timer
-
-Server
-======
-
-.. automodule:: pyfilebrowser.proxy.server
-
-Squire
-======
-
-.. automodule:: pyfilebrowser.proxy.squire
-
-Settings
-========
-
-.. autoclass:: pyfilebrowser.proxy.settings.Destination(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(PydanticEnvConfig)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.RateLimit(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
-
-====
-
-.. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
-   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
-
 --------PyFB API Client--------
 ===============================
 Main Module
@@ -82,8 +29,18 @@ Modals
 PydanticEnvConfig
 =================
 
+.. autoclass:: pyfilebrowser.modals.pydantic_config.VaultSettings(pydantic_settings.PydanticBaseSettingsSource)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
+====
+
 .. autoclass:: pyfilebrowser.modals.pydantic_config.PydanticEnvConfig(pydantic_settings.BaseSettings)
    :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
+====
+
+.. automodule:: pyfilebrowser.modals.pydantic_config
+   :exclude-members: VaultSettings, PydanticEnvConfig
 
 Configuration
 =============
@@ -212,6 +169,59 @@ Struct
 ======
 
 .. automodule:: pyfilebrowser.squire.struct
+
+--------Proxy Server--------
+============================
+Engine
+======
+
+.. automodule:: pyfilebrowser.proxy.main
+
+Templates
+=========
+
+.. automodule:: pyfilebrowser.proxy.templates.templates
+
+Rate Limit
+==========
+
+.. automodule:: pyfilebrowser.proxy.rate_limit
+
+Repeated Timer
+==============
+
+.. automodule:: pyfilebrowser.proxy.repeated_timer
+
+Server
+======
+
+.. automodule:: pyfilebrowser.proxy.server
+
+Squire
+======
+
+.. automodule:: pyfilebrowser.proxy.squire
+
+Settings
+========
+
+.. autoclass:: pyfilebrowser.proxy.settings.Destination(pydantic.BaseModel)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.EnvConfig(PydanticEnvConfig)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.RateLimit(pydantic.BaseModel)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
+
+====
+
+.. autoclass:: pyfilebrowser.proxy.settings.Session(pydantic.BaseModel)
+   :exclude-members: _abc_impl, model_config, model_fields, model_computed_fields, Config
 
 Indices and tables
 ==================

@@ -225,6 +225,7 @@ class EnvConfig(PydanticEnvConfig):
     class Config:
         """Environment variables configuration."""
 
+        vault_table = "pyfilebrowser.proxy"
         env_file = os.path.join(models.SECRETS_PATH, ".proxy.env")
         extra = "ignore"
 
