@@ -1,7 +1,9 @@
+import json
 import os
 import warnings
 from typing import Any, Dict, Tuple, Type
 
+from pydantic.aliases import AliasChoices
 from pydantic.fields import FieldInfo
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 
@@ -31,13 +33,23 @@ def normalize_vault_secrets(
     result = {}
     for field_name, field in settings_cls.model_fields.items():
         # Normalize the value
-        env_name = (
-            field.validation_alias
-            if field.validation_alias is not None
-            else field_name.upper()
-        )
-        if env_name in secrets:
-            result[field_name] = secrets[env_name]
+        alias = field.validation_alias
+        if alias is None:
+            env_names = [field_name.upper()]
+        elif isinstance(alias, AliasChoices):
+            env_names = alias.choices
+        else:
+            env_names = [alias]
+        for env_name in env_names:
+            if env_name in secrets:
+                value = secrets[env_name]
+                if isinstance(value, str):
+                    try:
+                        value = json.loads(value)
+                    except json.JSONDecodeError:
+                        # Not JSON; leave as-is.
+                        pass
+                result[field_name] = value
     return result
 
 
@@ -52,7 +64,7 @@ class VaultSettings(PydanticBaseSettingsSource):
         super().__init__(settings_cls)
         self.config = settings_cls.model_config
         # noinspection PyTypedDict
-        self.table = self.config.get("vault_table")
+        self.table = self.config["vault_table"]
 
     def get_field_value(
         self, field: FieldInfo, field_name: str
@@ -76,8 +88,8 @@ class VaultSettings(PydanticBaseSettingsSource):
             Dict[str, Any]
             Returns the normalized vault secrets.
         """
-        # Check if vault client is usable and table is set
-        if not (vault_client and self.table):
+        # Check if vault client is usable
+        if not vault_client:
             return {}
 
         # Check if table exists in the vault DB
