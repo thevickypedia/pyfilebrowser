@@ -1,7 +1,7 @@
 import json
 import os
 import warnings
-from typing import Any, Dict, Tuple, Type
+from typing import Any, Dict, List, Tuple, Type
 
 from pydantic.aliases import AliasChoices
 from pydantic.fields import FieldInfo
@@ -15,6 +15,35 @@ if os.environ.get("PRE_COMMIT", "false") != "true":
         vault_client = vaultapi_client.VaultAPIClient()
     except Exception as exc:
         warnings.warn(exc.__str__(), ImportWarning)
+
+
+def extract_secret(name: str, field: FieldInfo, secrets: Dict[str, Any]) -> Any | None:
+    """Extract case-insensitive values from vault secrets.
+
+    Args:
+        name: Pydantic field name.
+        field: Pydantic field object.
+        secrets: Secrets retrieved from vault.
+
+    Returns:
+        Any:
+        Value of the secret.
+    """
+    # Normalize the value
+    alias = field.validation_alias
+    names: List[Any] = [name]
+    if alias and isinstance(alias, AliasChoices):
+        names.extend(alias.choices)
+    elif alias:
+        names.append(alias)
+    for name in names:
+        if value := secrets.get(name, None):
+            return value
+        if value := secrets.get(name.upper(), None):
+            return value
+        if value := secrets.get(name.lower(), None):
+            return value
+    return None
 
 
 def normalize_vault_secrets(
@@ -31,25 +60,15 @@ def normalize_vault_secrets(
         Returns the normalized vault secrets.
     """
     result = {}
-    for field_name, field in settings_cls.model_fields.items():
-        # Normalize the value
-        alias = field.validation_alias
-        if alias is None:
-            env_names = [field_name.upper()]
-        elif isinstance(alias, AliasChoices):
-            env_names = alias.choices
-        else:
-            env_names = [alias]
-        for env_name in env_names:
-            if env_name in secrets:
-                value = secrets[env_name]
-                if isinstance(value, str):
-                    try:
-                        value = json.loads(value)
-                    except json.JSONDecodeError:
-                        # Not JSON; leave as-is.
-                        pass
-                result[field_name] = value
+    for name, field in settings_cls.model_fields.items():
+        if value := extract_secret(name, field, secrets):
+            if isinstance(value, str):
+                try:
+                    value = json.loads(value)
+                except json.JSONDecodeError:
+                    # Not JSON; leave as-is.
+                    pass
+            result[name] = value
     return result
 
 

@@ -9,26 +9,9 @@ import zipfile
 
 import requests
 from pydantic import BaseModel, FilePath
-from pydantic.aliases import AliasChoices
-from pydantic.fields import Field
 
 from pyfilebrowser.modals import models
 from pyfilebrowser.modals.pydantic_config import PydanticEnvConfig
-
-
-def alias_choices(variable: str) -> AliasChoices:
-    """Custom alias choices for environment variables for GitHub.
-
-    Args:
-        variable: Variable name.
-
-    Returns:
-        AliasChoices:
-        Returns the alias choices for the variable.
-    """
-    return AliasChoices(
-        variable, f"FILEBROWSER_{variable}", f"GIT_{variable}", f"GITHUB_{variable}"
-    )
 
 
 class GitHub(PydanticEnvConfig):
@@ -38,15 +21,15 @@ class GitHub(PydanticEnvConfig):
 
     """
 
-    owner: str = Field("filebrowser", validation_alias=alias_choices("OWNER"))
-    repo: str = Field("filebrowser", validation_alias=alias_choices("REPO"))
-    token: str | None = Field(None, validation_alias=alias_choices("TOKEN"))
-    version: str = Field("latest", validation_alias=alias_choices("VERSION"))
+    owner: str = "filebrowser"
+    repo: str = "filebrowser"
+    token: str | None = None
+    version: str = "latest"
 
     class Config:
         """Custom configuration for GitHub settings."""
 
-        env_prefix = ""
+        env_prefix = "github_"
         vault_table = "pyfilebrowser.github"
         env_file = os.path.join(models.SECRETS_PATH, ".github.env")
         extra = "ignore"

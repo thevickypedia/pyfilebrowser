@@ -305,6 +305,27 @@ validated to form a valid model.</p>
 
 <hr class="docutils" />
 <span class="target" id="module-pyfilebrowser.modals.pydantic_config"></span><dl class="py function">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.pydantic_config.extract_secret">
+<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.pydantic_config.</span></span><span class="sig-name descname"><span class="pre">extract_secret</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FieldInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secrets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.modals.pydantic_config.extract_secret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract case-insensitive values from vault secrets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Pydantic field name.</p></li>
+<li><p><strong>field</strong> – Pydantic field object.</p></li>
+<li><p><strong>secrets</strong> – Secrets retrieved from vault.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Value of the secret.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.pydantic_config.normalize_vault_secrets">
 <span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.pydantic_config.</span></span><span class="sig-name descname"><span class="pre">normalize_vault_secrets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseSettings</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secrets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.modals.pydantic_config.normalize_vault_secrets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalize the vault secrets.</p>
@@ -1357,23 +1378,6 @@ validated to form a valid model.</p>
 
 <hr class="docutils" />
 <span class="target" id="module-pyfilebrowser.squire.download"></span><dl class="py function">
-<dt class="sig sig-object py" id="pyfilebrowser.squire.download.alias_choices">
-<span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">alias_choices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AliasChoices</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.download.alias_choices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Custom alias choices for environment variables for GitHub.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>variable</strong> – Variable name.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Returns the alias choices for the variable.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>AliasChoices</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="pyfilebrowser.squire.download.binary">
 <span class="sig-prename descclassname"><span class="pre">pyfilebrowser.squire.download.</span></span><span class="sig-name descname"><span class="pre">binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyfilebrowser.squire.download.GitHub" title="pyfilebrowser.squire.download.GitHub"><span class="pre">GitHub</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.squire.download.binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads the latest released binary asset.</p>
