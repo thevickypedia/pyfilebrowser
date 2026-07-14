@@ -208,6 +208,7 @@ class Server(PydanticEnvConfig):
     typeDetectionByHeader: Optional[bool] = False
     authHook: Optional[str] = ""
     tokenExpirationTime: Optional[str] = ""
+    followExternalSymlinks: Optional[bool] = False
 
     class Config:
         """Environment variables configuration."""
