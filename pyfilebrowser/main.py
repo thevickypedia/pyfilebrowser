@@ -111,7 +111,10 @@ class FileBrowser:
         self.cleanup()
 
     def run_subprocess(
-        self, arguments: List[str] = None, failed_msg: str = None, stdout: bool = True
+        self,
+        arguments: List[str] | None = None,
+        failed_msg: str | None = None,
+        stdout: bool = True,
     ) -> None:
         """Run ``filebrowser`` commands as subprocess.
 
@@ -134,9 +137,11 @@ class FileBrowser:
         )
         try:
             if stdout:
+                # noinspection PyTypeChecker
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
             process.wait()
+            # noinspection PyTypeChecker
             for line in process.stderr:
                 self.logger.warning(steward.remove_prefix(line))
             assert process.returncode == 0, (
@@ -144,6 +149,7 @@ class FileBrowser:
             )
         except KeyboardInterrupt:
             if process.poll() is None:
+                # noinspection PyTypeChecker
                 for line in process.stdout:
                     self.logger.info(steward.remove_prefix(line))
                 process.terminate()
@@ -172,11 +178,11 @@ class FileBrowser:
             json.dump(final_settings, file, indent=4)
             file.flush()
 
-    def load_extra_env(self, settings: Dict[str, Any]) -> Dict[str, Any]:
-        """Load extra env settings from a yaml or json file.
+    def load_extra_env(self, base_settings: Dict[str, Any]) -> Dict[str, Any]:
+        """Load extra env settings from a YAML or JSON file.
 
         Args:
-            settings: Base settings.
+            base_settings: Base settings.
 
         Returns:
             Dict[str, Any]:
@@ -198,34 +204,37 @@ class FileBrowser:
             )
         else:
             self.logger.debug("No extra configuration to be added")
-            return settings
+            return base_settings
         if not isinstance(extra_env, dict):
             raise ValueError(
                 "Invalid configuration received for extra_env. Expected dict, received %s",
                 type(extra_env),
             )
-        valid_keys = list(settings.keys())
+        valid_keys = list(base_settings.keys())
         for key, value in extra_env.items():
             if key in valid_keys:
                 self.logger.info(
                     "Loading extra settings for '%s' from '%s'", key, self.extra_env
                 )
                 self.logger.debug("Extra settings - %s: %s", key, value)
-                settings[key].update(value)
+                base_settings[key].update(value)
             else:
                 raise ValueError(
                     f"Updates are allowed only for existing keys: {valid_keys!r}. Received: {key!r}"
                 )
-        return settings
+        return base_settings
 
     def create_config(self) -> None:
         """Creates the JSON file for configuration."""
         if self.proxy:
             self.env.config_settings.settings.authMethod = "json"
-            self.env.config_settings.settings.authHeader = ""
+        # noinspection PyUnresolvedReferences
         if str(self.env.config_settings.settings.branding.files) == ".":
+            # noinspection PyTypeChecker
             self.env.config_settings.settings.branding.files = ""
+        # noinspection PyTypeChecker
         self.env.config_settings.server.port = str(self.env.config_settings.server.port)
+        # noinspection PyTypeChecker
         with warnings.catch_warnings(action="ignore"):
             base_settings = steward.remove_trailing_underscore(
                 json.loads(self.env.config_settings.model_dump_json())
@@ -240,8 +249,6 @@ class FileBrowser:
             assert totp.verify(sampler, for_time=now), "Invalid authenticatorToken!"
         else:
             final_settings["auther"].pop("authenticatorToken")
-        # Remove symlinks from the final settings
-        final_settings["server"].pop("symlinks")
         with open(steward.fileio.config, "w") as file:
             json.dump(final_settings, file, indent=4)
             file.flush()
@@ -274,6 +281,7 @@ class FileBrowser:
 
     def background_tasks(self) -> None:
         """Initiates the proxy engine and subtitles' format conversion as background tasks."""
+        # noinspection PyTypeChecker
         assert proxy_settings.port != int(
             self.env.config_settings.server.port
         ), f"\n\tProxy server can't run on the same port [{proxy_settings.port}] as the server!!"
@@ -301,16 +309,25 @@ class FileBrowser:
                 log_config,
             ),
         )
+        # noinspection PyUnresolvedReferences
         self.proxy_engine.start()
 
     def link(self) -> None:
         """Creates symlinks for the directories specified in the configuration."""
-        if self.is_docker and self.env.config_settings.server.symlinks:
-            msg = "Symlinks are not supported, when running in Docker context. Please mount volumes instead."
-            self.logger.warning(msg)
-            warnings.warn(msg)
+        if self.settings.symlinks:
+            if self.is_docker:
+                msg = (
+                    "Automatic symlink creation is not supported when running in Docker context. "
+                    "Please mount volumes instead."
+                )
+                self.logger.warning(msg)
+                warnings.warn(msg)
+                return
+            # Set follow symlinks to true when symlink creation list is requested
+            self.env.config_settings.server.followExternalSymlinks = True
+        else:
             return
-        for source_path in self.env.config_settings.server.symlinks:
+        for source_path in self.settings.symlinks:
             target_path = os.path.join(
                 self.env.config_settings.server.root, source_path.name
             )
@@ -322,9 +339,9 @@ class FileBrowser:
 
     def unlink(self) -> None:
         """Removes the symbolic links created in the server root directory."""
-        if self.is_docker:
+        if self.is_docker or not self.settings.symlinks:
             return
-        for source_path in self.env.config_settings.server.symlinks:
+        for source_path in self.settings.symlinks:
             target_path = os.path.join(
                 self.env.config_settings.server.root, source_path.name
             )

@@ -15,13 +15,13 @@
 [![Pypi-status](https://img.shields.io/pypi/status/pyfilebrowser)][pypi]
 
 # PyFileBrowser
-Introducing [`pyfilebrowser`][repo], a Python library designed to streamline interactions with [filebrowser][home]<br>
+[`pyfilebrowser`][repo] is a Python library designed to streamline interactions with [filebrowser][home]
 
-This wrapper simplifies integration and automation tasks, enabling seamless interaction with your local file system via
+This wrapper simplifies integration and automation tasks, enabling seamless interaction with local file system via
 filebrowser's web interface.
 
-All the required configuration, settings, and user profiles are loaded using `.env` files. This provides a more centralized
-way of handling the configuration and initialization.
+All the required configuration, settings, and user profiles are loaded using `.env` files.
+This provides a more centralized way of handling the configuration and initialization.
 
 [`pyfilebrowser`][repo] automatically downloads the system specific executable during startup.
 
@@ -36,7 +36,7 @@ Additionally, custom source _(to download binaries)_ can be configured by specif
 - **TOKEN** - GitHub repository token.
 - **VERSION** - Version of the release.
 
-> _also supports the dotenv file `.github.env`, and prefixes like `github`, `git` and `filebrowser`_
+> _Automatically sourced from `.github.env` if available_
 
 For this custom source feature to work, the executable should be uploaded to releases as assets,
 and follow the naming convention below.
@@ -85,9 +85,10 @@ Env vars can either be loaded from `.env` files or directly passed during object
 - **allow_public_ip** `bool` - Boolean flag to allow public IP address of the host. _Defaults to `False`_
 - **allow_private_ip** `bool` - Boolean flag to allow private IP address of the host. _Defaults to `False`_
 - **origin_refresh** `int` - Interval in seconds to refresh all the allowed origins. _Defaults to `None`_
-- **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
-- **warn_page** `FilePath` - Warning page to serve when accessed from Unsupported browsers. _Defaults to_ [warn.html]
 - **rate_limit** - `Dict/List[Dict]` with the rate limit for the proxy server. _Defaults to `None`_
+- **unsupported_browsers** - `List[str]` with a list of unsupported browsers. _Defaults to `Chrome`_
+- **warn_page** `FilePath` - Warning page to serve when accessed from Unsupported browsers. _Defaults to_ [warn.html]
+- **error_page** `FilePath` - Error page to serve when filebrowser API is down. _Defaults to_ [error.html]
 
 > `origin_refresh` allows users to set a custom interval to update the public and private IP address of the host,
 based on their DHCP lease renewal.<br>This is specifically useful in cases of long-running server sessions.

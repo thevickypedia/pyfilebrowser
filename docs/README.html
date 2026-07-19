@@ -54,11 +54,11 @@
 <a class="reference external" href="https://pypi.org/project/pyfilebrowser"><img alt="Pypi-status" src="https://img.shields.io/pypi/status/pyfilebrowser" /></a></p>
 <section id="pyfilebrowser">
 <h1>PyFileBrowser<a class="headerlink" href="#pyfilebrowser" title="Permalink to this heading">¶</a></h1>
-<p>Introducing <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a>, a Python library designed to streamline interactions with <a class="reference external" href="https://filebrowser.org/">filebrowser</a><br></p>
-<p>This wrapper simplifies integration and automation tasks, enabling seamless interaction with your local file system via
+<p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> is a Python library designed to streamline interactions with <a class="reference external" href="https://filebrowser.org/">filebrowser</a></p>
+<p>This wrapper simplifies integration and automation tasks, enabling seamless interaction with local file system via
 filebrowser’s web interface.</p>
-<p>All the required configuration, settings, and user profiles are loaded using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files. This provides a more centralized
-way of handling the configuration and initialization.</p>
+<p>All the required configuration, settings, and user profiles are loaded using <code class="docutils literal notranslate"><span class="pre">.env</span></code> files.
+This provides a more centralized way of handling the configuration and initialization.</p>
 <p><a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser"><code class="docutils literal notranslate"><span class="pre">pyfilebrowser</span></code></a> automatically downloads the system specific executable during startup.</p>
 <details>
 <summary><strong>Download custom-built executables</strong></summary>
@@ -70,7 +70,7 @@ way of handling the configuration and initialization.</p>
 <li><p><strong>VERSION</strong> - Version of the release.</p></li>
 </ul>
 <blockquote>
-<div><p><em>also supports the dotenv file <code class="docutils literal notranslate"><span class="pre">.github.env</span></code>, and prefixes like <code class="docutils literal notranslate"><span class="pre">github</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code></em></p>
+<div><p><em>Automatically sourced from <code class="docutils literal notranslate"><span class="pre">.github.env</span></code> if available</em></p>
 </div></blockquote>
 <p>For this custom source feature to work, the executable should be uploaded to releases as assets,
 and follow the naming convention below.</p>
@@ -116,9 +116,10 @@ and follow the naming convention below.</p>
 <li><p><strong>allow_public_ip</strong> <code class="docutils literal notranslate"><span class="pre">bool</span></code> - Boolean flag to allow public IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
 <li><p><strong>allow_private_ip</strong> <code class="docutils literal notranslate"><span class="pre">bool</span></code> - Boolean flag to allow private IP address of the host. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></em></p></li>
 <li><p><strong>origin_refresh</strong> <code class="docutils literal notranslate"><span class="pre">int</span></code> - Interval in seconds to refresh all the allowed origins. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></em></p></li>
-<li><p><strong>error_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Error page to serve when filebrowser API is down. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/error.html">error.html</a></p></li>
-<li><p><strong>warn_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Warning page to serve when accessed from Unsupported browsers. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/warn.html">warn.html</a></p></li>
 <li><p><strong>rate_limit</strong> - <code class="docutils literal notranslate"><span class="pre">Dict/List[Dict]</span></code> with the rate limit for the proxy server. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code></em></p></li>
+<li><p><strong>unsupported_browsers</strong> - <code class="docutils literal notranslate"><span class="pre">List[str]</span></code> with a list of unsupported browsers. <em>Defaults to <code class="docutils literal notranslate"><span class="pre">Chrome</span></code></em></p></li>
+<li><p><strong>warn_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Warning page to serve when accessed from Unsupported browsers. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/warn.html">warn.html</a></p></li>
+<li><p><strong>error_page</strong> <code class="docutils literal notranslate"><span class="pre">FilePath</span></code> - Error page to serve when filebrowser API is down. <em>Defaults to</em> <a class="reference external" href="https://github.com/thevickypedia/pyfilebrowser/blob/main/pyfilebrowser/proxy/templates/error.html">error.html</a></p></li>
 </ul>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">origin_refresh</span></code> allows users to set a custom interval to update the public and private IP address of the host,

@@ -36,7 +36,7 @@ def log_connection(request: Request) -> HTMLResponse | None:
             except Exception as error:
                 LOGGER.critical("Failed to parse user-agent: %s", error)
                 return
-            if parsed.browser.family == "Chrome":
+            if parsed.browser.family in settings.env_config.unsupported_browsers:
                 return HTMLResponse(
                     content=templates.unsupported_browser(parsed),
                     status_code=HTTPStatus.OK.value,

@@ -73,7 +73,7 @@ class Tus(PydanticEnvConfig):
 
 
 class Defaults(PydanticEnvConfig):
-    """Configuration for all the default settings for the server.
+    """Configuration for all the default settings when new user profiles are created.
 
     >>> Defaults
 
@@ -85,22 +85,27 @@ class Defaults(PydanticEnvConfig):
         - **locale** - The default locale for the users. Locale is an RFC 5646 language tag.
         - **viewMode** - The default view mode for the users.
         - **singleClick** - The default single click setting for the users.
+        - **redirectAfterCopyMove** - Boolean flag to redirect after copy/move.
         - **sorting** - The default sorting settings for the users.
         - **perm** - The default permission settings for the users.
         - **commands** - The default list of commands that can be executed by users.
         - **hideDotfiles** - The default setting to hide dotfiles.
         - **dateFormat** - The default setting to set the exact date format.
+        - **aceEditorTheme** - The default setting to set the ace editor theme.
     """
 
     scope: Optional[str] = "."
     locale: Optional[str] = "en"
     viewMode: Optional[models.Listing] = models.Listing.list
     singleClick: Optional[bool] = False
+    redirectAfterCopyMove: Optional[bool] = False
     sorting: models.Sorting = models.Sorting()
     perm: models.Perm = models.default_perm()
     commands: Optional[List[str]] = []
     hideDotfiles: Optional[bool] = True
     dateFormat: Optional[bool] = False
+    # https://github.com/ajaxorg/ace/blob/amplify/lib/ace/ext/themelist.js
+    aceEditorTheme: Optional[str] = ""
 
     class Config:
         """Environment variables configuration."""
@@ -175,7 +180,6 @@ class Server(PydanticEnvConfig):
 
     Notes:
         - **root** - The root directory for the server. Contents of this directory will be served.
-        - **symlinks** - List of symlinks to be created in the root directory. Accepts file or directory paths.
         - **baseURL** - The base URL for the server.
         - **socket** - Socket to listen to (cannot be used with ``address``, ``port`` or TLS settings)
         - **tlsKey** - The TLS key for the server.
@@ -191,10 +195,10 @@ class Server(PydanticEnvConfig):
         - **tokenExpirationTime** - The token expiration time for the server.
           A duration string is a signed sequence of decimal numbers, each with optional fraction and a unit suffix.
           Examples "300ms", "-1.5h" or "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+        - **followExternalSymlinks** - Enable external symlinks for the server.
     """
 
     root: DirectoryPath
-    symlinks: Optional[List[DirectoryPath | FilePath]] = []
     baseURL: Optional[str] = ""
     socket: Optional[str] = ""
     tlsKey: Optional[FilePath | str] = ""
@@ -206,6 +210,7 @@ class Server(PydanticEnvConfig):
     resizePreview: Optional[bool] = False
     enableExec: Optional[bool] = False
     typeDetectionByHeader: Optional[bool] = False
+    imageResolutionCalculation: Optional[bool] = True
     authHook: Optional[str] = ""
     tokenExpirationTime: Optional[str] = ""
     followExternalSymlinks: Optional[bool] = False
@@ -230,7 +235,6 @@ class Config(PydanticEnvConfig):
         - **userHomeBasePath** - The base path for user home directories.
         - **defaults** - The default settings for the server.
         - **authMethod** - The authentication method for the server.
-        - **authHeader** - The authentication header for the server.
         - **branding** - The branding settings for the server.
         - **tus** - The upload settings for the server.
         - **commands** - The command settings for the server.
@@ -240,16 +244,21 @@ class Config(PydanticEnvConfig):
     """
 
     signup: Optional[bool] = False
+    hideLoginButton: Optional[bool] = False
     createUserDir: Optional[bool] = False
     userHomeBasePath: Optional[DirectoryPath] = None
     defaults: Optional[Defaults] = Defaults()
     authMethod: Optional[str] = "json"
-    authHeader: Optional[str] = ""
+    logoutPage: Optional[str] = "/login"  # Back to login page when logged out
     branding: Optional[Branding] = Branding()
     tus: Optional[Tus] = Tus()
     commands: Optional[Commands] = Commands()
     shell_: Optional[List[str]] = []
     rules: Optional[List[str]] = []
+    minimumPasswordLength: Optional[PositiveInt] = 12
+    fileMode: Optional[int] = 0o640
+    dirMode: Optional[int] = 0o750
+    hideDotfiles: Optional[bool] = False
 
     class Config:
         """Environment variables configuration."""

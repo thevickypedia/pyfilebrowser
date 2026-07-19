@@ -147,7 +147,7 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.run_subprocess">
-<span class="sig-name descname"><span class="pre">run_subprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failed_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.run_subprocess" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run_subprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failed_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.run_subprocess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run <code class="docutils literal notranslate"><span class="pre">filebrowser</span></code> commands as subprocess.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -168,11 +168,11 @@ Options: (<code class="docutils literal notranslate"><span class="pre">server</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyfilebrowser.main.FileBrowser.load_extra_env">
-<span class="sig-name descname"><span class="pre">load_extra_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.load_extra_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load extra env settings from a yaml or json file.</p>
+<span class="sig-name descname"><span class="pre">load_extra_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.main.FileBrowser.load_extra_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load extra env settings from a YAML or JSON file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>settings</strong> – Base settings.</p>
+<dd class="field-odd"><p><strong>base_settings</strong> – Base settings.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns the final settings after patching the extra config values.</p>
@@ -349,10 +349,15 @@ Returns the normalized vault secrets.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.settings.ServerSettings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.settings.</span></span><span class="sig-name descname"><span class="pre">ServerSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.settings.ServerSettings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration settings for PyFilebrowser.</p>
+<dd><p>Configuration settings for PyFilebrowser that are NOT propagated to the filebrowser config DB.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ServerSettings</span>
 </pre></div>
 </div>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>symlinks</strong> - List of symlinks to be created in the root directory. Accepts file or directory paths.</p></li>
+</ul>
+</div></blockquote>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
 validated to form a valid model.</p>
@@ -360,6 +365,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.settings.ServerSettings.restart">
 <span class="sig-name descname"><span class="pre">restart</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#pyfilebrowser.modals.settings.ServerSettings.restart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.settings.ServerSettings.symlinks">
+<span class="sig-name descname"><span class="pre">symlinks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.settings.ServerSettings.symlinks" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -375,7 +385,6 @@ validated to form a valid model.</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p><strong>root</strong> - The root directory for the server. Contents of this directory will be served.</p></li>
-<li><p><strong>symlinks</strong> - List of symlinks to be created in the root directory. Accepts file or directory paths.</p></li>
 <li><p><strong>baseURL</strong> - The base URL for the server.</p></li>
 <li><p><strong>socket</strong> - Socket to listen to (cannot be used with <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code> or TLS settings)</p></li>
 <li><p><strong>tlsKey</strong> - The TLS key for the server.</p></li>
@@ -391,6 +400,7 @@ validated to form a valid model.</p>
 <li><p><strong>tokenExpirationTime</strong> - The token expiration time for the server.
 A duration string is a signed sequence of decimal numbers, each with optional fraction and a unit suffix.
 Examples “300ms”, “-1.5h” or “2h45m”. Valid time units are “ns”, “us” (or “µs”), “ms”, “s”, “m”, “h”.</p></li>
+<li><p><strong>followExternalSymlinks</strong> - Enable external symlinks for the server.</p></li>
 </ul>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
@@ -399,11 +409,6 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.root">
 <span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.root" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.symlinks">
-<span class="sig-name descname"><span class="pre">symlinks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.symlinks" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -459,6 +464,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.typeDetectionByHeader">
 <span class="sig-name descname"><span class="pre">typeDetectionByHeader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.typeDetectionByHeader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Server.imageResolutionCalculation">
+<span class="sig-name descname"><span class="pre">imageResolutionCalculation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Server.imageResolutionCalculation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -589,7 +599,7 @@ validated to form a valid model.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyfilebrowser.modals.config.</span></span><span class="sig-name descname"><span class="pre">Defaults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PydanticEnvConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration for all the default settings for the server.</p>
+<dd><p>Configuration for all the default settings when new user profiles are created.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Defaults</span>
 </pre></div>
 </div>
@@ -603,11 +613,13 @@ validated to form a valid model.</p>
 <li><p><strong>locale</strong> - The default locale for the users. Locale is an RFC 5646 language tag.</p></li>
 <li><p><strong>viewMode</strong> - The default view mode for the users.</p></li>
 <li><p><strong>singleClick</strong> - The default single click setting for the users.</p></li>
+<li><p><strong>redirectAfterCopyMove</strong> - Boolean flag to redirect after copy/move.</p></li>
 <li><p><strong>sorting</strong> - The default sorting settings for the users.</p></li>
 <li><p><strong>perm</strong> - The default permission settings for the users.</p></li>
 <li><p><strong>commands</strong> - The default list of commands that can be executed by users.</p></li>
 <li><p><strong>hideDotfiles</strong> - The default setting to hide dotfiles.</p></li>
 <li><p><strong>dateFormat</strong> - The default setting to set the exact date format.</p></li>
+<li><p><strong>aceEditorTheme</strong> - The default setting to set the ace editor theme.</p></li>
 </ul>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
@@ -634,6 +646,11 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.redirectAfterCopyMove">
+<span class="sig-name descname"><span class="pre">redirectAfterCopyMove</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.redirectAfterCopyMove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.sorting">
 <span class="sig-name descname"><span class="pre">sorting</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyfilebrowser.modals.models.Sorting" title="pyfilebrowser.modals.models.Sorting"><span class="pre">Sorting</span></a></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.sorting" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -656,6 +673,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.dateFormat">
 <span class="sig-name descname"><span class="pre">dateFormat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.dateFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Defaults.aceEditorTheme">
+<span class="sig-name descname"><span class="pre">aceEditorTheme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Defaults.aceEditorTheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -756,7 +778,6 @@ validated to form a valid model.</p>
 <li><p><strong>userHomeBasePath</strong> - The base path for user home directories.</p></li>
 <li><p><strong>defaults</strong> - The default settings for the server.</p></li>
 <li><p><strong>authMethod</strong> - The authentication method for the server.</p></li>
-<li><p><strong>authHeader</strong> - The authentication header for the server.</p></li>
 <li><p><strong>branding</strong> - The branding settings for the server.</p></li>
 <li><p><strong>tus</strong> - The upload settings for the server.</p></li>
 <li><p><strong>commands</strong> - The command settings for the server.</p></li>
@@ -771,6 +792,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.signup">
 <span class="sig-name descname"><span class="pre">signup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.signup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.hideLoginButton">
+<span class="sig-name descname"><span class="pre">hideLoginButton</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.hideLoginButton" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -794,8 +820,8 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.authHeader">
-<span class="sig-name descname"><span class="pre">authHeader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.authHeader" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.logoutPage">
+<span class="sig-name descname"><span class="pre">logoutPage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.logoutPage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -821,6 +847,26 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.rules">
 <span class="sig-name descname"><span class="pre">rules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.rules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.minimumPasswordLength">
+<span class="sig-name descname"><span class="pre">minimumPasswordLength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.minimumPasswordLength" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.fileMode">
+<span class="sig-name descname"><span class="pre">fileMode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.fileMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.dirMode">
+<span class="sig-name descname"><span class="pre">dirMode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.dirMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.config.Config.hideDotfiles">
+<span class="sig-name descname"><span class="pre">hideDotfiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.config.Config.hideDotfiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1141,6 +1187,7 @@ validated to form a valid model.</p>
 </div>
 <p class="rubric">Notes</p>
 <ul class="simple">
+<li><p><strong>id</strong> - The id of the user.</p></li>
 <li><p><strong>username</strong> - Plain text username.</p></li>
 <li><p><strong>password</strong> - Plain text password.</p></li>
 <li><p><strong>admin</strong> - Boolean flag to indicate admin status. Permissions are set automatically based on this flag.</p></li>
@@ -1149,17 +1196,24 @@ validated to form a valid model.</p>
 <li><p><strong>lockPassword</strong> - Default setting to prevent the user from changing the password.</p></li>
 <li><p><strong>viewMode</strong> - Default view mode for the users.</p></li>
 <li><p><strong>singleClick</strong> - Use single clicks to open files and directories.</p></li>
+<li><p><strong>redirectAfterCopyMove</strong> - Boolean flag to redirect after a copy/move operation.</p></li>
 <li><p><strong>perm</strong> - Permissions are set based on the admin flag for each user profile.</p></li>
 <li><p><strong>commands</strong> - List of commands that can be executed by the user.</p></li>
 <li><p><strong>sorting</strong> - Default sorting settings for the user.</p></li>
 <li><p><strong>rules</strong> - List of allow and disallow rules. This overrides the server’s default rules.</p></li>
 <li><p><strong>hideDotfiles</strong> - Default setting to hide dotfiles.</p></li>
 <li><p><strong>dateFormat</strong> - Default setting to set the exact date format.</p></li>
+<li><p><strong>aceEditorTheme</strong> - The default setting to set the ace editor theme.</p></li>
 </ul>
 <p>Create a new model by parsing and validating input data from keyword arguments.</p>
 <p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
 validated to form a valid model.</p>
 <p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.username">
 <span class="sig-name descname"><span class="pre">username</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.username" title="Permalink to this definition">¶</a></dt>
@@ -1201,6 +1255,11 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.redirectAfterCopyMove">
+<span class="sig-name descname"><span class="pre">redirectAfterCopyMove</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.redirectAfterCopyMove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.perm">
 <span class="sig-name descname"><span class="pre">perm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyfilebrowser.modals.models.Perm" title="pyfilebrowser.modals.models.Perm"><span class="pre">Perm</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.perm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1231,8 +1290,8 @@ validated to form a valid model.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.aceEditorTheme">
+<span class="sig-name descname"><span class="pre">aceEditorTheme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.aceEditorTheme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1282,6 +1341,29 @@ validated to form a valid model.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyfilebrowser.modals.users.UserSettings.settings_customise_sources">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">settings_customise_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings_cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseSettings</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dotenv_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_secret_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PydanticBaseSettingsSource</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">PydanticBaseSettingsSource</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">PydanticBaseSettingsSource</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">PydanticBaseSettingsSource</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyfilebrowser.modals.users.UserSettings.settings_customise_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Customize order of settings’ source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings_cls</strong> – Type of BaseSettings to customize.</p></li>
+<li><p><strong>init_settings</strong> – Initialization settings.</p></li>
+<li><p><strong>env_settings</strong> – Environment settings.</p></li>
+<li><p><strong>dotenv_settings</strong> – Dotenv file settings.</p></li>
+<li><p><strong>file_secret_settings</strong> – File secret settings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a tuple of ordered settings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[PydanticBaseSettingsSource, PydanticBaseSettingsSource, PydanticBaseSettingsSource]</p>
 </dd>
 </dl>
 </dd></dl>

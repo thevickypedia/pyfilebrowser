@@ -13,7 +13,7 @@ if os.environ.get("PRE_COMMIT", "false") != "true":
         import vaultapi_client
 
         vault_client = vaultapi_client.VaultAPIClient()
-    except Exception as exc:
+    except BaseException as exc:
         warnings.warn(exc.__str__(), ImportWarning)
 
 
@@ -30,12 +30,12 @@ def extract_secret(name: str, field: FieldInfo, secrets: Dict[str, Any]) -> Any 
         Value of the secret.
     """
     # Normalize the value
-    alias = field.validation_alias
     names: List[Any] = [name]
-    if alias and isinstance(alias, AliasChoices):
-        names.extend(alias.choices)
-    elif alias:
-        names.append(alias)
+    if alias := field.validation_alias:
+        if isinstance(alias, AliasChoices):
+            names.extend(alias.choices)
+        else:
+            names.append(alias)
     for name in names:
         if value := secrets.get(name, None):
             return value
